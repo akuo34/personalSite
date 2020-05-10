@@ -1,0 +1,29 @@
+{
+  "name": "personalsite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akuo34/personalSite.git"
+  },
+  "author": "Andy Kuo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akuo34/personalSite/issues"
+  },
+  "homepage": "https://github.com/akuo34/personalSite#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "mongoose": "5.9.10",
+    "axios": "0.19.2",
+    "cors": "2.8.5",
+    "morgan": "1.10.0",
+    "nodemon": "2.0.3"
+  }
+}
