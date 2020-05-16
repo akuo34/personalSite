@@ -1,0 +1,17 @@
+/* Main header */
+
+.container-main-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.list-main-header {
+  list-style: none;
+}
+
+/* Gallery Manager */
+
+.img-gallery {
+  height: 200px;
+}
