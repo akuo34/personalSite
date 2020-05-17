@@ -70,30 +70,41 @@ const GalleryManager = () => {
               if (urlList.length !== array.length) {
                 setUrlList(array);
               }
-            });
+            })
+            .catch(err => console.error(err));
         });
     });
+
+    document.getElementById('form-gallery').reset();
   };
 
   return (
-    <div className="App">
-      <h1>Gallery Photos</h1>
-      <form onSubmit={handleFireBaseUpload}>
-        <input
-          type="file"
-          onChange={handleImageAsFile}
-        />
-        <button>Upload to firebase</button>
-        <textarea name="description">Description</textarea>
-        <input type="text" name="title" />
+    <div>
+      <h3>Gallery Photos</h3>
+      <form id="form-gallery" className="form-gallery" onSubmit={handleFireBaseUpload}>
+        <h4 className="text-gallery-form-header">Upload new photo</h4>
+        <input className="input-gallery-title" type="text" name="title" placeholder="Title" />
+        <textarea className="input-gallery-description" name="description" placeholder="Description" />
+        <div className="container-gallery-inputs">
+          <input
+            className="input-gallery-file"
+            type="file"
+            onChange={handleImageAsFile}
+          />
+          <button className="button-gallery-post">Upload to Gallery</button>
+        </div>
       </form>
       {
         urlList.map(item => {
           return (
-            <div>
-              <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
-              <p>{item.description}</p>
-              <h3>{item.title}</h3>
+            <div className="container-gallery-row">
+              <div className="container-gallery-img">
+                <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
+              </div>
+              <div className="container-gallery-title-description">
+                <p>Title: {item.title}</p>
+                <p>Description: {item.description}</p>
+              </div>
             </div>
           )
         })
