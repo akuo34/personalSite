@@ -6,6 +6,7 @@ const AboutManager = () => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
+  const [allowUpload, setAllowUpload] = useState(false);
 
   useEffect(() => {
     Axios
@@ -13,6 +14,10 @@ const AboutManager = () => {
       .then(response => {
 
         let array = response.data;
+
+        if (!array.length) {
+          setAllowUpload(true);
+        }
 
         if (urlList.length !== array.length) {
           setUrlList(array);
@@ -25,9 +30,9 @@ const AboutManager = () => {
     setImageAsFile(imageFile => image)
   };
 
-  const getImages = () => {
+  const getBio = () => {
     Axios
-      .get('/api/gallery')
+      .get('/api/about')
       .then(response => {
 
         let array = response.data;
@@ -39,8 +44,7 @@ const AboutManager = () => {
   const handleFireBaseUpload = (e) => {
     e.preventDefault();
 
-    const description = e.target.description.value;
-    const title = e.target.title.value;
+    const bio = e.target.bio.value;
 
     console.log('start of upload');
 
@@ -48,7 +52,7 @@ const AboutManager = () => {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
     };
 
-    const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile);
+    const uploadTask = storage.ref(`/about/${imageAsFile.name}`).put(imageAsFile);
 
     uploadTask.on('state_changed', (snapshot) => {
       console.log(snapshot)
@@ -56,52 +60,86 @@ const AboutManager = () => {
       console.log(err);
     }, () => {
       console.log('uploaded to firebase')
-      storage.ref('images').child(imageAsFile.name).getDownloadURL()
+      storage.ref('about').child(imageAsFile.name).getDownloadURL()
         .then(fireBaseUrl => {
 
-          setUrlList(urlList);
-          let date = new Date()
-          date = date.toDateString();
-          const request = { fireBaseUrl, description, title, date };
+          const request = { fireBaseUrl, bio };
 
           Axios
-            .post('/api/gallery', request)
+            .post('/api/about', request)
             .then(() => {
-              getImages();
+              getBio();
+              setAllowUpload(false);
               console.log('posted to database')
             })
             .catch(err => console.error(err))
         });
     });
 
-    document.getElementById('form-gallery').reset();
+    document.getElementById('form-about').reset();
+  };
+
+  const handleChangePhoto = (e) => {
+    e.preventDefault();
+
+    const _id = e.target.dataset.id;
+
+    console.log('start of upload');
+
+    if (imageAsFile === '') {
+      console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
+    };
+
+    const uploadTask = storage.ref(`/about/${imageAsFile.name}`).put(imageAsFile);
+
+    uploadTask.on('state_changed', (snapshot) => {
+      console.log(snapshot)
+    }, (err) => {
+      console.log(err);
+    }, () => {
+      console.log('uploaded to firebase')
+      storage.ref('about').child(imageAsFile.name).getDownloadURL()
+        .then(fireBaseUrl => {
+
+          const request = { fireBaseUrl };
+
+          Axios
+            .put(`/api/about/photo/${_id}`, request)
+            .then(() => {
+              getBio();
+              console.log('posted to database')
+            })
+            .catch(err => console.error(err))
+        });
+    });
+
+    document.getElementById('form-edit-photo').reset();
   };
 
   const editHandler = (e) => {
     e.preventDefault();
 
     const _id = e.target.dataset.id;
-    const title = e.target.title.value;
-    const description = e.target.description.value;
+    const bio = e.target.bio.value;
 
     Axios
-      .put(`/api/gallery/${_id}`, { title, description })
+      .put(`/api/about/${_id}`, { bio })
       .then(() => {
-        getImages();
+        getBio();
         console.log('updated to database')
       })
       .catch(err => console.error(err));
 
-    document.getElementById('form-gallery-edit').reset();
+    document.getElementById(_id).reset();
   }
 
   const deleteHandler = (e) => {
     const _id = e.target.value;
 
     Axios
-      .delete(`/api/gallery/${_id}`)
+      .delete(`/api/about/${_id}`)
       .then(response => {
-        getImages();
+        getBio();
         console.log(response)
       })
       .catch(err => console.error(err));
@@ -109,20 +147,21 @@ const AboutManager = () => {
 
   return (
     <div>
-      <h3>Gallery Photos</h3>
-      <form id="form-gallery" className="form-gallery" onSubmit={handleFireBaseUpload}>
-        <h4 className="text-gallery-form-header">Upload new photo</h4>
-        <input className="input-gallery-title" type="text" name="title" placeholder="Title" />
-        <textarea className="input-gallery-description" name="description" placeholder="Description" />
-        <div className="container-gallery-inputs">
-          <input
-            className="input-gallery-file"
-            type="file"
-            onChange={handleImageAsFile}
-          />
-          <button className="button-gallery-post">Upload to Gallery</button>
-        </div>
-      </form>
+      <h3>About</h3>
+      {allowUpload ?
+        <form id="form-about" className="form-gallery" onSubmit={handleFireBaseUpload}>
+          <h4 className="text-gallery-form-header">Create your bio</h4>
+          <textarea className="input-gallery-description" name="bio" placeholder="About me" />
+          <div className="container-gallery-inputs">
+            <input
+              className="input-gallery-file"
+              type="file"
+              onChange={handleImageAsFile}
+            />
+            <button className="button-gallery-post">Upload to About</button>
+          </div>
+        </form> : null
+      }
       {
         urlList.map(item => {
           return (
@@ -131,15 +170,22 @@ const AboutManager = () => {
                 <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
               </div>
               <div className="container-gallery-title-description">
-                <p>Title: {item.title}</p>
-                <p>Description: {item.description}</p>
-                <p>Date Uploaded: {item.date}</p>
-                <form id="form-gallery-edit" className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                  <input type="text" name="title" placeholder="Title"></input>
-                  <textarea name="description" placeholder="Description"></textarea>
+                <p>Bio: {item.bio}</p>
+                <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                  <textarea name="bio" placeholder="Bio"></textarea>
                   <div className="container-form-buttons">
                     <button type="submit">Edit</button>
                     <button value={item._id} onClick={deleteHandler}>Delete</button>
+                  </div>
+                </form>
+                <form id="form-edit-photo" onSubmit={handleChangePhoto} data-id={item._id}>
+                  <div>Change photo</div>
+                  <div>
+                    <input
+                      type="file"
+                      onChange={handleImageAsFile}
+                    />
+                    <button>Upload photo</button>
                   </div>
                 </form>
               </div>

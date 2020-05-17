@@ -21,6 +21,20 @@ router
   .put(controller.putMural)
   .delete(controller.deleteMural)
 
+router
+  .route('/about')
+  .get(controller.getAbout)
+  .post(controller.postAbout)
+
+router
+  .route('/about/:_id')
+  .put(controller.putAbout)
+  .delete(controller.deleteAbout)
+
+router
+  .route('/about/photo/:_id')
+  .put(controller.putAboutPhoto)
+
 // router
 //   .route('/store')
 //   .get(controller.getStore)

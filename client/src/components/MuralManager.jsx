@@ -59,7 +59,6 @@ const MuralManager = () => {
       storage.ref('murals').child(imageAsFile.name).getDownloadURL()
         .then(fireBaseUrl => {
 
-          setUrlList(urlList);
           let date = new Date()
           date = date.toDateString();
           const request = { fireBaseUrl, description, title, date };
@@ -92,7 +91,7 @@ const MuralManager = () => {
       })
       .catch(err => console.error(err));
 
-    document.getElementById('form-murals-edit').reset();
+    document.getElementById(_id).reset();
   }
 
   const deleteHandler = (e) => {
@@ -134,7 +133,7 @@ const MuralManager = () => {
                 <p>Title: {item.title}</p>
                 <p>Description: {item.description}</p>
                 <p>Date Uploaded: {item.date}</p>
-                <form id="form-murals-edit" className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
                   <input type="text" name="title" placeholder="Title"></input>
                   <textarea name="description" placeholder="Description"></textarea>
                   <div className="container-form-buttons">

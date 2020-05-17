@@ -1,7 +1,7 @@
 import React from 'react';
 import GalleryManager from './GalleryManager';
 import MuralManager from './MuralManager';
-import AboutManger from './AboutManager'
+import AboutManager from './AboutManager'
 
 import {
   BrowserRouter as Router,

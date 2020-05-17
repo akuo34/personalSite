@@ -57,6 +57,42 @@ module.exports = {
       .then(() => res.status(200).send('deleted from DB'))
       .catch(err => res.status(400).send(err));
   },
+  getAbout: (req, res) => {
+    model
+      .getAbout()
+      .then(data => res.status(200).send(data))
+      .catch(err => res.status(404).send(err));
+  },
+  postAbout: (req, res) => {
+    const { fireBaseUrl, bio } = req.body;
+    model
+      .postAbout(fireBaseUrl, bio)
+      .then(() => res.status(201).send('posted to DB'))
+      .catch(err => res.status(400).send(err));
+  }, 
+  putAbout: (req, res) => {
+    const { bio } = req.body;
+    const { _id } = req.params;
+    model
+      .putAbout(bio, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  putAboutPhoto: (req, res) => {
+    const { fireBaseUrl } = req.body;
+    const { _id } = req.params;
+    model
+      .putAboutPhoto(fireBaseUrl, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  deleteAbout: (req, res) => {
+    const { _id } = req.params;
+    model
+      .deleteAbout(_id)
+      .then(() => res.status(200).send('deleted from DB'))
+      .catch(err => res.status(400).send(err));
+  }
   // getStore: (req, res) => {
   //   model
   //     .getStore()

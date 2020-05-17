@@ -1,9 +1,9 @@
 const mongooseGallery = require('mongoose');
 const mongooseMural = require('mongoose');
+const mongooseAbout = require('mongoose');
 // const mongooseStore = require('mongoose');
 
 const gallerySchema = new mongooseGallery.Schema({
-  id: Number,
   fireBaseUrl: String,
   title: String,
   description: String,
@@ -11,12 +11,16 @@ const gallerySchema = new mongooseGallery.Schema({
 });
 
 const muralSchema = new mongooseMural.Schema({
-  id: Number,
   fireBaseUrl: String,
   title: String,
   description: String,
   date: String
 });
+
+const aboutSchema = new mongooseAbout.Schema({
+  fireBaseUrl: String,
+  bio: String
+})
 // const storeSchema = new mongooseStore.Schema({
 //   img: { data: Buffer, contentType: String },
 //   title: String,
@@ -28,4 +32,5 @@ const muralSchema = new mongooseMural.Schema({
 
 module.exports.gallerySchema = gallerySchema;
 module.exports.muralSchema = muralSchema;
+module.exports.aboutSchema = aboutSchema;
 // module.exports.storeSchema = storeSchema;

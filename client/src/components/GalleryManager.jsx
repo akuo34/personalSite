@@ -17,6 +17,7 @@ const GalleryManager = () => {
         if (urlList.length !== array.length) {
           setUrlList(array);
         }
+        console.log(urlList);
       });
   }, [urlList]);
 
@@ -59,7 +60,6 @@ const GalleryManager = () => {
       storage.ref('images').child(imageAsFile.name).getDownloadURL()
         .then(fireBaseUrl => {
 
-          setUrlList(urlList);
           let date = new Date()
           date = date.toDateString();
           const request = { fireBaseUrl, description, title, date };
@@ -92,7 +92,7 @@ const GalleryManager = () => {
       })
       .catch(err => console.error(err));
 
-    document.getElementById('form-gallery-edit').reset();
+    document.getElementById(_id).reset();
   }
 
   const deleteHandler = (e) => {
@@ -102,6 +102,8 @@ const GalleryManager = () => {
       .delete(`/api/gallery/${_id}`)
       .then(response => {
         getImages();
+
+        // storage.ref('images').child(imageAsFile.name).getDownloadURL()
         console.log(response)
       })
       .catch(err => console.error(err));
@@ -109,7 +111,7 @@ const GalleryManager = () => {
 
   return (
     <div>
-      <h3>Gallery Photos</h3>
+      <h3>Gallery</h3>
       <form id="form-gallery" className="form-gallery" onSubmit={handleFireBaseUpload}>
         <h4 className="text-gallery-form-header">Upload new photo</h4>
         <input className="input-gallery-title" type="text" name="title" placeholder="Title" />
@@ -134,7 +136,7 @@ const GalleryManager = () => {
                 <p>Title: {item.title}</p>
                 <p>Description: {item.description}</p>
                 <p>Date Uploaded: {item.date}</p>
-                <form id="form-gallery-edit" className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
                   <input type="text" name="title" placeholder="Title"></input>
                   <textarea name="description" placeholder="Description"></textarea>
                   <div className="container-form-buttons">

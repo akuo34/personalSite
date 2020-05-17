@@ -1,4 +1,4 @@
-const { galleryItem, muralItem, storeItem } = require('./');
+const { galleryItem, muralItem, aboutItem, storeItem } = require('./');
 const fs = require('fs');
 
 module.exports = {
@@ -9,7 +9,12 @@ module.exports = {
   getMural: () => muralItem.find(),
   postMural: (title, description, fireBaseUrl, date) => muralItem.create({ title, description, fireBaseUrl, date }),
   putMural: (title, description, _id) => muralItem.findOneAndUpdate({ _id }, { title, description }),
-  deleteMural: (_id) => muralItem.findByIdAndDelete({ _id })
+  deleteMural: (_id) => muralItem.findByIdAndDelete({ _id }),
+  getAbout: () => aboutItem.find(),
+  postAbout: (fireBaseUrl, bio) => aboutItem.create({ fireBaseUrl, bio }),
+  putAbout: (bio, _id) => aboutItem.findOneAndUpdate({ _id }, { bio }),
+  putAboutPhoto: (fireBaseUrl, _id) => aboutItem.findOneAndUpdate({ _id }, { fireBaseUrl }),
+  deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id })
   // getStore: () => storeItem.find(),
 };
 
