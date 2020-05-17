@@ -8,9 +8,9 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   postGallery: (req, res) => {
-    const { title, description, fireBaseUrl, date } = req.body;
+    const { title, description, fireBaseUrl, date, filename } = req.body;
     model
-      .postGallery(title, description, fireBaseUrl, date)
+      .postGallery(title, description, fireBaseUrl, date, filename)
       .then(() => res.status(201).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   },
@@ -36,9 +36,9 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   postMural: (req, res) => {
-    const { title, description, fireBaseUrl, date } = req.body;
+    const { title, description, fireBaseUrl, date, filename } = req.body;
     model
-      .postMural(title, description, fireBaseUrl, date)
+      .postMural(title, description, fireBaseUrl, date, filename)
       .then(() => res.status(201).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   },
@@ -64,9 +64,9 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   postAbout: (req, res) => {
-    const { fireBaseUrl, bio } = req.body;
+    const { fireBaseUrl, bio, filename } = req.body;
     model
-      .postAbout(fireBaseUrl, bio)
+      .postAbout(fireBaseUrl, bio, filename)
       .then(() => res.status(201).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   }, 
@@ -79,10 +79,10 @@ module.exports = {
       .catch(err => res.status(400).send(err));
   },
   putAboutPhoto: (req, res) => {
-    const { fireBaseUrl } = req.body;
+    const { fireBaseUrl, filename } = req.body;
     const { _id } = req.params;
     model
-      .putAboutPhoto(fireBaseUrl, _id)
+      .putAboutPhoto(fireBaseUrl, filename, _id)
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },

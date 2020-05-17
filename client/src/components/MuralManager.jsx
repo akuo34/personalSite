@@ -61,7 +61,9 @@ const MuralManager = () => {
 
           let date = new Date()
           date = date.toDateString();
-          const request = { fireBaseUrl, description, title, date };
+
+          let filename = imageAsFile.name;
+          const request = { fireBaseUrl, description, title, date, filename };
 
           Axios
             .post('/api/murals', request)
@@ -96,12 +98,17 @@ const MuralManager = () => {
 
   const deleteHandler = (e) => {
     const _id = e.target.value;
+    const filename = e.target.dataset.filename;
 
     Axios
       .delete(`/api/murals/${_id}`)
       .then(response => {
+        console.log(response);
         getImages();
-        console.log(response)
+
+        storage.ref('murals').child(filename).delete()
+          .then(() => console.log('deleted from firebase'))
+          .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
   }
@@ -129,16 +136,16 @@ const MuralManager = () => {
               <div className="container-gallery-img">
                 <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
               </div>
-              <div className="container-gallery-title-description">
+              <div className="container-gallery-title-description" style={{"width":"300px"}}>
                 <p>Title: {item.title}</p>
                 <p>Description: {item.description}</p>
                 <p>Date Uploaded: {item.date}</p>
                 <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
                   <input type="text" name="title" placeholder="Title"></input>
-                  <textarea name="description" placeholder="Description"></textarea>
+                  <textarea name="description" placeholder="Description" style={{"height":"50px"}}></textarea>
                   <div className="container-form-buttons">
                     <button type="submit">Edit</button>
-                    <button value={item._id} onClick={deleteHandler}>Delete</button>
+                    <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
                   </div>
                 </form>
               </div>

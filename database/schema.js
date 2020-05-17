@@ -7,19 +7,22 @@ const gallerySchema = new mongooseGallery.Schema({
   fireBaseUrl: String,
   title: String,
   description: String,
-  date: String
+  date: String,
+  filename: String
 });
 
 const muralSchema = new mongooseMural.Schema({
   fireBaseUrl: String,
   title: String,
   description: String,
-  date: String
+  date: String,
+  filename: String
 });
 
 const aboutSchema = new mongooseAbout.Schema({
   fireBaseUrl: String,
-  bio: String
+  bio: String,
+  filename: String
 })
 // const storeSchema = new mongooseStore.Schema({
 //   img: { data: Buffer, contentType: String },

@@ -63,7 +63,8 @@ const AboutManager = () => {
       storage.ref('about').child(imageAsFile.name).getDownloadURL()
         .then(fireBaseUrl => {
 
-          const request = { fireBaseUrl, bio };
+          let filename = imageAsFile.name;
+          const request = { fireBaseUrl, bio, filename };
 
           Axios
             .post('/api/about', request)
@@ -83,6 +84,7 @@ const AboutManager = () => {
     e.preventDefault();
 
     const _id = e.target.dataset.id;
+    let filename = e.target.dataset.filename;
 
     console.log('start of upload');
 
@@ -101,8 +103,13 @@ const AboutManager = () => {
       storage.ref('about').child(imageAsFile.name).getDownloadURL()
         .then(fireBaseUrl => {
 
-          const request = { fireBaseUrl };
+          storage.ref('about').child(filename).delete()
+            .then(() => console.log('deleted from firebase'))
+            .catch(err => console.error(err));
+          
+          filename = imageAsFile.name;
 
+          const request = { fireBaseUrl, filename };
           Axios
             .put(`/api/about/photo/${_id}`, request)
             .then(() => {
@@ -110,6 +117,7 @@ const AboutManager = () => {
               console.log('posted to database')
             })
             .catch(err => console.error(err))
+
         });
     });
 
@@ -135,12 +143,17 @@ const AboutManager = () => {
 
   const deleteHandler = (e) => {
     const _id = e.target.value;
+    const filename = e.target.dataset.filename;
 
     Axios
       .delete(`/api/about/${_id}`)
       .then(response => {
-        getBio();
         console.log(response)
+        getBio();
+
+        storage.ref('about').child(filename).delete()
+          .then(() => console.log('deleted from firebase'))
+          .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
   }
@@ -165,21 +178,21 @@ const AboutManager = () => {
       {
         urlList.map(item => {
           return (
+            <div>
             <div className="container-gallery-row">
               <div className="container-gallery-img">
                 <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
               </div>
               <div className="container-gallery-title-description">
-                <p>Bio: {item.bio}</p>
                 <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                  <textarea name="bio" placeholder="Bio"></textarea>
+                  <textarea name="bio" placeholder="Bio" style={{"height":"80px"}}></textarea>
                   <div className="container-form-buttons">
                     <button type="submit">Edit</button>
-                    <button value={item._id} onClick={deleteHandler}>Delete</button>
+                    <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
                   </div>
                 </form>
-                <form id="form-edit-photo" onSubmit={handleChangePhoto} data-id={item._id}>
-                  <div>Change photo</div>
+                <form id="form-edit-photo" onSubmit={handleChangePhoto} data-id={item._id} data-filename={item.filename}>
+                  <div style={{"marginTop": "20px"}}>Change photo</div>
                   <div>
                     <input
                       type="file"
@@ -189,6 +202,8 @@ const AboutManager = () => {
                   </div>
                 </form>
               </div>
+            </div>
+            <p style={{"width":"380px"}}>Bio: {item.bio}</p>
             </div>
           )
         })
