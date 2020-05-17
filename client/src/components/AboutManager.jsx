@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { storage } from '../firebase/firebase';
 import Axios from 'axios';
 
-const GalleryManager = () => {
+const AboutManager = () => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
 
   useEffect(() => {
     Axios
-      .get('/api/gallery')
+      .get('/api/about')
       .then(response => {
 
         let array = response.data;
@@ -151,4 +151,4 @@ const GalleryManager = () => {
   );
 };
 
-export default GalleryManager;
+export default AboutManager;

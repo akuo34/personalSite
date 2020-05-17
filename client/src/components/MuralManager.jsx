@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { storage } from '../firebase/firebase';
 import Axios from 'axios';
 
-const GalleryManager = () => {
+const MuralManager = () => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
 
   useEffect(() => {
     Axios
-      .get('/api/gallery')
+      .get('/api/murals')
       .then(response => {
 
         let array = response.data;
@@ -27,7 +27,7 @@ const GalleryManager = () => {
 
   const getImages = () => {
     Axios
-      .get('/api/gallery')
+      .get('/api/murals')
       .then(response => {
 
         let array = response.data;
@@ -48,7 +48,7 @@ const GalleryManager = () => {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
     };
 
-    const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile);
+    const uploadTask = storage.ref(`/murals/${imageAsFile.name}`).put(imageAsFile);
 
     uploadTask.on('state_changed', (snapshot) => {
       console.log(snapshot)
@@ -56,7 +56,7 @@ const GalleryManager = () => {
       console.log(err);
     }, () => {
       console.log('uploaded to firebase')
-      storage.ref('images').child(imageAsFile.name).getDownloadURL()
+      storage.ref('murals').child(imageAsFile.name).getDownloadURL()
         .then(fireBaseUrl => {
 
           setUrlList(urlList);
@@ -65,7 +65,7 @@ const GalleryManager = () => {
           const request = { fireBaseUrl, description, title, date };
 
           Axios
-            .post('/api/gallery', request)
+            .post('/api/murals', request)
             .then(() => {
               getImages();
               console.log('posted to database')
@@ -74,7 +74,7 @@ const GalleryManager = () => {
         });
     });
 
-    document.getElementById('form-gallery').reset();
+    document.getElementById('form-murals').reset();
   };
 
   const editHandler = (e) => {
@@ -85,21 +85,21 @@ const GalleryManager = () => {
     const description = e.target.description.value;
 
     Axios
-      .put(`/api/gallery/${_id}`, { title, description })
+      .put(`/api/murals/${_id}`, { title, description })
       .then(() => {
         getImages();
         console.log('updated to database')
       })
       .catch(err => console.error(err));
 
-    document.getElementById('form-gallery-edit').reset();
+    document.getElementById('form-murals-edit').reset();
   }
 
   const deleteHandler = (e) => {
     const _id = e.target.value;
 
     Axios
-      .delete(`/api/gallery/${_id}`)
+      .delete(`/api/murals/${_id}`)
       .then(response => {
         getImages();
         console.log(response)
@@ -109,8 +109,8 @@ const GalleryManager = () => {
 
   return (
     <div>
-      <h3>Gallery Photos</h3>
-      <form id="form-gallery" className="form-gallery" onSubmit={handleFireBaseUpload}>
+      <h3>Murals</h3>
+      <form id="form-murals" className="form-gallery" onSubmit={handleFireBaseUpload}>
         <h4 className="text-gallery-form-header">Upload new photo</h4>
         <input className="input-gallery-title" type="text" name="title" placeholder="Title" />
         <textarea className="input-gallery-description" name="description" placeholder="Description" />
@@ -120,7 +120,7 @@ const GalleryManager = () => {
             type="file"
             onChange={handleImageAsFile}
           />
-          <button className="button-gallery-post">Upload to Gallery</button>
+          <button className="button-gallery-post">Upload to Murals</button>
         </div>
       </form>
       {
@@ -134,7 +134,7 @@ const GalleryManager = () => {
                 <p>Title: {item.title}</p>
                 <p>Description: {item.description}</p>
                 <p>Date Uploaded: {item.date}</p>
-                <form id="form-gallery-edit" className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                <form id="form-murals-edit" className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
                   <input type="text" name="title" placeholder="Title"></input>
                   <textarea name="description" placeholder="Description"></textarea>
                   <div className="container-form-buttons">
@@ -151,4 +151,4 @@ const GalleryManager = () => {
   );
 };
 
-export default GalleryManager;
+export default MuralManager;

@@ -200,3 +200,12 @@ p {
   font-size: 20px;
   background-color: rgb(250, 227, 231);
 }
+
+.form-gallery-edit {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-form-buttons {
+  display: flex;
+}

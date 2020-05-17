@@ -1,5 +1,8 @@
 import React from 'react';
 import GalleryManager from './GalleryManager';
+import MuralManager from './MuralManager';
+import AboutManger from './AboutManager'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -42,30 +45,6 @@ const App = () => {
               <h1>The Wild Ones</h1>
               <h2>Admin Console</h2>
             </div>
-            {/* <div className="container-nav">
-            <nav>
-              <ul className="list-main-header">
-                <li>
-                  <Link className="link" to="/">Gallery</Link>
-                </li>
-                <li>
-                  <Link className="link" to="/about">About</Link>
-                </li>
-                <li>
-                  <Link className="link" to="/events">Events</Link>
-                </li>
-                <li>
-                  <Link className="link" to="/murals">Murals</Link>
-                </li>
-                <li>
-                  <Link className="link" to="/store">Store</Link>
-                </li>
-                <li>
-                  <Link className="link" to="/contact">Contact</Link>
-                </li>
-              </ul>
-            </nav>
-          </div> */}
           </div>
 
           {/* A <Switch> looks through its children <Route>s and
@@ -78,7 +57,7 @@ const App = () => {
               <EventsManager />
             </Route>
             <Route path="/murals">
-              <MuralsManager />
+              <MuralManager />
             </Route>
             <Route path="/store">
               <StoreManager />
@@ -96,16 +75,8 @@ const App = () => {
   )
 }
 
-function AboutManager() {
-  return <h3>About</h3>;
-}
-
 function StoreManager() {
   return <h3>Store</h3>;
-}
-
-function MuralsManager() {
-  return <h3>Murals</h3>;
 }
 
 function EventsManager() {

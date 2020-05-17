@@ -6,28 +6,20 @@ router
   .get(controller.getGallery)
   .post(controller.postGallery)
 
-// router
-//   .route('/uploadbase')
-//   .post((req, res, next) => {
-//     const newImage = new Image({
-//       imageName: req.body.imageName,
-//       imageData: req.body.imageData
-//     });
-    
-//     newImage.save()
-//       .then(result => {
-//         res.status(200).json({
-//           success: true,
-//           document: result
-//         });
-//       })
-//       .catch(err => next(err));
-//   });
+router
+  .route('/gallery/:_id')
+  .put(controller.putGallery)
+  .delete(controller.deleteGallery)
 
-// router
-//   .route('/gallery/:id')
-//   .put(controller.putGallery)
-//   .delete(controller.deleteGallery)
+router
+  .route('/murals')
+  .get(controller.getMural)
+  .post(controller.postMural)
+
+router
+  .route('/murals/:_id')
+  .put(controller.putMural)
+  .delete(controller.deleteMural)
 
 // router
 //   .route('/store')
