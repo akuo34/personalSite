@@ -153,8 +153,8 @@ p {
 .container-gallery-title-description {
   display: flex;
   flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
 
 .form-gallery {
   border: 1px solid black;
@@ -208,4 +208,28 @@ p {
 
 .container-form-buttons {
   display: flex;
+}
+
+/* Events Manager ------------------------------------------------------------------------------ */
+
+.form-events-row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.form-events-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-events-location {
+  width: 387px;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+/* About Manager ------------------------------------------------------------------------------- */
+
+.container-about-render {
+  font-family: Arial, Helvetica, sans-serif
 }

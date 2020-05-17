@@ -92,7 +92,43 @@ module.exports = {
       .deleteAbout(_id)
       .then(() => res.status(200).send('deleted from DB'))
       .catch(err => res.status(400).send(err));
-  }
+  },
+  getEvent: (req, res) => {
+    model
+      .getEvent()
+      .then(data => res.status(200).send(data))
+      .catch(err => res.status(404).send(err));
+  },
+  postEvent: (req, res) => {
+    const { fireBaseUrl, title, description, location, time, date, filename } = req.body;
+    model
+      .postEvent(fireBaseUrl, title, description, location, time, date, filename)
+      .then(() => res.status(201).send('posted to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  putEvent: (req, res) => {
+    const { title, description, location, time, date } = req.body;
+    const { _id } = req.params;
+    model
+      .putEvent(title, description, location, time, date, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  putEventPhoto: (req, res) => {
+    const { fireBaseUrl, filename } = req.body;
+    const { _id } = req.params;
+    model
+      .putEventPhoto(fireBaseUrl, filename, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  deleteEvent: (req, res) => {
+    const { _id } = req.params;
+    model
+      .deleteEvent(_id)
+      .then(() => res.status(200).send('deleted from DB'))
+      .catch(err => res.status(400).send(err));
+  },
   // getStore: (req, res) => {
   //   model
   //     .getStore()

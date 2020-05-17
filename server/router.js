@@ -35,6 +35,15 @@ router
   .route('/about/photo/:_id')
   .put(controller.putAboutPhoto)
 
+router
+  .route('/events')
+  .get(controller.getEvent)
+  .post(controller.postEvent)
+
+router
+  .route('/events/:_id')
+  .put(controller.putEvent)
+  .delete(controller.deleteEvent)
 // router
 //   .route('/store')
 //   .get(controller.getStore)

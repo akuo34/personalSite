@@ -1,7 +1,8 @@
 import React from 'react';
 import GalleryManager from './GalleryManager';
 import MuralManager from './MuralManager';
-import AboutManager from './AboutManager'
+import AboutManager from './AboutManager';
+import EventManager from './EventManager';
 
 import {
   BrowserRouter as Router,
@@ -54,7 +55,7 @@ const App = () => {
               <AboutManager />
             </Route>
             <Route path="/events">
-              <EventsManager />
+              <EventManager />
             </Route>
             <Route path="/murals">
               <MuralManager />
@@ -77,10 +78,6 @@ const App = () => {
 
 function StoreManager() {
   return <h3>Store</h3>;
-}
-
-function EventsManager() {
-  return <h3>Events</h3>
 }
 
 function ContactManager() {
