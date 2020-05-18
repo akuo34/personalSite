@@ -129,19 +129,32 @@ module.exports = {
       .then(() => res.status(200).send('deleted from DB'))
       .catch(err => res.status(400).send(err));
   },
-  // getStore: (req, res) => {
-  //   model
-  //     .getStore()
-  //     .then(data => res.status(200).send(data))
-  //     .catch(err => res.status(404).send(err));
-  // },
-  // postStore: (req, res) => {
-  //   res.status(201).send('response to POST request');
-  // },
-  // putStore: (req, res) => {
-  //   res.status(200).send('response to PUT request');
-  // },
-  // deleteStore: (req, res) => {
-  //   res.status(200).send('response to DELETE request');
-  // },
+  getStore: (req, res) => {
+    model
+      .getStore()
+      .then(data => res.status(200).send(data))
+      .catch(err => res.status(404).send(err));
+  },
+  postStore: (req, res) => {
+    const { fireBaseUrl, filename, title, description, width, height, price, category, quantity } = req.body;
+    model
+      .postStore(fireBaseUrl, filename, title, description, width, height, price, category, quantity)
+      .then(() => res.status(200).send('posted to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  putStore: (req, res) => {
+    const { title, description, width, height, price, category, quantity } = req.body;
+    const { _id } = req.params;
+    model
+      .putStore(title, description, width, height, price, category, quantity, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  deleteStore: (req, res) => {
+    const { _id } = req.params;
+    model
+      .deleteStore(_id)
+      .then(() => res.status(200).send('deleted from DB'))
+      .catch(err => res.status(400).send(err));
+  }
  }

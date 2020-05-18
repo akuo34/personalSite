@@ -44,7 +44,19 @@ module.exports = {
     return eventItem.findOneAndUpdate({ _id }, object);
   },
   putEventPhoto: (fireBaseUrl, filename, _id) => eventItem.findOneAndUpdate({ _id }, { fireBaseUrl, filename }),
-  deleteEvent: (_id) => eventItem.findOneAndDelete({ _id })
-  // getStore: () => storeItem.find(),
+  deleteEvent: (_id) => eventItem.findOneAndDelete({ _id }),
+  getStore: () => storeItem.find(),
+  postStore: (fireBaseUrl, filename, title, description, width, height, price, category, quantity) => storeItem.create({ fireBaseUrl, filename, title, description, width, height, price, category, quantity }),
+  putStore: (title, description, width, height, price, category, quantity, _id) => {
+
+    let object = { title, description, width, height, price, category, quantity };
+    for (let key in object) {
+      if (object[key] === '') {
+        delete object[key];
+      }
+    }
+    return storeItem.findByIdAndUpdate({ _id }, { title, description, width, height, price, category, quantity })
+  },
+  deleteStore: (_id) => storeItem.findByIdAndDelete({ _id })
 };
 

@@ -2,7 +2,7 @@ const mongooseGallery = require('mongoose');
 const mongooseMural = require('mongoose');
 const mongooseAbout = require('mongoose');
 const mongooseEvent = require('mongoose');
-// const mongooseStore = require('mongoose');
+const mongooseStore = require('mongoose');
 
 const gallerySchema = new mongooseGallery.Schema({
   fireBaseUrl: String,
@@ -35,17 +35,21 @@ const eventSchema = new mongooseEvent.Schema({
   date: String,
   filename: String
 });
-// const storeSchema = new mongooseStore.Schema({
-//   img: { data: Buffer, contentType: String },
-//   title: String,
-//   description: String,
-//   width: Number,
-//   height: Number,
-//   price: Number 
-// })
+
+const storeSchema = new mongooseStore.Schema({
+  fireBaseUrl: String,
+  filename: String,
+  title: String,
+  description: String,
+  width: Number,
+  height: Number,
+  price: Number,
+  category: String,
+  quantity: Number,
+})
 
 module.exports.gallerySchema = gallerySchema;
 module.exports.muralSchema = muralSchema;
 module.exports.aboutSchema = aboutSchema;
 module.exports.eventSchema = eventSchema;
-// module.exports.storeSchema = storeSchema;
+module.exports.storeSchema = storeSchema;

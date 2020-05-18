@@ -61,12 +61,12 @@ h1 {
 }
 
 h2 {
-  font-size: 40px;
+  font-size: 35px;
   font-family: typewriter;
 }
 
 h3 {
-  font-size: 50px;
+  font-size: 45px;
   font-family: typewriter;
   text-align: center;
 }
@@ -81,6 +81,10 @@ p {
   font-size: 20px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 /* Main header --------------------------------------------------------------------------------- */
 
 .container-page {
@@ -93,9 +97,12 @@ p {
   padding: 40px;
   line-height: 40px;
   background-color: rgb(250, 227, 231);
-  /* height: 100vh; */
+  border: 5px solid rgb(255, 166, 0);
   height: -webkit-fill-available;
   position: fixed;
+  -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
+  box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
 }
 
 .container-scroll {
@@ -117,7 +124,7 @@ p {
 
 .list-main-header {
   list-style: none;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .link:link {
@@ -137,6 +144,11 @@ p {
 
 .img-gallery {
   height: 200px;
+  /* width: 284px; */
+  padding: 10px 10px 20px 10px;
+  border: 1px solid #BFBFBF;
+  background-color: white;
+  box-shadow: 10px 10px 5px #aaaaaa;
 }
 
 .container-gallery-row {
@@ -154,10 +166,11 @@ p {
   display: flex;
   flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
+  margin-left: 30px;
 }
 
 .form-gallery {
-  border: 1px solid black;
+  border: 5px solid rgb(255, 166, 0);
   display: flex;
   flex-direction: column;
   height: 250px;
@@ -166,7 +179,12 @@ p {
   width: 600px;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgb(82, 64, 51);
+  background-color: rgb(48, 21, 2);
+  /* background: rgb(255,166,0); */
+  /* background: linear-gradient(90deg, rgba(255,166,0,1) 0%, rgba(82,64,35,1) 46%); */
+  -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
+  box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
 }
 
 .text-gallery-form-header {
@@ -193,7 +211,7 @@ p {
 .input-gallery-file {
   font-size: 20px;
   width: 40%;
-  /* height: 30px; */
+  color: rgb(250, 227, 231);
 }
 
 .button-gallery-post {

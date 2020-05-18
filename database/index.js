@@ -2,12 +2,13 @@ const mongooseGallery = require('mongoose');
 const mongooseMural = require('mongoose');
 const mongooseAbout = require('mongoose');
 const mongooseEvent = require('mongoose');
+const mongooseStore = require('mongoose');
 
 mongooseGallery.set('useFindAndModify', false);
 mongooseMural.set('useFindAndModify', false);
 mongooseAbout.set('useFindAndModify', false);
 mongooseEvent.set('useFindAndModify', false);
-// const mongooseStore = require('mongoose');
+mongooseStore.set('useFindAndModify', false);
 
 const schema = require('./schema.js');
 
@@ -47,18 +48,17 @@ dbEvent.once('open', () => console.log('Events connected'));
 
 const eventItem = mongooseEvent.model('EventItem', schema.eventSchema);
 
-
 // Database for Store items
-// mongooseStore.connect('mongodb://localhost:27017/store', {useNewUrlParser: true, useUnifiedTopology: true});
+mongooseStore.connect('mongodb://localhost:27017/store', {useNewUrlParser: true, useUnifiedTopology: true});
 
-// const dbStore = mongooseStore.connection;
-// dbStore.on('error', console.error.bind(console, 'connection error'));
-// dbStore.once('open', () => console.log('Store connected'));
+const dbStore = mongooseStore.connection;
+dbStore.on('error', console.error.bind(console, 'connection error'));
+dbStore.once('open', () => console.log('Store connected'));
 
-// const storeItem = mongooseStore.model('StoreItem', schema.storeSchema);
+const storeItem = mongooseStore.model('StoreItem', schema.storeSchema);
 
 module.exports.galleryItem = galleryItem;
 module.exports.muralItem = muralItem;
 module.exports.aboutItem = aboutItem;
 module.exports.eventItem = eventItem;
-// module.exports.storeItem = storeItem;
+module.exports.storeItem = storeItem;
