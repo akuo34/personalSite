@@ -235,6 +235,10 @@ select {
   color: rgb(100, 93, 69);
 }
 
+.button-gallery-post:hover {
+  background-color: rgb(255, 219, 88);
+}
+
 .form-gallery-edit {
   display: flex;
   flex-direction: column;

@@ -21,7 +21,6 @@ const StoreManager = () => {
           if (copy[item._id] === undefined) {
             copy[item._id] = 0;
             setIndexes(copy);
-            console.log(indexes);
           }
         })
         if (urlList.length !== array.length) {
@@ -56,7 +55,7 @@ const StoreManager = () => {
     const width = e.target.width.value;
     const height = e.target.height.value;
     const price = e.target.price.value;
-    const category = e.target.category.value;
+    let category = e.target.category.value;
     const quantity = e.target.quantity.value;
 
     console.log('start of upload');
@@ -65,7 +64,11 @@ const StoreManager = () => {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
     };
 
-    const uploadTask = storage.ref(`/store/${imageAsFile.name}`).put(imageAsFile);
+    let randomizer = (Math.floor(Math.random() * (1000 - 1)) + 1).toString();
+    let split = imageAsFile.name.split('.');
+    const filename = split[0] + randomizer + split[1];
+
+    const uploadTask = storage.ref(`/store/${filename}`).put(imageAsFile);
 
     uploadTask.on('state_changed', (snapshot) => {
       console.log(snapshot)
@@ -73,10 +76,9 @@ const StoreManager = () => {
       console.log(err);
     }, () => {
       console.log('uploaded to firebase')
-      storage.ref('store').child(imageAsFile.name).getDownloadURL()
+      storage.ref('store').child(filename).getDownloadURL()
         .then(fireBaseUrl => {
 
-          let filename = imageAsFile.name;
           let images = [{ filename, fireBaseUrl }]
           let request = { images, title, description, width, height, price, category, quantity };
 
@@ -85,6 +87,7 @@ const StoreManager = () => {
             .then(response => {
               getImages();
               console.log(response)
+              setImageAsFile('');
             })
             .catch(err => console.error(err))
         });
@@ -152,7 +155,11 @@ const StoreManager = () => {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
     };
 
-    const uploadTask = storage.ref(`/store/${imageAsFile.name}`).put(imageAsFile);
+    let randomizer = (Math.floor(Math.random() * (1000 - 1)) + 1).toString();
+    let split = imageAsFile.name.split('.');
+    const filename = split[0] + randomizer + split[1]; 
+
+    const uploadTask = storage.ref(`/store/${filename}`).put(imageAsFile);
 
     uploadTask.on('state_changed', (snapshot) => {
       console.log(snapshot)
@@ -160,10 +167,9 @@ const StoreManager = () => {
       console.log(err);
     }, () => {
       console.log('uploaded to firebase')
-      storage.ref('store').child(imageAsFile.name).getDownloadURL()
+      storage.ref('store').child(filename).getDownloadURL()
         .then(fireBaseUrl => {
 
-          let filename = imageAsFile.name;
           let photosArray = urlList.filter(item => item._id === _id);
           let newPhoto = { fireBaseUrl, filename };
           photosArray[0].images.push(newPhoto);
@@ -175,6 +181,7 @@ const StoreManager = () => {
             .then(response => {
               getImages();
               console.log(response);
+              setImageAsFile('');
             })
             .catch(err => console.error(err));
         });

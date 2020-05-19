@@ -50,7 +50,11 @@ const MuralManager = () => {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
     };
 
-    const uploadTask = storage.ref(`/murals/${imageAsFile.name}`).put(imageAsFile);
+    let randomizer = (Math.floor(Math.random() * (1000 - 1)) + 1).toString();
+    let split = imageAsFile.name.split('.');
+    const filename = split[0] + randomizer + split[1];
+
+    const uploadTask = storage.ref(`/murals/${filename}`).put(imageAsFile);
 
     uploadTask.on('state_changed', (snapshot) => {
       console.log(snapshot)
@@ -58,20 +62,20 @@ const MuralManager = () => {
       console.log(err);
     }, () => {
       console.log('uploaded to firebase')
-      storage.ref('murals').child(imageAsFile.name).getDownloadURL()
+      storage.ref('murals').child(filename).getDownloadURL()
         .then(fireBaseUrl => {
 
           let date = new Date()
           date = date.toDateString();
 
-          let filename = imageAsFile.name;
           const request = { fireBaseUrl, description, title, date, filename };
 
           Axios
             .post('/api/murals', request)
             .then(response => {
               getImages();
-              console.log(response)
+              console.log(response);
+              setImageAsFile('');
             })
             .catch(err => console.error(err))
         });

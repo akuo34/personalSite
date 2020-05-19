@@ -4,6 +4,7 @@ import MuralManager from './MuralManager';
 import AboutManager from './AboutManager';
 import EventManager from './EventManager';
 import StoreManager from './StoreManager';
+import ContactManager from './ContactManager';
 
 import {
   BrowserRouter as Router,
@@ -75,10 +76,6 @@ const App = () => {
       </div>
     </Router>
   )
-}
-
-function ContactManager() {
-  return <h3>Contact</h3>
 }
 
 export default App;

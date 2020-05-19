@@ -1,10 +1,6 @@
-const mongooseGallery = require('mongoose');
-const mongooseMural = require('mongoose');
-const mongooseAbout = require('mongoose');
-const mongooseEvent = require('mongoose');
-const mongooseStore = require('mongoose');
+const mongoose = require('mongoose');
 
-const gallerySchema = new mongooseGallery.Schema({
+const gallerySchema = new mongoose.Schema({
   fireBaseUrl: String,
   title: String,
   description: String,
@@ -12,7 +8,7 @@ const gallerySchema = new mongooseGallery.Schema({
   filename: String
 });
 
-const muralSchema = new mongooseMural.Schema({
+const muralSchema = new mongoose.Schema({
   fireBaseUrl: String,
   title: String,
   description: String,
@@ -20,13 +16,13 @@ const muralSchema = new mongooseMural.Schema({
   filename: String
 });
 
-const aboutSchema = new mongooseAbout.Schema({
+const aboutSchema = new mongoose.Schema({
   fireBaseUrl: String,
   bio: String,
   filename: String
 });
 
-const eventSchema = new mongooseEvent.Schema({
+const eventSchema = new mongoose.Schema({
   fireBaseUrl: String,
   title: String,
   description: String,
@@ -36,7 +32,7 @@ const eventSchema = new mongooseEvent.Schema({
   filename: String
 });
 
-const storeSchema = new mongooseStore.Schema({
+const storeSchema = new mongoose.Schema({
   images: [{
     fireBaseUrl: String,
     filename: String,
@@ -50,10 +46,23 @@ const storeSchema = new mongooseStore.Schema({
   price: Number,
   category: String,
   quantity: Number,
-})
+});
+
+const contactSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  instagram: String,
+});
+
+const mailingListSchema = new mongoose.Schema({
+  name: String,
+  email: String
+});
 
 module.exports.gallerySchema = gallerySchema;
 module.exports.muralSchema = muralSchema;
 module.exports.aboutSchema = aboutSchema;
 module.exports.eventSchema = eventSchema;
 module.exports.storeSchema = storeSchema;
+module.exports.contactSchema = contactSchema;
+module.exports.mailingListSchema = mailingListSchema;

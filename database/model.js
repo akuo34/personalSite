@@ -1,5 +1,4 @@
-const { galleryItem, muralItem, aboutItem, eventItem, storeItem } = require('./');
-const fs = require('fs');
+const { galleryItem, muralItem, aboutItem, eventItem, storeItem, contactItem, mailingListItem } = require('./');
 
 module.exports = {
   getGallery: () => galleryItem.find(),

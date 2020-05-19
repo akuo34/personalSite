@@ -50,7 +50,11 @@ const GalleryManager = () => {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
     };
 
-    const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile);
+    let randomizer = (Math.floor(Math.random() * (1000 - 1)) + 1).toString();
+    let split = imageAsFile.name.split('.');
+    const filename = split[0] + randomizer + split[1];
+
+    const uploadTask = storage.ref(`/images/${filename}`).put(imageAsFile);
 
     uploadTask.on('state_changed', (snapshot) => {
       console.log(snapshot)
@@ -58,13 +62,12 @@ const GalleryManager = () => {
       console.log(err);
     }, () => {
       console.log('uploaded to firebase')
-      storage.ref('images').child(imageAsFile.name).getDownloadURL()
+      storage.ref('images').child(filename).getDownloadURL()
         .then(fireBaseUrl => {
 
           let date = new Date()
           date = date.toDateString();
 
-          let filename = imageAsFile.name;
           const request = { fireBaseUrl, description, title, date, filename };
 
           Axios
@@ -72,6 +75,7 @@ const GalleryManager = () => {
             .then(response => {
               getImages();
               console.log(response)
+              setImageAsFile('');
             })
             .catch(err => console.error(err))
         });

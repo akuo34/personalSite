@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { storage } from '../firebase/firebase';
 import Axios from 'axios';
 
-const AboutManager = () => {
+const ContactManager = () => {
 
-  const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
   const [allowUpload, setAllowUpload] = useState(false);
 
@@ -216,4 +214,4 @@ const AboutManager = () => {
   );
 };
 
-export default AboutManager;
+export default ContactManager;
