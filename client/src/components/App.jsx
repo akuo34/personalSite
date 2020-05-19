@@ -3,6 +3,7 @@ import GalleryManager from './GalleryManager';
 import MuralManager from './MuralManager';
 import AboutManager from './AboutManager';
 import EventManager from './EventManager';
+import StoreManager from './StoreManager';
 
 import {
   BrowserRouter as Router,
@@ -74,10 +75,6 @@ const App = () => {
       </div>
     </Router>
   )
-}
-
-function StoreManager() {
-  return <h3>Store</h3>;
 }
 
 function ContactManager() {

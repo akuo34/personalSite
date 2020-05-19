@@ -22,7 +22,8 @@ const AboutManager = () => {
         if (urlList.length !== array.length) {
           setUrlList(array);
         }
-      });
+      })
+      .catch(err => console.error(err));
   }, [urlList]);
 
   const handleImageAsFile = (e) => {
@@ -38,7 +39,8 @@ const AboutManager = () => {
         let array = response.data;
 
         setUrlList(array);
-      });
+      })
+      .catch(err => console.error(err));
   }
 
   const handleFireBaseUpload = (e) => {
@@ -68,10 +70,10 @@ const AboutManager = () => {
 
           Axios
             .post('/api/about', request)
-            .then(() => {
+            .then(response => {
               getBio();
               setAllowUpload(false);
-              console.log('posted to database')
+              console.log(response)
             })
             .catch(err => console.error(err))
         });
@@ -112,9 +114,9 @@ const AboutManager = () => {
           const request = { fireBaseUrl, filename };
           Axios
             .put(`/api/about/photo/${_id}`, request)
-            .then(() => {
+            .then(response => {
               getBio();
-              console.log('posted to database')
+              console.log(response)
             })
             .catch(err => console.error(err))
 
@@ -132,9 +134,9 @@ const AboutManager = () => {
 
     Axios
       .put(`/api/about/${_id}`, { bio })
-      .then(() => {
+      .then(response => {
         getBio();
-        console.log('updated to database')
+        console.log(response)
       })
       .catch(err => console.error(err));
 

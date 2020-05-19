@@ -136,9 +136,9 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   postStore: (req, res) => {
-    const { fireBaseUrl, filename, title, description, width, height, price, category, quantity } = req.body;
+    const { images, title, description, width, height, price, category, quantity } = req.body;
     model
-      .postStore(fireBaseUrl, filename, title, description, width, height, price, category, quantity)
+      .postStore(images, title, description, width, height, price, category, quantity)
       .then(() => res.status(200).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   },
@@ -147,6 +147,14 @@ module.exports = {
     const { _id } = req.params;
     model
       .putStore(title, description, width, height, price, category, quantity, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  putStorePhoto: (req, res) => {
+    const { images } = req.body;
+    const { _id } = req.params;
+    model
+      .putStorePhoto(images, _id)
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },

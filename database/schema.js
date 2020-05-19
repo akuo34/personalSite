@@ -37,6 +37,10 @@ const eventSchema = new mongooseEvent.Schema({
 });
 
 const storeSchema = new mongooseStore.Schema({
+  images: [{
+    fireBaseUrl: String,
+    filename: String,
+  }],
   fireBaseUrl: String,
   filename: String,
   title: String,

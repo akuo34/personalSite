@@ -29,7 +29,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
 ol, ul {
 	list-style: none;
@@ -81,8 +81,24 @@ p {
   font-size: 20px;
 }
 
+button {
+  outline: none;
+}
+
 button:hover {
   cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+
+textarea {
+  outline: none;
+}
+
+select {
+  outline: none;
 }
 
 /* Main header --------------------------------------------------------------------------------- */
@@ -96,8 +112,8 @@ button:hover {
   z-index: 2;
   padding: 40px;
   line-height: 40px;
-  background-color: rgb(250, 227, 231);
-  border: 5px solid rgb(255, 166, 0);
+  background-color: rgb(224, 173, 158);
+  border: 5px solid rgb(255, 219, 88);
   height: -webkit-fill-available;
   position: fixed;
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
@@ -137,14 +153,13 @@ button:hover {
 }
 
 .link:hover {
-  color: rgb(121, 1, 101);
+  color: rgb(138, 128, 96);
 }
 
 /* Gallery Manager ----------------------------------------------------------------------------- */
 
 .img-gallery {
   height: 200px;
-  /* width: 284px; */
   padding: 10px 10px 20px 10px;
   border: 1px solid #BFBFBF;
   background-color: white;
@@ -159,7 +174,9 @@ button:hover {
 .container-gallery-img {
   width: 400px;
   display: flex;
-  /* justify-content: center; */
+  align-items: center;
+  margin-right: 30px;
+  margin-left: 0;
 }
 
 .container-gallery-title-description {
@@ -170,7 +187,7 @@ button:hover {
 }
 
 .form-gallery {
-  border: 5px solid rgb(255, 166, 0);
+  border: 5px solid rgb(255, 219, 88);
   display: flex;
   flex-direction: column;
   height: 250px;
@@ -179,16 +196,14 @@ button:hover {
   width: 600px;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgb(48, 21, 2);
-  /* background: rgb(255,166,0); */
-  /* background: linear-gradient(90deg, rgba(255,166,0,1) 0%, rgba(82,64,35,1) 46%); */
+  background-color: rgb(138, 128, 96);
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
 }
 
 .text-gallery-form-header {
-  color: rgb(250, 227, 231);
+  color: rgb(224, 173, 158);
 }
 
 .input-gallery-title {
@@ -211,12 +226,13 @@ button:hover {
 .input-gallery-file {
   font-size: 20px;
   width: 40%;
-  color: rgb(250, 227, 231);
+  color: rgb(224, 173, 158);
 }
 
 .button-gallery-post {
   font-size: 20px;
-  background-color: rgb(250, 227, 231);
+  background-color: rgb(224, 173, 158);
+  color: rgb(100, 93, 69);
 }
 
 .form-gallery-edit {
@@ -250,4 +266,75 @@ button:hover {
 
 .container-about-render {
   font-family: Arial, Helvetica, sans-serif
+}
+
+/* Store Manager ------------------------------------------------------------------------------- */
+
+.container-store {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-store-form-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.container-store-form-column {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0;
+}
+
+.container-store-category-buttons {
+  display: flex;
+  width: 600px;
+  justify-content: space-evenly;
+}
+
+.button-carousel:hover {
+  cursor: pointer;
+  opacity: 100%;
+}
+
+.button-store-category {
+  font-size: 20px;
+  display: inline-block;
+  padding: 0.7em 1.4em;
+  margin: auto;
+  border-radius: 0.15em;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: rgb(100, 93, 69);
+  background-color: rgb(224, 173, 158);
+  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  text-align: center;
+  position: relative;
+  outline: none;
+}
+
+.button-store-category:hover {
+  background-color: rgb(255, 219, 88);
+}
+
+.container-store-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 30px;
+  margin-left: 0;
+}
+
+.container-store-delete-photo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-store-delete-photo {
+  margin-right: 85px;
+  margin-top: 10px;
 }

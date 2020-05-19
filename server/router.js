@@ -44,14 +44,18 @@ router
   .route('/events/:_id')
   .put(controller.putEvent)
   .delete(controller.deleteEvent)
-// router
-//   .route('/store')
-//   .get(controller.getStore)
-//   .post(controller.postStore)
+router
+  .route('/store')
+  .get(controller.getStore)
+  .post(controller.postStore)
 
-// router
-//   .route('/store/:id')
-//   .put(controller.putStore)
-//   .delete(controller.deleteStore)
+router
+  .route('/store/:_id')
+  .put(controller.putStore)
+  .delete(controller.deleteStore)
+
+router
+  .route('/store/photo/:_id')
+  .put(controller.putStorePhoto)
 
 module.exports = router;

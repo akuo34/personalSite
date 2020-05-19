@@ -17,7 +17,8 @@ const EventManager = () => {
         if (urlList.length !== array.length) {
           setUrlList(array);
         }
-      });
+      })
+      .catch(err => console.error(err));
   }, [urlList]);
 
   const handleImageAsFile = (e) => {
@@ -33,7 +34,8 @@ const EventManager = () => {
         let array = response.data;
 
         setUrlList(array);
-      });
+      })
+      .catch(err => console.error(err));
   }
 
   const handleFireBaseUpload = (e) => {
@@ -67,9 +69,9 @@ const EventManager = () => {
 
           Axios
             .post('/api/events', request)
-            .then(() => {
+            .then(response => {
               getImages();
-              console.log('posted to database')
+              console.log(response)
             })
             .catch(err => console.error(err))
         });
@@ -90,9 +92,9 @@ const EventManager = () => {
 
     Axios
       .put(`/api/events/${_id}`, { title, description, location, time, date })
-      .then(() => {
+      .then(response => {
         getImages();
-        console.log('updated to database')
+        console.log(response)
       })
       .catch(err => console.error(err));
 
@@ -126,7 +128,7 @@ const EventManager = () => {
           <input className="input-events-location" type="text" name="location" placeholder="Location" />
           <div className="form-events-column">
             <input type="date" name="date" />
-            <input type="time" name="time" value="9:00" />
+            <input type="time" name="time" />
           </div>
         </div>
         <textarea className="input-gallery-description" name="description" placeholder="Description" />

@@ -17,7 +17,8 @@ const MuralManager = () => {
         if (urlList.length !== array.length) {
           setUrlList(array);
         }
-      });
+      })
+      .catch(err => console.error(err));
   }, [urlList]);
 
   const handleImageAsFile = (e) => {
@@ -33,7 +34,8 @@ const MuralManager = () => {
         let array = response.data;
 
         setUrlList(array);
-      });
+      })
+      .catch(err => console.error(err));
   }
 
   const handleFireBaseUpload = (e) => {
@@ -67,9 +69,9 @@ const MuralManager = () => {
 
           Axios
             .post('/api/murals', request)
-            .then(() => {
+            .then(response => {
               getImages();
-              console.log('posted to database')
+              console.log(response)
             })
             .catch(err => console.error(err))
         });
@@ -87,9 +89,9 @@ const MuralManager = () => {
 
     Axios
       .put(`/api/murals/${_id}`, { title, description })
-      .then(() => {
+      .then(response => {
         getImages();
-        console.log('updated to database')
+        console.log(response)
       })
       .catch(err => console.error(err));
 
