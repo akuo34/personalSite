@@ -51,6 +51,7 @@ const storeSchema = new mongoose.Schema({
 const contactSchema = new mongoose.Schema({
   name: String,
   email: String,
+  phone: String,
   instagram: String,
 });
 

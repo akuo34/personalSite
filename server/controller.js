@@ -139,7 +139,7 @@ module.exports = {
     const { images, title, description, width, height, price, category, quantity } = req.body;
     model
       .postStore(images, title, description, width, height, price, category, quantity)
-      .then(() => res.status(200).send('posted to DB'))
+      .then(() => res.status(201).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   },
   putStore: (req, res) => {
@@ -162,6 +162,34 @@ module.exports = {
     const { _id } = req.params;
     model
       .deleteStore(_id)
+      .then(() => res.status(200).send('deleted from DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  getContact: (req, res) => {
+    model
+      .getContact()
+      .then(data => res.status(200).send(data))
+      .catch(err => res.status(404).send(err));
+  },
+  postContact: (req, res) => {
+    const { name, email, phone, instagram } = req.body;
+    model
+      .postContact(name, email, phone, instagram)
+      .then(() => res.status(201).send('posted to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  putContact: (req, res) => {
+    const { name, email, phone, instagram } = req.body;
+    const { _id } = req.params;
+    model
+      .putContact(name, email, phone, instagram, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  deleteContact: (req, res) => {
+    const { _id } = req.params;
+    model
+      .deleteContact(_id)
       .then(() => res.status(200).send('deleted from DB'))
       .catch(err => res.status(400).send(err));
   }

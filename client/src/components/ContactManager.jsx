@@ -8,7 +8,7 @@ const ContactManager = () => {
 
   useEffect(() => {
     Axios
-      .get('/api/about')
+      .get('/api/contact')
       .then(response => {
 
         let array = response.data;
@@ -24,14 +24,9 @@ const ContactManager = () => {
       .catch(err => console.error(err));
   }, [urlList]);
 
-  const handleImageAsFile = (e) => {
-    const image = e.target.files[0];
-    setImageAsFile(imageFile => image)
-  };
-
-  const getBio = () => {
+  const getContact = () => {
     Axios
-      .get('/api/about')
+      .get('/api/contact')
       .then(response => {
 
         let array = response.data;
@@ -41,101 +36,43 @@ const ContactManager = () => {
       .catch(err => console.error(err));
   }
 
-  const handleFireBaseUpload = (e) => {
+  const uploadContact = (e) => {
     e.preventDefault();
 
-    const bio = e.target.bio.value;
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const phone = e.target.phone.value;
+    const instagram = e.target.instagram.value;
 
-    console.log('start of upload');
+    const request = { name, email, phone, instagram };
 
-    if (imageAsFile === '') {
-      console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
-    };
+    Axios
+      .post('/api/contact', request)
+      .then(response => {
+        getContact();
+        setAllowUpload(false);
+        console.log(response);
+      })
+      .catch(err => console.error(err));
 
-    const uploadTask = storage.ref(`/about/${imageAsFile.name}`).put(imageAsFile);
-
-    uploadTask.on('state_changed', (snapshot) => {
-      console.log(snapshot)
-    }, (err) => {
-      console.log(err);
-    }, () => {
-      console.log('uploaded to firebase')
-      storage.ref('about').child(imageAsFile.name).getDownloadURL()
-        .then(fireBaseUrl => {
-
-          let filename = imageAsFile.name;
-          const request = { fireBaseUrl, bio, filename };
-
-          Axios
-            .post('/api/about', request)
-            .then(response => {
-              getBio();
-              setAllowUpload(false);
-              console.log(response);
-              setImageAsFile('');
-            })
-            .catch(err => console.error(err))
-        });
-    });
-
-    document.getElementById('form-about').reset();
-  };
-
-  const handleChangePhoto = (e) => {
-    e.preventDefault();
-
-    const _id = e.target.dataset.id;
-    let filename = e.target.dataset.filename;
-
-    console.log('start of upload');
-
-    if (imageAsFile === '') {
-      console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
-    };
-
-    const uploadTask = storage.ref(`/about/${imageAsFile.name}`).put(imageAsFile);
-
-    uploadTask.on('state_changed', (snapshot) => {
-      console.log(snapshot)
-    }, (err) => {
-      console.log(err);
-    }, () => {
-      console.log('uploaded to firebase')
-      storage.ref('about').child(imageAsFile.name).getDownloadURL()
-        .then(fireBaseUrl => {
-
-          storage.ref('about').child(filename).delete()
-            .then(() => console.log('deleted from firebase'))
-            .catch(err => console.error(err));
-
-          filename = imageAsFile.name;
-
-          const request = { fireBaseUrl, filename };
-          Axios
-            .put(`/api/about/photo/${_id}`, request)
-            .then(response => {
-              getBio();
-              console.log(response);
-              setImageAsFile('');
-            })
-            .catch(err => console.error(err))
-
-        });
-    });
-
-    document.getElementById('form-edit-photo').reset();
+    document.getElementById('form-contact').reset();
   };
 
   const editHandler = (e) => {
     e.preventDefault();
 
     const _id = e.target.dataset.id;
-    const bio = e.target.bio.value;
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const phone = e.target.phone.value;
+    const instagram = e.target.instagram.value;
+
+    const request = { name, email, phone, instagram };
 
     Axios
-      .put(`/api/about/${_id}`, { bio })
+      .put(`/api/contact/${_id}`, request)
       .then(response => {
-        getBio();
+        getContact();
         console.log(response)
       })
       .catch(err => console.error(err));
@@ -145,72 +82,59 @@ const ContactManager = () => {
 
   const deleteHandler = (e) => {
     const _id = e.target.value;
-    const filename = e.target.dataset.filename;
 
     Axios
-      .delete(`/api/about/${_id}`)
+      .delete(`/api/contact/${_id}`)
       .then(response => {
         console.log(response)
-        getBio();
-
-        storage.ref('about').child(filename).delete()
-          .then(() => console.log('deleted from firebase'))
-          .catch(err => console.error(err));
+        getContact();
+        setAllowUpload(true);
       })
       .catch(err => console.error(err));
   }
 
   return (
     <div>
-      <h3>About</h3>
+      <h3>Contact</h3>
       {allowUpload ?
-        <form id="form-about" className="form-gallery" onSubmit={handleFireBaseUpload}>
-          <h4 className="text-gallery-form-header">Create your bio</h4>
-          <textarea className="input-gallery-description" name="bio" placeholder="About me" style={{ "height": "90px" }} />
-          <div className="container-gallery-inputs">
-            <input
-              className="input-gallery-file"
-              type="file"
-              onChange={handleImageAsFile}
-            />
-            <button className="button-gallery-post">Upload to About</button>
-          </div>
+        <form id="form-contact" className="form-gallery" onSubmit={uploadContact}>
+          <h4 className="text-gallery-form-header">Create your contact</h4>
+          <input className="input-gallery-title" type="text" name="name" placeholder="Name" />
+          <input className="input-gallery-title" type="email" name="email" placeholder="Email" />
+          <input className="input-gallery-title" type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone XXX-XXX-XXXX" />
+          <input className="input-gallery-title" type="url" name="instagram" placeholder="Instagram link" />
+          <button className="button-gallery-post" type="submit">Upload to Contact</button>
         </form> : null
       }
       {
         urlList.map(item => {
           return (
-            <div className="container-about-render">
-              <div className="container-gallery-row">
-                <div className="container-gallery-img">
-                  <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
-                </div>
-                <div className="container-gallery-title-description">
-                  <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                    <textarea name="bio" placeholder="Bio" style={{ "height": "80px" }}></textarea>
-                    <div className="container-form-buttons">
-                      <button type="submit">Edit</button>
-                      <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
-                    </div>
-                  </form>
-                  <form id="form-edit-photo" onSubmit={handleChangePhoto} data-id={item._id} data-filename={item.filename}>
-                    <div style={{ "marginTop": "20px" }}>Change photo</div>
-                    <div>
-                      <input
-                        type="file"
-                        onChange={handleImageAsFile}
-                      />
-                      <button>Upload photo</button>
-                    </div>
-                  </form>
-                </div>
+            <div className="container-contact-row">
+              <div>
+                <p style={{ "width": "380px" }}>Name: {item.name}</p>
+                <p style={{ "width": "380px" }}>Email: {item.email}</p>
+                <p style={{ "width": "380px" }}>Phone: {item.phone}</p>
+                <p style={{ "width": "380px" }}>Instagram: {item.instagram}</p>
               </div>
-              <p style={{ "width": "380px" }}>Bio: {item.bio}</p>
+              <form id={item._id} 
+                className="form-gallery-edit" 
+                onSubmit={editHandler} 
+                data-id={item._id}
+                style={{"margin-left":"15px"}}>
+                <input type="text" name="name" placeholder="Name" />
+                <input type="email" name="email" placeholder="Email" />
+                <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Phone XXX-XXX-XXXX" />
+                <input type="url" name="instagram" placeholder="Instagram link" />
+                <div className="container-form-buttons">
+                  <button type="submit">Edit</button>
+                  <button value={item._id} onClick={deleteHandler}>Delete</button>
+                </div>
+              </form>
             </div>
           )
         })
       }
-    </div>
+    </div >
   );
 };
 

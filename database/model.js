@@ -57,6 +57,19 @@ module.exports = {
     return storeItem.findByIdAndUpdate({ _id }, object);
   },
   putStorePhoto: (images, _id) => storeItem.findByIdAndUpdate({ _id }, { images }),
-  deleteStore: (_id) => storeItem.findByIdAndDelete({ _id })
+  deleteStore: (_id) => storeItem.findByIdAndDelete({ _id }),
+  getContact: () => contactItem.find(),
+  postContact: (name, email, phone, instagram) => contactItem.create({ name, email, phone, instagram }),
+  putContact: (name, email, phone, instagram, _id) => {
+
+    let object = { name, email, phone, instagram };
+    for (let key in object) {
+      if(object[key] === '') {
+        delete object[key];
+      }
+    }
+    return contactItem.findByIdAndUpdate({ _id }, object);
+  },
+  deleteContact: (_id) => contactItem.findByIdAndDelete({ _id })
 };
 

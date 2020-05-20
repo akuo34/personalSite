@@ -58,4 +58,14 @@ router
   .route('/store/photo/:_id')
   .put(controller.putStorePhoto)
 
+router
+  .route('/contact')
+  .get(controller.getContact)
+  .post(controller.postContact)
+
+router
+  .route('/contact/:_id')
+  .put(controller.putContact)
+  .delete(controller.deleteContact)
+
 module.exports = router;

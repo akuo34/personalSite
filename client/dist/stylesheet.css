@@ -342,3 +342,12 @@ select {
   margin-right: 85px;
   margin-top: 10px;
 }
+
+/* Contact Manager ----------------------------------------------------------------------------- */
+
+.container-contact-row {
+  display: flex;
+  margin: 20px auto;
+  justify-content: space-between;
+  width: 600px;
+}
