@@ -9,7 +9,7 @@ const MuralManager = () => {
 
   useEffect(() => {
     Axios
-      .get('/api/murals')
+      .get('/admin/api/murals')
       .then(response => {
 
         let array = response.data;
@@ -28,7 +28,7 @@ const MuralManager = () => {
 
   const getImages = () => {
     Axios
-      .get('/api/murals')
+      .get('/admin/api/murals')
       .then(response => {
 
         let array = response.data;
@@ -71,7 +71,7 @@ const MuralManager = () => {
           const request = { fireBaseUrl, description, title, date, filename };
 
           Axios
-            .post('/api/murals', request)
+            .post('/admin/api/murals', request)
             .then(response => {
               getImages();
               console.log(response);
@@ -92,7 +92,7 @@ const MuralManager = () => {
     const description = e.target.description.value;
 
     Axios
-      .put(`/api/murals/${_id}`, { title, description })
+      .put(`/admin/api/murals/${_id}`, { title, description })
       .then(response => {
         getImages();
         console.log(response)
@@ -107,7 +107,7 @@ const MuralManager = () => {
     const filename = e.target.dataset.filename;
 
     Axios
-      .delete(`/api/murals/${_id}`)
+      .delete(`/admin/api/murals/${_id}`)
       .then(response => {
         console.log(response);
         getImages();

@@ -8,7 +8,7 @@ const ContactManager = () => {
 
   useEffect(() => {
     Axios
-      .get('/api/contact')
+      .get('/admin/api/contact')
       .then(response => {
 
         let array = response.data;
@@ -26,7 +26,7 @@ const ContactManager = () => {
 
   const getContact = () => {
     Axios
-      .get('/api/contact')
+      .get('/admin/api/contact')
       .then(response => {
 
         let array = response.data;
@@ -47,7 +47,7 @@ const ContactManager = () => {
     const request = { name, email, phone, instagram };
 
     Axios
-      .post('/api/contact', request)
+      .post('/admin/api/contact', request)
       .then(response => {
         getContact();
         setAllowUpload(false);
@@ -70,7 +70,7 @@ const ContactManager = () => {
     const request = { name, email, phone, instagram };
 
     Axios
-      .put(`/api/contact/${_id}`, request)
+      .put(`/admin/api/contact/${_id}`, request)
       .then(response => {
         getContact();
         console.log(response)
@@ -84,7 +84,7 @@ const ContactManager = () => {
     const _id = e.target.value;
 
     Axios
-      .delete(`/api/contact/${_id}`)
+      .delete(`/admin/api/contact/${_id}`)
       .then(response => {
         console.log(response)
         getContact();

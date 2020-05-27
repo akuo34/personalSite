@@ -9,7 +9,7 @@ const EventManager = () => {
 
   useEffect(() => {
     Axios
-      .get('/api/events')
+      .get('/admin/api/events')
       .then(response => {
 
         let array = response.data;
@@ -28,7 +28,7 @@ const EventManager = () => {
 
   const getImages = () => {
     Axios
-      .get('/api/events')
+      .get('/admin/api/events')
       .then(response => {
 
         let array = response.data;
@@ -71,7 +71,7 @@ const EventManager = () => {
           const request = { fireBaseUrl, description, title, location, time, date, filename };
 
           Axios
-            .post('/api/events', request)
+            .post('/admin/api/events', request)
             .then(response => {
               getImages();
               console.log(response);
@@ -95,7 +95,7 @@ const EventManager = () => {
     const date = e.target.date.value;
 
     Axios
-      .put(`/api/events/${_id}`, { title, description, location, time, date })
+      .put(`/admin/api/events/${_id}`, { title, description, location, time, date })
       .then(response => {
         getImages();
         console.log(response)
@@ -110,7 +110,7 @@ const EventManager = () => {
     const filename = e.target.dataset.filename;
 
     Axios
-      .delete(`/api/events/${_id}`)
+      .delete(`/admin/api/events/${_id}`)
       .then(response => {
         console.log(response);
         getImages();

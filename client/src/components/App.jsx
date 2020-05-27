@@ -13,7 +13,7 @@ import {
   Link
 } from "react-router-dom";
 
-const App = () => {
+const App = (props) => {
 
   return (
     <Router>
@@ -22,23 +22,24 @@ const App = () => {
           <nav>
             <ul className="list-main-header">
               <li>
-                <Link className="link" to="/">Gallery</Link>
+                <Link className="link" to="/admin/">Gallery</Link>
               </li>
               <li>
-                <Link className="link" to="/about">About</Link>
+                <Link className="link" to="/admin/about">About</Link>
               </li>
               <li>
-                <Link className="link" to="/events">Events</Link>
+                <Link className="link" to="/admin/events">Events</Link>
               </li>
               <li>
-                <Link className="link" to="/murals">Murals</Link>
+                <Link className="link" to="/admin/murals">Murals</Link>
               </li>
               <li>
-                <Link className="link" to="/store">Store</Link>
+                <Link className="link" to="/admin/store">Store</Link>
               </li>
               <li>
-                <Link className="link" to="/contact">Contact</Link>
+                <Link className="link" to="/admin/contact">Contact</Link>
               </li>
+              <button onClick={props.clearCookie}>Log Out</button>
             </ul>
           </nav>
         </div>
@@ -53,22 +54,22 @@ const App = () => {
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
-            <Route path="/about">
+            <Route path="/admin/about">
               <AboutManager />
             </Route>
-            <Route path="/events">
+            <Route path="/admin/events">
               <EventManager />
             </Route>
-            <Route path="/murals">
+            <Route path="/admin/murals">
               <MuralManager />
             </Route>
-            <Route path="/store">
+            <Route path="/admin/store">
               <StoreManager />
             </Route>
-            <Route path="/contact">
+            <Route path="/admin/contact">
               <ContactManager />
             </Route>
-            <Route path="/">
+            <Route path="/admin/">
               <GalleryManager />
             </Route>
           </Switch>

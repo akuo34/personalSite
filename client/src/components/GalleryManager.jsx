@@ -9,7 +9,7 @@ const GalleryManager = () => {
 
   useEffect(() => {
     Axios
-      .get('/api/gallery')
+      .get('/admin/api/gallery')
       .then(response => {
 
         let array = response.data;
@@ -28,7 +28,7 @@ const GalleryManager = () => {
 
   const getImages = () => {
     Axios
-      .get('/api/gallery')
+      .get('/admin/api/gallery')
       .then(response => {
 
         let array = response.data;
@@ -71,7 +71,7 @@ const GalleryManager = () => {
           const request = { fireBaseUrl, description, title, date, filename };
 
           Axios
-            .post('/api/gallery', request)
+            .post('/admin/api/gallery', request)
             .then(response => {
               getImages();
               console.log(response)
@@ -92,7 +92,7 @@ const GalleryManager = () => {
     const description = e.target.description.value;
 
     Axios
-      .put(`/api/gallery/${_id}`, { title, description })
+      .put(`/admin/api/gallery/${_id}`, { title, description })
       .then(response => {
         getImages();
         console.log(response)
@@ -107,7 +107,7 @@ const GalleryManager = () => {
     const filename = e.target.dataset.filename;
 
     Axios
-      .delete(`/api/gallery/${_id}`)
+      .delete(`/admin/api/gallery/${_id}`)
       .then(response => {
         console.log(response);
         getImages();

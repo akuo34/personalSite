@@ -10,7 +10,7 @@ const AboutManager = () => {
 
   useEffect(() => {
     Axios
-      .get('/api/about')
+      .get('/admin/api/about')
       .then(response => {
 
         let array = response.data;
@@ -33,7 +33,7 @@ const AboutManager = () => {
 
   const getBio = () => {
     Axios
-      .get('/api/about')
+      .get('/admin/api/about')
       .then(response => {
 
         let array = response.data;
@@ -69,7 +69,7 @@ const AboutManager = () => {
           const request = { fireBaseUrl, bio, filename };
 
           Axios
-            .post('/api/about', request)
+            .post('/admin/api/about', request)
             .then(response => {
               getBio();
               setAllowUpload(false);
@@ -114,7 +114,7 @@ const AboutManager = () => {
 
           const request = { fireBaseUrl, filename };
           Axios
-            .put(`/api/about/photo/${_id}`, request)
+            .put(`/admin/api/about/photo/${_id}`, request)
             .then(response => {
               getBio();
               console.log(response);
@@ -135,7 +135,7 @@ const AboutManager = () => {
     const bio = e.target.bio.value;
 
     Axios
-      .put(`/api/about/${_id}`, { bio })
+      .put(`/admin/api/about/${_id}`, { bio })
       .then(response => {
         getBio();
         console.log(response)
@@ -150,7 +150,7 @@ const AboutManager = () => {
     const filename = e.target.dataset.filename;
 
     Axios
-      .delete(`/api/about/${_id}`)
+      .delete(`/admin/api/about/${_id}`)
       .then(response => {
         console.log(response)
         getBio();

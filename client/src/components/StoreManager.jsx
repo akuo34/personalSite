@@ -11,7 +11,7 @@ const StoreManager = () => {
 
   useEffect(() => {
     Axios
-      .get('/api/store')
+      .get('/admin/api/store')
       .then(response => {
 
         let array = response.data;
@@ -37,7 +37,7 @@ const StoreManager = () => {
 
   const getImages = () => {
     Axios
-      .get('/api/store')
+      .get('/admin/api/store')
       .then(response => {
 
         let array = response.data;
@@ -83,7 +83,7 @@ const StoreManager = () => {
           let request = { images, title, description, width, height, price, category, quantity };
 
           Axios
-            .post('/api/store', request)
+            .post('/admin/api/store', request)
             .then(response => {
               getImages();
               console.log(response)
@@ -109,7 +109,7 @@ const StoreManager = () => {
     const quantity = e.target.quantity.value;
 
     Axios
-      .put(`/api/store/${_id}`, { title, description, width, height, price, category, quantity })
+      .put(`/admin/api/store/${_id}`, { title, description, width, height, price, category, quantity })
       .then(response => {
         getImages();
         console.log(response)
@@ -131,7 +131,7 @@ const StoreManager = () => {
     })
 
     Axios
-      .delete(`/api/store/${_id}`)
+      .delete(`/admin/api/store/${_id}`)
       .then(response => {
         console.log(response);
         getImages();
@@ -177,7 +177,7 @@ const StoreManager = () => {
           let result = { images: photosArray[0].images }
 
           Axios
-            .put(`/api/store/photo/${_id}`, result)
+            .put(`/admin/api/store/photo/${_id}`, result)
             .then(response => {
               getImages();
               console.log(response);
@@ -198,7 +198,7 @@ const StoreManager = () => {
     images.splice(index, 1);
 
     Axios
-    .put(`/api/store/photo/${_id}`, { images })
+    .put(`/admin/api/store/photo/${_id}`, { images })
     .then(response => {
       console.log(response);
 
