@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 
@@ -10,7 +8,7 @@ const LogIn = (props) => {
 
   return (
     <div className="form-gallery">
-      <h4 className="text-gallery-form-header">Sign In</h4>
+      <h4 className="text-gallery-form-header">Sign in</h4>
       <div>
         <form id="form-login" onSubmit={props.signInHandler}>
           <div>

@@ -22,33 +22,31 @@ const App = (props) => {
           <nav>
             <ul className="list-main-header">
               <li>
-                <Link className="link" to="/admin/">Gallery</Link>
+                <Link className="link" to="/admin/">gallery</Link>
               </li>
               <li>
-                <Link className="link" to="/admin/about">About</Link>
+                <Link className="link" to="/admin/about">about</Link>
               </li>
               <li>
-                <Link className="link" to="/admin/events">Events</Link>
+                <Link className="link" to="/admin/events">events</Link>
               </li>
               <li>
-                <Link className="link" to="/admin/murals">Murals</Link>
+                <Link className="link" to="/admin/murals">murals</Link>
               </li>
               <li>
-                <Link className="link" to="/admin/store">Store</Link>
+                <Link className="link" to="/admin/store">store</Link>
               </li>
               <li>
-                <Link className="link" to="/admin/contact">Contact</Link>
+                <Link className="link" to="/admin/contact">contact</Link>
               </li>
-              <button onClick={props.clearCookie}>Log Out</button>
+              <button style={{"width":"70px", "font-size":"15px"}} onClick={props.clearCookie}>log out</button>
             </ul>
           </nav>
         </div>
         <div className="container-scroll">
           <div className="container-main-header">
-            <div>
-              <h1>The Wild Ones</h1>
-              <h2>Admin Console</h2>
-            </div>
+            <h1>the wild ones</h1>
+            <h2>admin console</h2>
           </div>
 
           {/* A <Switch> looks through its children <Route>s and

@@ -18,7 +18,7 @@ app.use(cookieParser('39hs894k271ef70knf638shanw82n38a9l2nd8sn28s5qef56'));
 
 const auth = basicAuth({
   users: {
-    admin: '28719173'
+    admin: '123'
   }
 });
 
@@ -50,14 +50,17 @@ app.get('/clear-cookie', (req, res) => {
 
 app.listen(port, () => console.log(`listening on port ${port}`));
 
-app.use('/admin', express.static(path.join(__dirname, '../client/dist')));
+app.use('/', express.static(path.join(__dirname, '../client/dist')));
 
 app.use('/admin/api', router);
 
-app.get('/admin/*', (req, res) => {
+// app.get('/admin/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+// });
+
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'))
 });
-
 
 
 

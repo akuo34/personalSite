@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from './components/Main.jsx';
+// import Main from './admin-components/Main.jsx';
+import Client from './client-components/Client';
 
-ReactDOM.render(<Main/>, document.getElementById('main'));
+ReactDOM.render(<Client />, document.getElementById('main'));

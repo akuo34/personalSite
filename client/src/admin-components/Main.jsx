@@ -55,31 +55,19 @@ const Main = () => {
       :
       <Router>
         <div className="container-landing">
-          <div>
-            <h1>The Wild Ones</h1>
-            <h2>Admin Console</h2>
-          </div>
-          {/* <nav>
-            <ul>
-              <li>
-                <Link className="link" to="/admin/">Log in</Link>
-              </li>
-              <li>
-                <Link className="link" to="/admin/passwordReset">Reset Password</Link>
-              </li>
-            </ul>
-          </nav> */}
+          <h1>the wild ones</h1>
+          <h2>admin console</h2>
         </div>
 
         <Switch>
           <Route path="/admin/passwordReset">
             <PasswordReset />
           </Route>
-          <Route path="/admin/">
+          <Route path="/admin">
             <LogIn signInHandler={e => signInHandler(e)} />
           </Route>
         </Switch>
-      </Router >
+      </Router>
   )
 }
 
