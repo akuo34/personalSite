@@ -23,12 +23,9 @@ const Gallery = () => {
   }
 
   return (
-    <div>
-      <div className="container-main-header">
-        <h1 className="header-main">the wild ones</h1>
-        <h2 className="subheader-main">art by candy kuo</h2>
-      </div>
-      <Slider>
+    <div className="container-gallery-page">
+      <h2 className="subheader-client">art by candy kuo</h2>
+      <Slider duration="800">
         {images.map((image, index) => {
           return (
             <div className="container-image-gallery" key={index}>

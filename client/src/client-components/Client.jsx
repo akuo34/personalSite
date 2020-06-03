@@ -21,31 +21,36 @@ const Client = () => {
 
   return (
     <Router>
-      <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
-      {
-        <div id={ showToolBar ? "nav-client" : "nav-client-hidden" }>
-          <ul>
-            <li>
-              <Link className="link" to="/">gallery</Link>
-            </li>
-            <li>
-              <Link className="link" to="/about">about</Link>
-            </li>
-            <li>
-              <Link className="link" to="/events">events</Link>
-            </li>
-            <li>
-              <Link className="link" to="/murals">murals</Link>
-            </li>
-            <li>
-              <Link className="link" to="/store">store</Link>
-            </li>
-            <li>
-              <Link className="link" to="/contact">contact</Link>
-            </li>
-          </ul>
+      <div className="container-client-header">
+        <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
+        {
+          <div id={showToolBar ? "nav-client" : "nav-client-hidden"}>
+            <ul>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/">gallery</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/about">about</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/events">events</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/murals">murals</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/store">store</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/contact">contact</Link>
+              </li>
+            </ul>
+          </div>
+        }
+        <div className="container-main-header">
+          <h1>the wild ones</h1>
         </div>
-      }
+      </div>
 
       <Switch>
         <Route path="/about">

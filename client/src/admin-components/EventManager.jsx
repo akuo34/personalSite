@@ -41,11 +41,13 @@ const EventManager = () => {
   const handleFireBaseUpload = (e) => {
     e.preventDefault();
 
-    const description = e.target.description.value;
+    const resource = e.target.description.value;
     const title = e.target.title.value;
     const location = e.target.location.value;
     const time = e.target.time.value;
-    const date = e.target.date.value;
+    const start = e.target.start.value;
+    const end = e.target.end.value;
+    const allDay = e.target.allDay.value;
 
     console.log('start of upload');
 
@@ -68,7 +70,7 @@ const EventManager = () => {
       storage.ref('events').child(filename).getDownloadURL()
         .then(fireBaseUrl => {
 
-          const request = { fireBaseUrl, description, title, location, time, date, filename };
+          const request = { fireBaseUrl, resource, title, location, time, start, end, allDay, filename };
 
           Axios
             .post('/admin/api/events', request)
@@ -89,13 +91,15 @@ const EventManager = () => {
 
     const _id = e.target.dataset.id;
     const title = e.target.title.value;
-    const description = e.target.description.value;
+    const resource = e.target.description.value;
     const location = e.target.location.value;
     const time = e.target.time.value;
-    const date = e.target.date.value;
+    const start = e.target.start.value;
+    const end = e.target.end.value;
+    const allDay = e.target.allDay.value;
 
     Axios
-      .put(`/admin/api/events/${_id}`, { title, description, location, time, date })
+      .put(`/admin/api/events/${_id}`, { title, resource, location, time, start, end, allDay })
       .then(response => {
         getImages();
         console.log(response)
@@ -127,12 +131,27 @@ const EventManager = () => {
       <h3>Events</h3>
       <form id="form-events" className="form-gallery" onSubmit={handleFireBaseUpload}>
         <h4 className="text-gallery-form-header">Post new event</h4>
-        <input className="input-gallery-title" type="text" name="title" placeholder="Title" />
+        <div className="form-events-row">
+          <input className="input-gallery-title" type="text" name="title" placeholder="Title" />
+          <div className="form-events-column">
+            <input type="date" name="start" />
+            <input type="date" name="end" />
+          </div>
+        </div>
         <div className="form-events-row">
           <input className="input-events-location" type="text" name="location" placeholder="Location" />
           <div className="form-events-column">
-            <input type="date" name="date" />
-            <input type="time" name="time" />
+            <div>
+              <label>Time: </label>
+              <input type="time" name="time" />
+            </div>
+            <div>
+              <label>All-day event: </label>
+              <select name="allDay">
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+            </div>
           </div>
         </div>
         <textarea className="input-gallery-description" name="description" placeholder="Description" />
@@ -154,15 +173,22 @@ const EventManager = () => {
               </div>
               <div className="container-gallery-title-description" style={{ "width": "300px" }}>
                 <p>Title: {item.title}</p>
-                <p>Date: {item.date}</p>
+                <p>Start: {item.start}</p>
+                <p>End: {item.end}</p>
                 <p>Time: {item.time}</p>
+                <p>All-Day: {item.allDay}</p>
                 <p>Location: {item.location}</p>
-                <p>Description: {item.description}</p>
+                <p>Description: {item.resource}</p>
                 <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
                   <input type="text" name="title" placeholder="Title" />
-                  <input type="date" name="date" />
+                  <input type="date" name="start" />
+                  <input type="date" name="end" />
                   <input type="time" name="time" />
-                  <input type="text" name="location" placeholder="Location"/>
+                  <select name="allDay">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                  </select>
+                  <input type="text" name="location" placeholder="Location" />
                   <textarea name="description" placeholder="Description" style={{ "height": "50px" }}></textarea>
                   <div className="container-form-buttons">
                     <button type="submit">Edit</button>
@@ -174,7 +200,7 @@ const EventManager = () => {
           )
         })
       }
-    </div>
+    </div >
   );
 };
 

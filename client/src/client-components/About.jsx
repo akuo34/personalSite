@@ -21,14 +21,11 @@ const About = () => {
   }
 
   return (
-    <div>
-      <div className="container-main-header">
-        <h1 className="header-main">the wild ones</h1>
-        <h2 className="subheader-main">about the artist</h2>
-      </div>
+    <div className="container-gallery-page">
+      <h2 className="subheader-client">about the artist</h2>
       {images.length ?
-        <div className="container-image-gallery">
-          <img className="image-gallery" src={images[0].fireBaseUrl} alt="about-image"></img>
+        <div className="container-image-about">
+          <img className="image-about" src={images[0].fireBaseUrl} alt="about-image"></img>
           <p className="container-bio">{images[0].bio}</p>
         </div> : null
       }

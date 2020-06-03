@@ -39,15 +39,14 @@ const App = (props) => {
               <li>
                 <Link className="link" to="/admin/contact">contact</Link>
               </li>
-              <button style={{"width":"70px", "font-size":"15px"}} onClick={props.clearCookie}>log out</button>
+              <button style={{"width":"70px", "fontSize":"15px"}} onClick={props.clearCookie}>log out</button>
             </ul>
           </nav>
         </div>
         <div className="container-scroll">
-          <div className="container-main-header">
-            <h1>the wild ones</h1>
+          {/* <div className="container-main-header"> */}
             <h2>admin console</h2>
-          </div>
+          {/* </div> */}
 
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}

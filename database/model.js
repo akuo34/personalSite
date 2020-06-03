@@ -31,10 +31,10 @@ module.exports = {
   putAboutPhoto: (fireBaseUrl, filename, _id) => aboutItem.findOneAndUpdate({ _id }, { fireBaseUrl, filename }),
   deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id }),
   getEvent: () => eventItem.find().sort([['date', 1]]),
-  postEvent: (fireBaseUrl, title, description, location, time, date, filename) => eventItem.create({ fireBaseUrl, title, description, location, time, date, filename }),
-  putEvent: (title, description, location, time, date, _id) => {
+  postEvent: (fireBaseUrl, title, resource, location, time, start, end, allDay, filename) => eventItem.create({ fireBaseUrl, title, resource, location, time, start, end, allDay, filename }),
+  putEvent: (title, resource, location, time, start, end, allDay, _id) => {
 
-    let object = { title, description, location, time, date };
+    let object = { title, resource, location, time, start, end, allDay };
     for (let key in object) {
       if (object[key] === '') {
         delete object[key];

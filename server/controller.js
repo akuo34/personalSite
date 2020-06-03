@@ -100,17 +100,17 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   postEvent: (req, res) => {
-    const { fireBaseUrl, title, description, location, time, date, filename } = req.body;
+    const { fireBaseUrl, title, resource, location, time, start, end, allDay, filename } = req.body;
     model
-      .postEvent(fireBaseUrl, title, description, location, time, date, filename)
+      .postEvent(fireBaseUrl, title, resource, location, time, start, end, allDay, filename)
       .then(() => res.status(201).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   },
   putEvent: (req, res) => {
-    const { title, description, location, time, date } = req.body;
+    const { title, resource, location, time, start, end, allDay } = req.body;
     const { _id } = req.params;
     model
-      .putEvent(title, description, location, time, date, _id)
+      .putEvent(title, resource, location, time, start, end, allDay, _id)
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },

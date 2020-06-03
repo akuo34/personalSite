@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import App from './App';
 import LogIn from './LogIn';
@@ -55,7 +54,7 @@ const Main = () => {
       :
       <Router>
         <div className="container-landing">
-          <h1>the wild ones</h1>
+          {/* <h1>the wild ones</h1> */}
           <h2>admin console</h2>
         </div>
 

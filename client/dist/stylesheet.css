@@ -56,13 +56,14 @@ table {
 /* Elements ------------------------------------------------------------------------------------ */
 
 h1 {
-  font-size: 60px;
+  font-size: calc(25px + 1.5vw);
   font-family: typewriter;
   color: rgb(100, 93, 69);
 }
 
 h2 {
-  font-size: 30px;
+  /* font-size: 30px; */
+  font-size: calc(20px + .7vw);
   font-family: typewriter;
   color: rgb(224, 173, 158);
 }
@@ -71,6 +72,7 @@ h3 {
   font-size: 40px;
   font-family: typewriter;
   text-align: center;
+  margin-top: 40px;
   color: rgb(100, 93, 69);
 }
 
@@ -111,8 +113,9 @@ select {
 }
 
 .container-nav {
+  top: 0;
   font-family: typewriter;
-  z-index: 2;
+  z-index: 12;
   padding: 40px;
   line-height: 40px;
   background-color: rgb(224, 173, 158);
@@ -133,12 +136,16 @@ select {
 }
 
 .container-main-header {
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  margin: auto;
   line-height: 70px;
+  padding: 2.4% 0 1.2% 0;
+}
+
+.subheader-client {
+  margin-bottom: calc(10px + 2vw);
 }
 
 .list-main-header {
@@ -153,6 +160,7 @@ select {
 
 .link:visited {
   text-decoration: none;
+  color: black;
 }
 
 .link:hover {
@@ -358,12 +366,9 @@ select {
 /* Landing Page -------------------------------------------------------------------------------- */
 
 .container-landing {
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
-  line-height: 70px;
 }
 
 .input-landing {
@@ -386,6 +391,7 @@ select {
 
 .link-landing:visited {
   text-decoration: none;
+  color: 
 }
 
 .link-landing:hover {
@@ -395,13 +401,13 @@ select {
 /* Client -------------------------------------------------------------------------------------- */
 
 #nav-client {
-  z-index: 30;
+  z-index: 11;
   position: absolute;
   left: 0;
-  top: 100px;
+  top: calc(32px + 4.6vw);
   border: 5px solid rgb(255, 219, 88);
   background-color: rgb(224, 173, 158);
-  font-size: 25px;
+  font-size: 22px;
   font-family: typewriter;
   padding: 20px 30px;
   line-height: 40px;
@@ -412,9 +418,9 @@ select {
 }
 
 #nav-client-hidden {
-  z-index: 30;
+  z-index: 11;
   position: absolute;
-  top: 100px;
+  top: calc(32px + 4.6vw);
   border: 5px solid rgb(255, 219, 88);
   background-color: rgb(224, 173, 158);
   font-size: 25px;
@@ -434,48 +440,90 @@ select {
   margin: auto;
 }
 
-.image-gallery {
-  height: 500px;
-}
-
 .container-image-gallery {
   display: flex;
   justify-content: center;
   margin: auto;
 }
 
+.image-gallery {
+  height: 100%;
+  width: auto;
+}
+
+.container-image-about {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.image-about {
+  height: calc(400px + 3vw);
+  margin-bottom: 20px;
+}
+
+.container-gallery-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.container-client-header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .button-hamburger {
-  position: absolute;
-  height: 30px;
-  margin-left: 40px;
-  margin-top: 20px;
-  transition: all 0.6s;
+  position: fixed;
+  height: calc(16px + 1.2vw);
+  margin-left: calc(7px + 1.9vw);
+  margin-top: calc(10px + 2.1vw);
+  /* transition: all 0.25s ease; */
+  -webkit-transform: translateY(-20%);
+  transform: translateY(-20%);
+  -webkit-transition: all .25s linear;
+  transition: all .25s linear;
 }
 
 .button-hamburger:hover {
+  /* cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.25s ease; */
+  -webkit-transform: translateY(-20%) scale(1.1);
+  transform: translateY(-20%) scale(1.1);
   cursor: pointer;
-  transform: scale(1.2);
-  transition: all 0.5s;
 }
 
 .container-bio {
-  width: 30%;
-  margin-left: 40px;
+  width: calc(320px + 3.5vw);
+  margin-left: 3%;
 }
 
 .container-client-events {
-  width: 30%;
-  margin-left: 40px;
+  width: 100%;
+  margin-left: 3%;
 }
 
 .image-events {
-  height: 300px;
+  height: calc(140px + 10vw);
 }
 
 .container-image-events {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* margin: auto; */
+  /* margin-left: calc(15px + 2vw); */
+  /* margin-right: calc(15px + 2vw); */
+}
+
+.container-calendar {
+  display: flex;
+  flex-wrap: wrap;
   margin: auto;
-  margin-bottom: 40px;
+  width: 100%;
+  justify-content: space-evenly;
 }

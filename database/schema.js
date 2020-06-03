@@ -25,10 +25,14 @@ const aboutSchema = new mongoose.Schema({
 const eventSchema = new mongoose.Schema({
   fireBaseUrl: String,
   title: String,
-  description: String,
+  // description: String,
   location: String,
   time: String,
-  date: String,
+  start: Date,
+  end: Date,
+  allDay: Boolean,
+  resource: String,
+  // date: String,
   filename: String
 });
 
