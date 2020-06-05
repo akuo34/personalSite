@@ -9,7 +9,7 @@ import LogIn from './LogIn';
 import Axios from 'axios';
 // import PasswordReset from './PasswordReset';
 
-const Main = () => {
+const Main = (props) => {
 
   const [user, setUser] = useState(null);
 
@@ -20,10 +20,13 @@ const Main = () => {
       .catch(err => console.error(err));
   }, [user]);
 
-  const clearCookie = () => {
+  const clearCookie = () => {   
     Axios
       .get('/clear-cookie')
-      .then(response => setUser(response.data.screen))
+      .then(response => {
+        setUser(response.data.screen);
+        location.reload();
+      })
       .catch(err => console.error(err));
   }
 
@@ -46,15 +49,15 @@ const Main = () => {
     auth(email, password);
 
     document.getElementById('form-login').reset();
+    location.reload();
   };
 
   return (
     user === 'admin' ?
-      <App clearCookie={clearCookie}></App>
+      <App showAdminToolBar={props.showAdminToolBar} toolBarHandler={props.toolBarHandler} clearCookie={clearCookie}></App>
       :
       <Router>
         <div className="container-landing">
-          {/* <h1>the wild ones</h1> */}
           <h2>admin console</h2>
         </div>
 

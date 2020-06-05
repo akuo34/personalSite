@@ -120,7 +120,7 @@ const GalleryManager = () => {
   }
 
   return (
-    <div>
+    <div className="body-gallery">
       <h3>Gallery</h3>
       <form id="form-gallery" className="form-gallery" onSubmit={handleFireBaseUpload}>
         <h4 className="text-gallery-form-header">Upload new photo</h4>

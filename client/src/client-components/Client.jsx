@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,10 +14,23 @@ import Events from './Events';
 
 const Client = () => {
 
-  const [showToolBar, setShowToolBar] = useState(false);
+  const [showClientToolBar, setShowClientToolBar] = useState(false);
+  const [showAdminToolBar, setShowAdminToolBar] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    Axios
+      .get('/read-cookie')
+      .then(response => setUser(response.data.screen))
+      .catch(err => console.error(err));
+  }, [user]);
 
   const toolBarHandler = () => {
-    showToolBar ? setShowToolBar(false) : setShowToolBar(true)
+    if (window.location.href.indexOf('admin') !== -1 && user === 'admin') {
+      showAdminToolBar ? setShowAdminToolBar(false) : setShowAdminToolBar(true)
+    } else {
+      showClientToolBar ? setShowClientToolBar(false) : setShowClientToolBar(true)
+    }
   }
 
   return (
@@ -24,7 +38,7 @@ const Client = () => {
       <div className="container-client-header">
         <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
         {
-          <div id={showToolBar ? "nav-client" : "nav-client-hidden"}>
+          <div id={showClientToolBar ? "nav-client" : "nav-client-hidden"}>
             <ul>
               <li>
                 <Link className="link" onClick={toolBarHandler} to="/">gallery</Link>
@@ -69,7 +83,7 @@ const Client = () => {
           <Contact />
         </Route>
         <Route path="/admin">
-          <Main />
+          <Main showAdminToolBar={showAdminToolBar} toolBarHandler={toolBarHandler}/>
         </Route>
         <Route path="/">
           <Gallery />

@@ -59,10 +59,10 @@ h1 {
   font-size: calc(25px + 1.5vw);
   font-family: typewriter;
   color: rgb(100, 93, 69);
+  margin-top: calc(10px + 0.1vw);
 }
 
 h2 {
-  /* font-size: 30px; */
   font-size: calc(20px + .7vw);
   font-family: typewriter;
   color: rgb(224, 173, 158);
@@ -77,9 +77,9 @@ h3 {
 }
 
 h4 {
-  font-size: 25px;
+  font-size: calc(18px + 0.5vw);
   font-family: typewriter;
-  margin-bottom: 10px;
+  margin-bottom: calc(8px + 0.7vw);
 }
 
 p {
@@ -112,16 +112,35 @@ select {
   display: flex;
 }
 
-.container-nav {
-  top: 0;
-  font-family: typewriter;
-  z-index: 12;
-  padding: 40px;
-  line-height: 40px;
-  background-color: rgb(224, 173, 158);
+#nav-admin {
+  z-index: 11;
+  position: absolute;
+  left: 0;
+  top: calc(32px + 4.6vw);
   border: 5px solid rgb(255, 219, 88);
-  height: -webkit-fill-available;
-  position: fixed;
+  background-color: rgb(224, 173, 158);
+  font-size: 22px;
+  font-family: typewriter;
+  padding: 20px 30px;
+  line-height: 40px;
+  transition: left 0.25s;
+  -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
+  box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
+}
+
+#nav-admin-hidden {
+  z-index: 11;
+  position: absolute;
+  top: calc(32px + 4.6vw);
+  border: 5px solid rgb(255, 219, 88);
+  background-color: rgb(224, 173, 158);
+  font-size: 22px;
+  font-family: typewriter;
+  padding: 20px 30px;
+  line-height: 40px;
+  left: -200px;
+  transition: left 0.25s;
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
@@ -148,11 +167,6 @@ select {
   margin-bottom: calc(10px + 2vw);
 }
 
-.list-main-header {
-  list-style: none;
-  font-size: 25px;
-}
-
 .link:link {
   text-decoration: none;
   color: black;
@@ -169,8 +183,16 @@ select {
 
 /* Gallery Manager ----------------------------------------------------------------------------- */
 
+.body-gallery {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
 .img-gallery {
-  height: 200px;
+  /* height: 200px; */
+  height: calc(180px + 3vw);
   padding: 10px 10px 20px 10px;
   border: 1px solid #BFBFBF;
   background-color: white;
@@ -179,32 +201,47 @@ select {
 
 .container-gallery-row {
   display: flex;
+  /* width: 100%; */
   margin: 20px auto;
+  /* padding: 20px; */
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  border: 1px solid green;
 }
 
 .container-gallery-img {
-  width: 400px;
+  /* width: 400px; */
+  width: calc(300px + 10vw);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-right: 30px;
-  margin-left: 0;
+  /* margin-right: 30px; */
+  /* margin-right: 0;
+  margin-left: 0; */
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid red;
 }
 
 .container-gallery-title-description {
   display: flex;
   flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
-  margin-left: 30px;
+  width: calc(300px + 10vw);
+  /* margin-left: 30px; */
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid blue;
 }
 
 .form-gallery {
   border: 5px solid rgb(255, 219, 88);
   display: flex;
   flex-direction: column;
-  height: 250px;
-  padding: 20px;
+  /* height: 250px; */
+  padding: calc(10px + 1vw);
   margin: 30px auto;
-  width: 600px;
+  width: calc(200px + 20vw);
   justify-content: space-evenly;
   align-items: center;
   background-color: rgb(138, 128, 96);
@@ -232,6 +269,7 @@ select {
 .container-gallery-inputs {
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .input-gallery-file {
@@ -241,13 +279,19 @@ select {
 }
 
 .button-gallery-post {
-  font-size: 20px;
-  background-color: rgb(224, 173, 158);
+  font-size: calc(16px + 0.4vw);
+  /* background-color: rgb(224, 173, 158); */
+  /* background-image: linear-gradient(rgb(236, 203, 191), rgb(224, 173, 158)); */
+  background-image: linear-gradient(rgb(224, 173, 158), rgb(219, 154, 135));
   color: rgb(100, 93, 69);
+  padding: 5px 7px;
+  /* border: none; */
 }
 
 .button-gallery-post:hover {
-  background-color: rgb(255, 219, 88);
+  /* background-color: rgb(255, 219, 88); */
+  /* background-image: linear-gradient(rgb(252, 201, 17), rgb(252, 230, 152)); */
+  background-image: linear-gradient(rgb(245, 219, 126), rgb(255, 219, 88));
 }
 
 .form-gallery-edit {
@@ -371,17 +415,25 @@ select {
   align-items: center;
 }
 
+#form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .input-landing {
   height: 30px;
-  font-size: 20px;
-  width: 300px;
-  margin-bottom: 20px;
+  font-size: calc(14px + 0.4vw);
+  width: 75%;
+  margin: 0 auto 20px auto;
 }
 
 .container-landing-button {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+  width: 100%;
 }
 
 .link-landing:link {
@@ -391,7 +443,6 @@ select {
 
 .link-landing:visited {
   text-decoration: none;
-  color: 
 }
 
 .link-landing:hover {
@@ -423,7 +474,7 @@ select {
   top: calc(32px + 4.6vw);
   border: 5px solid rgb(255, 219, 88);
   background-color: rgb(224, 173, 158);
-  font-size: 25px;
+  font-size: 22px;
   font-family: typewriter;
   padding: 20px 30px;
   line-height: 40px;
@@ -476,11 +527,11 @@ select {
 }
 
 .button-hamburger {
-  position: fixed;
+  position: absolute;
+  top: 0;
   height: calc(16px + 1.2vw);
   margin-left: calc(7px + 1.9vw);
   margin-top: calc(10px + 2.1vw);
-  /* transition: all 0.25s ease; */
   -webkit-transform: translateY(-20%);
   transform: translateY(-20%);
   -webkit-transition: all .25s linear;
@@ -488,9 +539,6 @@ select {
 }
 
 .button-hamburger:hover {
-  /* cursor: pointer;
-  transform: scale(1.05);
-  transition: all 0.25s ease; */
   -webkit-transform: translateY(-20%) scale(1.1);
   transform: translateY(-20%) scale(1.1);
   cursor: pointer;
