@@ -6,7 +6,7 @@ module.exports = {
   putGallery: (title, description, _id) => {
     let object = { title, description };
     for (let key in object) {
-      if (object[key] === '') {
+      if (!object[key]) {
         delete object[key];
       }
     }   
@@ -18,7 +18,7 @@ module.exports = {
   putMural: (title, description, _id) => {
     let object = { title, description };
     for (let key in object) {
-      if (object[key] === '') {
+      if (!object[key]) {
         delete object[key];
       }
     }
@@ -30,13 +30,13 @@ module.exports = {
   putAbout: (bio, _id) => aboutItem.findOneAndUpdate({ _id }, { bio }),
   putAboutPhoto: (fireBaseUrl, filename, _id) => aboutItem.findOneAndUpdate({ _id }, { fireBaseUrl, filename }),
   deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id }),
-  getEvent: () => eventItem.find().sort([['date', 1]]),
-  postEvent: (fireBaseUrl, title, resource, location, time, start, end, allDay, filename) => eventItem.create({ fireBaseUrl, title, resource, location, time, start, end, allDay, filename }),
-  putEvent: (title, resource, location, time, start, end, allDay, _id) => {
+  getEvent: () => eventItem.find().sort([['start', 1]]),
+  postEvent: (fireBaseUrl, title, resource, location, startDate, endDate, startTime, endTime, allDay, filename) => eventItem.create({ fireBaseUrl, title, resource, location, startDate, endDate, startTime, endTime, allDay, filename }),
+  putEvent: (title, resource, location, startDate, endDate, startTime, endTime, allDay, _id) => {
 
-    let object = { title, resource, location, time, start, end, allDay };
+    let object = { title, resource, location, startDate, endDate, startTime, endTime, allDay };
     for (let key in object) {
-      if (object[key] === '') {
+      if (!object[key]) {
         delete object[key];
       }
     }
@@ -50,7 +50,7 @@ module.exports = {
 
     let object = { title, description, width, height, price, category, quantity };
     for (let key in object) {
-      if (object[key] === '') {
+      if (!object[key]) {
         delete object[key];
       }
     }
@@ -64,7 +64,7 @@ module.exports = {
 
     let object = { name, email, phone, instagram };
     for (let key in object) {
-      if(object[key] === '') {
+      if(!object[key]) {
         delete object[key];
       }
     }

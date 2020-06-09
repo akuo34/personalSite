@@ -63,8 +63,8 @@ const Events = () => {
           localizer={localizer}
           events={images}
           views={['month', 'agenda']}
-          startAccessor="start"
-          endAccessor="end"
+          startAccessor="startDate"
+          endAccessor="endDate"
         />
         {Object.keys(currentEvent).length ?
           <div className="container-image-events">

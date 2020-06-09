@@ -69,7 +69,7 @@ h2 {
 }
 
 h3 {
-  font-size: 40px;
+  font-size: calc(25px + 1.5vw);
   font-family: typewriter;
   text-align: center;
   margin-top: 40px;
@@ -83,7 +83,8 @@ h4 {
 }
 
 p {
-  font-size: 20px;
+  font-size: calc(14px + 0.4vw);
+  margin-bottom: 5px;
 }
 
 button {
@@ -96,14 +97,20 @@ button:hover {
 
 input {
   outline: none;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 textarea {
   outline: none;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 select {
   outline: none;
+}
+
+label {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Main header --------------------------------------------------------------------------------- */
@@ -186,62 +193,54 @@ select {
 .body-gallery {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
   align-items: center;
 }
 
 .img-gallery {
-  /* height: 200px; */
-  height: calc(180px + 3vw);
-  padding: 10px 10px 20px 10px;
+  height: calc(150px + 4vw);
   border: 1px solid #BFBFBF;
-  background-color: white;
   box-shadow: 10px 10px 5px #aaaaaa;
+  margin-bottom: 20px;
 }
 
 .container-gallery-row {
   display: flex;
-  /* width: 100%; */
-  margin: 20px auto;
-  /* padding: 20px; */
+  flex-direction: row;
+  margin: auto;
   flex-wrap: wrap;
+  width: 90%;
   justify-content: space-evenly;
-  border: 1px solid green;
+  align-items: flex-start;
+  margin-bottom: 40px;
 }
 
 .container-gallery-img {
-  /* width: 400px; */
-  width: calc(300px + 10vw);
+  top: 0px;
+  width: calc(280px + 5vw);
+  height: calc(150px + 4vw);
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-right: 30px; */
-  /* margin-right: 0;
-  margin-left: 0; */
-  margin-right: auto;
-  margin-left: auto;
-  border: 1px solid red;
+  margin-bottom: 40px;
 }
 
 .container-gallery-title-description {
   display: flex;
   flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
-  width: calc(300px + 10vw);
-  /* margin-left: 30px; */
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid blue;
+  width: calc(240px + 7.5vw);
+  margin-left: 4vw;
+  margin-right: 4vw;
 }
 
 .form-gallery {
   border: 5px solid rgb(255, 219, 88);
   display: flex;
   flex-direction: column;
-  /* height: 250px; */
   padding: calc(10px + 1vw);
-  margin: 30px auto;
-  width: calc(200px + 20vw);
+  margin: 30px auto 40px auto;
+  width: calc(180px + 20vw);
   justify-content: space-evenly;
   align-items: center;
   background-color: rgb(138, 128, 96);
@@ -252,6 +251,14 @@ select {
 
 .text-gallery-form-header {
   color: rgb(224, 173, 158);
+}
+
+.input-description {
+  font-size: calc(14px + 0.4vw);
+  height: calc(100px - 1vw);
+  width: 85%;
+  margin: 0 auto;
+  margin-bottom: calc(12px + 0.7vw);
 }
 
 .input-gallery-title {
@@ -270,33 +277,35 @@ select {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .input-gallery-file {
-  font-size: 20px;
-  width: 40%;
+  font-size: calc(14px + 0.4vw);
+  width: calc(190px + 6vw);
   color: rgb(224, 173, 158);
+  margin-bottom: calc(12px + 0.7vw);
+}
+
+.input-gallery-file:hover {
+  cursor: pointer;
 }
 
 .button-gallery-post {
-  font-size: calc(16px + 0.4vw);
-  /* background-color: rgb(224, 173, 158); */
-  /* background-image: linear-gradient(rgb(236, 203, 191), rgb(224, 173, 158)); */
-  background-image: linear-gradient(rgb(224, 173, 158), rgb(219, 154, 135));
+  font-size: calc(14px + 0.4vw);
+  background-image: linear-gradient(rgb(219, 178, 166), rgb(219, 154, 135));
   color: rgb(100, 93, 69);
   padding: 5px 7px;
-  /* border: none; */
 }
 
 .button-gallery-post:hover {
-  /* background-color: rgb(255, 219, 88); */
-  /* background-image: linear-gradient(rgb(252, 201, 17), rgb(252, 230, 152)); */
-  background-image: linear-gradient(rgb(245, 219, 126), rgb(255, 219, 88));
+  background-image: linear-gradient(rgb(247, 222, 131), rgb(248, 204, 44));
 }
 
 .form-gallery-edit {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .container-form-buttons {
@@ -308,48 +317,49 @@ select {
 .form-events-row {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 75%;
+  margin-bottom: calc(12px + 0.7vw);
 }
 
-.form-events-column {
+.container-date-time {
   display: flex;
   flex-direction: column;
-}
-
-.input-events-location {
-  width: 387px;
-  font-size: 20px;
-  margin-right: 20px;
 }
 
 /* About Manager ------------------------------------------------------------------------------- */
 
 .container-about-render {
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
 }
 
 /* Store Manager ------------------------------------------------------------------------------- */
 
-.container-store {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .container-store-form-row {
   display: flex;
-  width: 100%;
-  justify-content: space-around;
+  width: 85%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* margin-bottom: calc(12px + 0.7vw); */
 }
 
 .container-store-form-column {
   display: flex;
   flex-direction: column;
-  margin-left: 0;
+  width: 100px;
+  margin-bottom: calc(12px + 0.7vw);
 }
 
 .container-store-category-buttons {
   display: flex;
-  width: 600px;
+  flex-wrap: wrap;
+  width: 75%;
   justify-content: space-evenly;
 }
 
@@ -362,7 +372,7 @@ select {
   font-size: 20px;
   display: inline-block;
   padding: 0.7em 1.4em;
-  margin: auto;
+  margin: 10px auto;
   border-radius: 0.15em;
   box-sizing: border-box;
   text-decoration: none;
@@ -384,18 +394,28 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 30px;
-  margin-left: 0;
+  width: calc(240px + 7.5vw);
 }
 
-.container-store-delete-photo {
+.img-store {
+  height: calc(130px + 4vw);
+  border: 1px solid #BFBFBF;
+  box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+.container-store-img {
+  width: calc(240px + 7.5vw);
+  height: calc(130px + 4vw);
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
 }
 
-.button-store-delete-photo {
-  margin-right: 85px;
-  margin-top: 10px;
+#form-store-edit-photo {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 /* Contact Manager ----------------------------------------------------------------------------- */
@@ -423,10 +443,10 @@ select {
 }
 
 .input-landing {
-  height: 30px;
   font-size: calc(14px + 0.4vw);
-  width: 75%;
-  margin: 0 auto 20px auto;
+  width: 85%;
+  margin: 0 auto;
+  margin-bottom: calc(12px + 0.7vw);
 }
 
 .container-landing-button {
@@ -563,9 +583,6 @@ select {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* margin: auto; */
-  /* margin-left: calc(15px + 2vw); */
-  /* margin-right: calc(15px + 2vw); */
 }
 
 .container-calendar {

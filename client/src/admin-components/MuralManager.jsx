@@ -6,6 +6,7 @@ const MuralManager = () => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
+  const [showEdit, setShowEdit] = useState(null);
 
   useEffect(() => {
     Axios
@@ -119,13 +120,18 @@ const MuralManager = () => {
       .catch(err => console.error(err));
   }
 
+  const editToggler = (e) => {
+    const _id = e.target.value;
+    showEdit === _id ? setShowEdit(null) : setShowEdit(_id);
+  }
+
   return (
-    <div>
+    <div className="body-gallery">
       <h3>Murals</h3>
       <form id="form-murals" className="form-gallery" onSubmit={handleFireBaseUpload}>
         <h4 className="text-gallery-form-header">Upload new photo</h4>
-        <input className="input-gallery-title" type="text" name="title" placeholder="Title" />
-        <textarea className="input-gallery-description" name="description" placeholder="Description" />
+        <input className="input-landing" type="text" name="title" placeholder="Title" />
+        <textarea className="input-description" name="description" placeholder="Description" />
         <div className="container-gallery-inputs">
           <input
             className="input-gallery-file"
@@ -142,18 +148,23 @@ const MuralManager = () => {
               <div className="container-gallery-img">
                 <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
               </div>
-              <div className="container-gallery-title-description" style={{"width":"300px"}}>
+              <div className="container-gallery-title-description">
                 <p>Title: {item.title}</p>
                 <p>Description: {item.description}</p>
                 <p>Date Uploaded: {item.date}</p>
+                <div className="container-form-buttons">
+                  <button value={item._id} type="submit" onClick={editToggler} style={{"marginRight":"5px"}}>Edit</button>
+                  <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
+                </div>
+                { showEdit === item._id ?
                 <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                  <input type="text" name="title" placeholder="Title"></input>
-                  <textarea name="description" placeholder="Description" style={{"height":"50px"}}></textarea>
+                  <input type="text" name="title" placeholder="Title" style={{"marginBottom":"5px", "marginTop":"5px"}}></input>
+                  <textarea name="description" placeholder="Description" style={{"height":"50px","marginBottom":"5px"}}></textarea>
                   <div className="container-form-buttons">
-                    <button type="submit">Edit</button>
-                    <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
+                    <button type="submit">Submit Changes</button>
                   </div>
-                </form>
+                </form> : null
+                }
               </div>
             </div>
           )

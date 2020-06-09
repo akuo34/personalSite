@@ -168,7 +168,7 @@ const AboutManager = () => {
       {allowUpload ?
         <form id="form-about" className="form-gallery" onSubmit={handleFireBaseUpload}>
           <h4 className="text-gallery-form-header">Create your bio</h4>
-          <textarea className="input-gallery-description" name="bio" placeholder="About me" style={{ "height": "90px" }} />
+          <textarea className="input-landing" name="bio" placeholder="About me" style={{ "height": "90px" }} />
           <div className="container-gallery-inputs">
             <input
               className="input-gallery-file"
@@ -188,26 +188,27 @@ const AboutManager = () => {
                   <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
                 </div>
                 <div className="container-gallery-title-description">
-                  <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                    <textarea name="bio" placeholder="Bio" style={{ "height": "80px" }}></textarea>
-                    <div className="container-form-buttons">
-                      <button type="submit">Edit</button>
-                      <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
-                    </div>
-                  </form>
                   <form id="form-edit-photo" onSubmit={handleChangePhoto} data-id={item._id} data-filename={item.filename}>
-                    <div style={{ "marginTop": "20px" }}>Change photo</div>
-                    <div>
+                    <div style={{"marginBottom":"5px"}}>Change photo</div>
+                    <div style={{"marginBottom":"20px"}}>
                       <input
                         type="file"
                         onChange={handleImageAsFile}
+                        style={{"marginBottom":"5px"}}
                       />
                       <button>Upload photo</button>
                     </div>
                   </form>
+                  <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                    <textarea name="bio" placeholder="Bio" style={{"height":"80px", "marginBottom":"5px" }}></textarea>
+                    <div className="container-form-buttons">
+                      <button type="submit" style={{"marginRight":"5px"}}>Edit</button>
+                      <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
+                    </div>
+                  </form>
                 </div>
               </div>
-              <p style={{ "width": "380px" }}>Bio: {item.bio}</p>
+              <p style={{ "width":"calc(160px + 40vw)", "marginBottom":"40px" }}>Bio: {item.bio}</p>
             </div>
           )
         })
