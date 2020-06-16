@@ -1,11 +1,11 @@
 .slider {
 	position: relative;
 	/* height: 500px; */
-	height: calc(150px + 25vw);
+	height: calc(150px + 20vw);
 	width: 95%;
 	/* width: calc(1000px + 5vw); */
 	/* width: auto; */
-	overflow: hidden
+	overflow: hidden;
 }
 
 .slider a.previousButton, .slider a.nextButton {

@@ -36,7 +36,12 @@ const Client = () => {
   return (
     <Router>
       <div className="container-client-header">
-        <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
+        {/* <img className="banner" src="https://calendar-trips.s3-us-west-1.amazonaws.com/104429826_185905029499822_2327782280144294970_n.jpg"></img> */}
+        {/* <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
+        <div className="container-icons">
+          <img className="button-cart" src="shopping_cart.svg"></img>
+          <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
+        </div> */}
         {
           <div id={showClientToolBar ? "nav-client" : "nav-client-hidden"}>
             <ul>
@@ -62,6 +67,12 @@ const Client = () => {
           </div>
         }
         <div className="container-main-header">
+          <img className="banner" src="https://calendar-trips.s3-us-west-1.amazonaws.com/104429826_185905029499822_2327782280144294970_n.jpg"></img>
+          <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
+          <div className="container-icons">
+            <img className="button-cart" src="shopping_cart.svg"></img>
+            <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
+          </div>
           <h1>the wild ones</h1>
         </div>
       </div>
@@ -83,7 +94,7 @@ const Client = () => {
           <Contact />
         </Route>
         <Route path="/admin">
-          <Main showAdminToolBar={showAdminToolBar} toolBarHandler={toolBarHandler}/>
+          <Main showAdminToolBar={showAdminToolBar} toolBarHandler={toolBarHandler} />
         </Route>
         <Route path="/">
           <Gallery />
