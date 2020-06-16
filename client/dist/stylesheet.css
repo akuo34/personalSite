@@ -71,10 +71,10 @@ h2 {
 }
 
 h3 {
-  font-size: calc(25px + 1.5vw);
+  font-size: calc(16px + 2.25vw);
   font-family: typewriter;
   text-align: center;
-  margin-top: 40px;
+  margin-top: calc(8px + 0.4vw);
   color: rgb(100, 93, 69);
 }
 
@@ -123,9 +123,9 @@ label {
 
 #nav-admin {
   z-index: 11;
-  position: absolute;
+  position: fixed;
   right: 0;
-  top: calc(32px + 4.6vw);
+  top: 20vh;
   border: 5px solid rgb(255, 219, 88);
   background-color: rgb(224, 173, 158);
   font-size: 22px;
@@ -140,8 +140,8 @@ label {
 
 #nav-admin-hidden {
   z-index: 11;
-  position: absolute;
-  top: calc(32px + 4.6vw);
+  position: fixed;
+  top: 20vh;
   border: 5px solid rgb(255, 219, 88);
   background-color: rgb(224, 173, 158);
   font-size: 22px;
@@ -156,17 +156,17 @@ label {
 }
 
 .container-scroll {
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: auto;
+  top: 20vh;
+  position: absolute;
 }
 
 .subheader-client {
   margin-bottom: calc(10px + 2vw);
   margin-top: calc(10px + 2vw);
-  z-index: 5;
 }
 
 .link:link {
@@ -428,6 +428,10 @@ label {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  height: 80vh;
+  width: 100vw;
+  top: 20vh;
 }
 
 #form-login {
@@ -466,47 +470,64 @@ label {
 
 /* Client -------------------------------------------------------------------------------------- */
 
-#main {
-  overflow-x: hidden;
-}
-
 .container-main-header {
+  z-index: 1;
   display: flex;
+  position: fixed;
   flex-direction: column;
   align-items: center;
   margin: auto;
   width: 100vw;
   height: 20vh;
   justify-content: center;
+  background-color: white;
 }
 
 .banner {
-  position: absolute;
+  position: fixed;
   opacity: 30%;
   width: 100vw;
   height: 20vh;
   object-fit: cover;
-  z-index: 1;
+  z-index: 2;
 }
 
 .logo {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: calc(60px + 4.5vw);
   width: calc(60px + 4.5vw);
+  border-radius: calc(30px + 2.25vw);
   position: absolute;
   margin-left: calc(7px + 1vw);
   margin-top: calc(7px + 1vh);
+  /* z-index: 2; */
+}
+
+.logo-home {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: calc(60px + 4.5vw);
+  width: calc(60px + 4.5vw);
+  border-radius: calc(30px + 2.25vw);
+  position: absolute;
+  margin-left: calc(7px + 1vw);
+  margin-top: calc(7px + 1vh);
+  /* background-color: white; */
+  /* opacity: 0.2; */
+  z-index: 3;
 }
 
 .container-icons {
   display: flex;
-  position: absolute;
+  position: fixed;
   align-items: center;
   top: 0;
   right: 0;
   height: 20vh;
+  z-index: 3;
 }
 
 .button-cart {
@@ -516,7 +537,6 @@ label {
   opacity: 0.55;
   -webkit-transition: all .25s linear;
   transition: all .25s linear;
-  z-index: 2;
 }
 
 .button-cart:hover {
@@ -534,7 +554,6 @@ label {
   transform: translateY(-20%);
   -webkit-transition: all .25s linear;
   transition: all .25s linear;
-  z-index: 2;
 }
 
 .button-hamburger:hover {
@@ -545,7 +564,7 @@ label {
 
 #nav-client {
   z-index: 11;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 20vh;
   border: 5px solid rgb(255, 219, 88);
@@ -608,11 +627,13 @@ label {
 
 .container-gallery-page {
   display: flex;
+  position: absolute;
+  top: 20vh;
+  width: 100vw;
   flex-direction: column;
   align-items: center;
   margin: auto;
-  height: 100%;
-  justify-content: space-evenly;
+  height: 80vh;
 }
 
 .container-client-header {
@@ -623,9 +644,10 @@ label {
 }
 
 .container-bio {
-  width: calc(250px + 5vw);
+  width: calc(240px + 4vw);
   line-height: 28px;
   margin-left: 5vw;
+  margin-bottom: 20px;
 }
 
 .container-client-events {

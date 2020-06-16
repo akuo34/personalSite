@@ -103,6 +103,51 @@ const GalleryManager = () => {
     document.getElementById(_id).reset();
   }
 
+  const handleChangeGallery = (e) => {
+    e.preventDefault();
+
+    const _id = e.target.dataset.id;
+    let filename = e.target.dataset.filename;
+
+    console.log('start of upload');
+
+    if (imageAsFile === '') {
+      console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
+    };
+
+    const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile);
+
+    uploadTask.on('state_changed', (snapshot) => {
+      console.log(snapshot)
+    }, (err) => {
+      console.log(err);
+    }, () => {
+      console.log('uploaded to firebase')
+      storage.ref('images').child(imageAsFile.name).getDownloadURL()
+        .then(fireBaseUrl => {
+
+          storage.ref('images').child(filename).delete()
+            .then(() => console.log('deleted from firebase'))
+            .catch(err => console.error(err));
+
+          filename = imageAsFile.name;
+
+          const request = { fireBaseUrl, filename };
+          Axios
+            .put(`/admin/api/gallery/photo/${_id}`, request)
+            .then(response => {
+              console.log(response);
+              getImages();
+              setImageAsFile('');
+            })
+            .catch(err => console.error(err))
+
+        });
+    });
+
+    document.getElementById('form-edit-gallery').reset();
+  };
+
   const deleteHandler = (e) => {
     const _id = e.target.value;
     const filename = e.target.dataset.filename;
@@ -153,17 +198,30 @@ const GalleryManager = () => {
                 <p>Description: {item.description}</p>
                 <p>Date Uploaded: {item.date}</p>
                 <div className="container-form-buttons">
-                  <button value={item._id} type="submit" style={{"marginRight":"5px"}} onClick={editToggler}>Edit</button>
+                  <button value={item._id} type="submit" style={{ "marginRight": "5px" }} onClick={editToggler}>Edit</button>
                   <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
                 </div>
-                { showEdit === item._id ?
-                <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                  <input type="text" name="title" placeholder="Title" style={{"marginBottom":"5px", "marginTop":"5px"}}></input>
-                  <textarea name="description" placeholder="Description" style={{"height":"50px", "marginBottom":"5px"}}></textarea>
-                  <div className="container-form-buttons">
-                    <button type="submit" style={{"marginRight":"5px"}}>Submit Changes</button>
-                  </div>
-                </form> : null
+                {showEdit === item._id ?
+                  <div>
+                    <form id="form-edit-gallery" onSubmit={handleChangeGallery} data-id={item._id} data-filename={item.filename}>
+                      <div style={{ "marginBottom": "5px", "marginTop": "20px" }}>Change photo</div>
+                      <div style={{ "marginBottom": "20px" }}>
+                        <input
+                          type="file"
+                          onChange={handleImageAsFile}
+                          style={{ "marginBottom": "5px" }}
+                        />
+                        <button>Upload photo</button>
+                      </div>
+                    </form>
+                    <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                      <input type="text" name="title" placeholder="Title" style={{ "marginBottom": "5px", "marginTop": "5px" }}></input>
+                      <textarea name="description" placeholder="Description" style={{ "height": "50px", "marginBottom": "5px" }}></textarea>
+                      <div className="container-form-buttons">
+                        <button type="submit" style={{ "marginRight": "5px" }}>Submit Changes</button>
+                      </div>
+                    </form>
+                  </div> : null
                 }
               </div>
             </div>

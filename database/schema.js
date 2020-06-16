@@ -17,9 +17,11 @@ const muralSchema = new mongoose.Schema({
 });
 
 const aboutSchema = new mongoose.Schema({
-  fireBaseUrl: String,
+  portraitFireBaseUrl: String,
   bio: String,
-  filename: String
+  portraitFilename: String,
+  bannerFireBaseUrl: String,
+  bannerFilename: String
 });
 
 const eventSchema = new mongoose.Schema({

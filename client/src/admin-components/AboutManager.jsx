@@ -63,10 +63,13 @@ const AboutManager = () => {
     }, () => {
       console.log('uploaded to firebase')
       storage.ref('about').child(imageAsFile.name).getDownloadURL()
-        .then(fireBaseUrl => {
+        .then(portraitFireBaseUrl => {
 
-          let filename = imageAsFile.name;
-          const request = { fireBaseUrl, bio, filename };
+          let portraitFilename = imageAsFile.name;
+          let bannerFireBaseUrl = '';
+          let bannerFilename = '';
+
+          const request = { portraitFireBaseUrl, bio, portraitFilename, bannerFireBaseUrl, bannerFilename };
 
           Axios
             .post('/admin/api/about', request)
@@ -83,11 +86,11 @@ const AboutManager = () => {
     document.getElementById('form-about').reset();
   };
 
-  const handleChangePhoto = (e) => {
+  const handleChangePortrait = (e) => {
     e.preventDefault();
 
     const _id = e.target.dataset.id;
-    let filename = e.target.dataset.filename;
+    let portraitFilename = e.target.dataset.filename;
 
     console.log('start of upload');
 
@@ -104,17 +107,17 @@ const AboutManager = () => {
     }, () => {
       console.log('uploaded to firebase')
       storage.ref('about').child(imageAsFile.name).getDownloadURL()
-        .then(fireBaseUrl => {
+        .then(portraitFireBaseUrl => {
 
-          storage.ref('about').child(filename).delete()
+          storage.ref('about').child(portraitFilename).delete()
             .then(() => console.log('deleted from firebase'))
             .catch(err => console.error(err));
 
-          filename = imageAsFile.name;
+          portraitFilename = imageAsFile.name;
 
-          const request = { fireBaseUrl, filename };
+          const request = { portraitFireBaseUrl, portraitFilename };
           Axios
-            .put(`/admin/api/about/photo/${_id}`, request)
+            .put(`/admin/api/about/portrait/${_id}`, request)
             .then(response => {
               getBio();
               console.log(response);
@@ -125,7 +128,70 @@ const AboutManager = () => {
         });
     });
 
-    document.getElementById('form-edit-photo').reset();
+    document.getElementById('form-edit-portrait').reset();
+  };
+
+  const handleChangeBanner = (e) => {
+    e.preventDefault();
+
+    const _id = e.target.dataset.id;
+    let oldBannerFilename = e.target.dataset.filename;
+
+    console.log('start of upload');
+
+    if (imageAsFile === '') {
+      console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
+    };
+
+    const uploadTask = storage.ref(`/about/${imageAsFile.name}`).put(imageAsFile);
+
+    uploadTask.on('state_changed', (snapshot) => {
+      console.log(snapshot)
+    }, (err) => {
+      console.log(err);
+    }, () => {
+      console.log('uploaded to firebase')
+      storage.ref('about').child(imageAsFile.name).getDownloadURL()
+        .then(bannerFireBaseUrl => {
+
+          if (oldBannerFilename) {
+            storage.ref('about').child(oldBannerFilename).delete()
+              .then(() => {
+                console.log('deleted from firebase');
+
+                let bannerFilename = imageAsFile.name;
+                const request = { bannerFireBaseUrl, bannerFilename };
+
+                Axios
+                  .put(`/admin/api/about/banner/${_id}`, request)
+                  .then(response => {
+                    getBio();
+                    window.location.reload();
+                    console.log(response);
+                    setImageAsFile('');
+                  })
+                  .catch(err => console.error(err))
+              })
+              .catch(err => console.error(err));
+          } else {
+
+            let bannerFilename = imageAsFile.name;
+            const request = { bannerFireBaseUrl, bannerFilename };
+
+            Axios
+              .put(`/admin/api/about/banner/${_id}`, request)
+              .then(response => {
+                getBio();
+                window.location.reload();
+                console.log(response);
+                setImageAsFile('');
+              })
+              .catch(err => console.error(err))
+          }
+        });
+    });
+
+    document.getElementById('form-edit-banner').reset();
   };
 
   const editHandler = (e) => {
@@ -147,15 +213,23 @@ const AboutManager = () => {
 
   const deleteHandler = (e) => {
     const _id = e.target.value;
-    const filename = e.target.dataset.filename;
+    const portraitFilename = e.target.dataset.portraitfilename;
+    const bannerFilename = e.target.dataset.bannerfilename;
+    console.log(portraitFilename);
+    console.log(bannerFilename);
 
     Axios
       .delete(`/admin/api/about/${_id}`)
       .then(response => {
         console.log(response)
         getBio();
+        window.location.reload();
 
-        storage.ref('about').child(filename).delete()
+        storage.ref('about').child(portraitFilename).delete()
+          .then(() => console.log('deleted from firebase'))
+          .catch(err => console.error(err));
+
+        storage.ref('about').child(bannerFilename).delete()
           .then(() => console.log('deleted from firebase'))
           .catch(err => console.error(err));
       })
@@ -163,7 +237,7 @@ const AboutManager = () => {
   }
 
   return (
-    <div>
+    <div className="body-gallery">
       <h3>About</h3>
       {allowUpload ?
         <form id="form-about" className="form-gallery" onSubmit={handleFireBaseUpload}>
@@ -185,30 +259,41 @@ const AboutManager = () => {
             <div className="container-about-render">
               <div className="container-gallery-row">
                 <div className="container-gallery-img">
-                  <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
+                  <img className="img-gallery" src={item.portraitFireBaseUrl} alt="gallery img" />
                 </div>
                 <div className="container-gallery-title-description">
-                  <form id="form-edit-photo" onSubmit={handleChangePhoto} data-id={item._id} data-filename={item.filename}>
-                    <div style={{"marginBottom":"5px"}}>Change photo</div>
+                  <form id="form-edit-portrait" onSubmit={handleChangePortrait} data-id={item._id} data-filename={item.portraitFilename}>
+                    <div style={{"marginBottom":"5px"}}>Change portrait</div>
                     <div style={{"marginBottom":"20px"}}>
                       <input
                         type="file"
                         onChange={handleImageAsFile}
                         style={{"marginBottom":"5px"}}
                       />
-                      <button>Upload photo</button>
+                      <button>Upload portrait</button>
+                    </div>
+                  </form>
+                  <form id="form-edit-banner" onSubmit={handleChangeBanner} data-id={item._id} data-filename={item.bannerFilename}>
+                    <div style={{"marginBottom":"5px"}}>Change banner</div>
+                    <div style={{"marginBottom":"20px"}}>
+                      <input
+                        type="file"
+                        onChange={handleImageAsFile}
+                        style={{"marginBottom":"5px"}}
+                      />
+                      <button>Upload banner</button>
                     </div>
                   </form>
                   <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
                     <textarea name="bio" placeholder="Bio" style={{"height":"80px", "marginBottom":"5px" }}></textarea>
                     <div className="container-form-buttons">
                       <button type="submit" style={{"marginRight":"5px"}}>Edit</button>
-                      <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
+                      <button value={item._id} onClick={deleteHandler} data-bannerfilename={item.bannerFilename} data-portraitfilename={item.portraitFilename}>Delete</button>
                     </div>
                   </form>
                 </div>
               </div>
-              <p style={{ "width":"calc(160px + 40vw)", "marginBottom":"40px" }}>Bio: {item.bio}</p>
+              <p style={{ "width":"calc(140px + 40vw)", "marginBottom":"40px" }}>Bio: {item.bio}</p>
             </div>
           )
         })

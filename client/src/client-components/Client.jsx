@@ -17,6 +17,7 @@ const Client = () => {
   const [showClientToolBar, setShowClientToolBar] = useState(false);
   const [showAdminToolBar, setShowAdminToolBar] = useState(false);
   const [user, setUser] = useState(null);
+  const [banner, setBanner] = useState(null);
 
   useEffect(() => {
     Axios
@@ -33,44 +34,46 @@ const Client = () => {
     }
   }
 
+  useEffect(() => {
+    Axios
+      .get('/admin/api/about')
+      .then(response => setBanner(response.data[0].bannerFireBaseUrl))
+      .catch(err => console.error(err));
+  }, [banner])
+
   return (
     <Router>
       <div className="container-client-header">
-        {/* <img className="banner" src="https://calendar-trips.s3-us-west-1.amazonaws.com/104429826_185905029499822_2327782280144294970_n.jpg"></img> */}
-        {/* <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
-        <div className="container-icons">
-          <img className="button-cart" src="shopping_cart.svg"></img>
-          <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
-        </div> */}
-        {
-          <div id={showClientToolBar ? "nav-client" : "nav-client-hidden"}>
-            <ul>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/">gallery</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/about">about</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/events">events</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/murals">murals</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/store">store</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/contact">contact</Link>
-              </li>
-            </ul>
-          </div>
-        }
+        <div id={showClientToolBar ? "nav-client" : "nav-client-hidden"}>
+          <ul>
+            <li>
+              <Link className="link" onClick={toolBarHandler} to="/">gallery</Link>
+            </li>
+            <li>
+              <Link className="link" onClick={toolBarHandler} to="/about">about</Link>
+            </li>
+            <li>
+              <Link className="link" onClick={toolBarHandler} to="/events">events</Link>
+            </li>
+            <li>
+              <Link className="link" onClick={toolBarHandler} to="/murals">murals</Link>
+            </li>
+            <li>
+              <Link className="link" onClick={toolBarHandler} to="/store">store</Link>
+            </li>
+            <li>
+              <Link className="link" onClick={toolBarHandler} to="/contact">contact</Link>
+            </li>
+          </ul>
+        </div>
         <div className="container-main-header">
-          <img className="banner" src="https://calendar-trips.s3-us-west-1.amazonaws.com/104429826_185905029499822_2327782280144294970_n.jpg"></img>
+          <img className="banner" src={banner}></img>
+          <a href="http://192.168.0.11:3434">
+            <div className="logo-home"></div>
+          </a>
           <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
           <div className="container-icons">
-            <img className="button-cart" src="shopping_cart.svg"></img>
+            <img className="button-cart" src="https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart.svg"></img>
             <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
           </div>
           <h1>the wild ones</h1>

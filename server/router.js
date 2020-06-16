@@ -12,6 +12,10 @@ router
   .delete(controller.deleteGallery)
 
 router
+  .route('/gallery/photo/:_id')
+  .put(controller.putGalleryPhoto)
+
+router
   .route('/murals')
   .get(controller.getMural)
   .post(controller.postMural)
@@ -32,8 +36,12 @@ router
   .delete(controller.deleteAbout)
 
 router
-  .route('/about/photo/:_id')
-  .put(controller.putAboutPhoto)
+  .route('/about/portrait/:_id')
+  .put(controller.putAboutPortrait)
+
+router
+  .route('/about/banner/:_id')
+  .put(controller.putAboutBanner)
 
 router
   .route('/events')

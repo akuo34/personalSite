@@ -58,9 +58,7 @@ const Main = (props) => {
       :
       <Router>
         <div className="container-landing">
-          <h2>admin console</h2>
-        </div>
-
+          <h2 className="subheader-client">admin console</h2>
         <Switch>
           <Route path="/admin/passwordReset">
             <PasswordReset />
@@ -69,6 +67,7 @@ const Main = (props) => {
             <LogIn signInHandler={e => signInHandler(e)} />
           </Route>
         </Switch>
+        </div>
       </Router>
   )
 }

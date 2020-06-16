@@ -12,6 +12,7 @@ module.exports = {
     }   
     return galleryItem.findOneAndUpdate({ _id }, object)
   },
+  putGalleryPhoto: (fireBaseUrl, filename, _id) => galleryItem.findOneAndUpdate({ _id }, { fireBaseUrl, filename }),
   deleteGallery: (_id) => galleryItem.findByIdAndDelete({ _id }),
   getMural: () => muralItem.find(),
   postMural: (title, description, fireBaseUrl, date, filename) => muralItem.create({ title, description, fireBaseUrl, date, filename }),
@@ -26,9 +27,10 @@ module.exports = {
   },
   deleteMural: (_id) => muralItem.findByIdAndDelete({ _id }),
   getAbout: () => aboutItem.find(),
-  postAbout: (fireBaseUrl, bio, filename) => aboutItem.create({ fireBaseUrl, bio, filename }),
+  postAbout: (portraitFireBaseUrl, bio, portraitFilename, bannerFireBaseUrl, bannerFilename) => aboutItem.create({ portraitFireBaseUrl, bio, portraitFilename, bannerFireBaseUrl, bannerFilename }),
   putAbout: (bio, _id) => aboutItem.findOneAndUpdate({ _id }, { bio }),
-  putAboutPhoto: (fireBaseUrl, filename, _id) => aboutItem.findOneAndUpdate({ _id }, { fireBaseUrl, filename }),
+  putAboutPortrait: (portraitFireBaseUrl, portraitFilename, _id) => aboutItem.findOneAndUpdate({ _id }, { portraitFireBaseUrl, portraitFilename }),
+  putAboutBanner: (bannerFireBaseUrl, bannerFilename, _id) => aboutItem.findOneAndUpdate({ _id }, { bannerFireBaseUrl, bannerFilename }),
   deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id }),
   getEvent: () => eventItem.find().sort([['start', 1]]),
   postEvent: (fireBaseUrl, title, resource, location, startDate, endDate, startTime, endTime, allDay, filename) => eventItem.create({ fireBaseUrl, title, resource, location, startDate, endDate, startTime, endTime, allDay, filename }),

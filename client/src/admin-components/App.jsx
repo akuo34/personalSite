@@ -44,7 +44,7 @@ const App = (props) => {
           </nav>
         </div>
         <div className="container-scroll">
-          <h2>admin console</h2>
+          <h2 className="subheader-client">admin console</h2>
 
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}

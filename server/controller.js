@@ -22,6 +22,14 @@ module.exports = {
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },
+  putGalleryPhoto: (req, res) => {
+    const { fireBaseUrl, filename } = req.body;
+    const { _id } = req.params;
+    model
+      .putGalleryPhoto(fireBaseUrl, filename, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
   deleteGallery: (req, res) => {
     const { _id } = req.params;
     model
@@ -64,9 +72,9 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   postAbout: (req, res) => {
-    const { fireBaseUrl, bio, filename } = req.body;
+    const { portraitFireBaseUrl, bio, portraitFilename, bannerFireBaseUrl, bannerFilename } = req.body;
     model
-      .postAbout(fireBaseUrl, bio, filename)
+      .postAbout(portraitFireBaseUrl, bio, portraitFilename, bannerFireBaseUrl, bannerFilename)
       .then(() => res.status(201).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   }, 
@@ -78,11 +86,19 @@ module.exports = {
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },
-  putAboutPhoto: (req, res) => {
-    const { fireBaseUrl, filename } = req.body;
+  putAboutPortrait: (req, res) => {
+    const { portraitFireBaseUrl, portraitFilename } = req.body;
     const { _id } = req.params;
     model
-      .putAboutPhoto(fireBaseUrl, filename, _id)
+      .putAboutPortrait(portraitFireBaseUrl, portraitFilename, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  putAboutBanner: (req, res) => {
+    const { bannerFireBaseUrl, bannerFilename } = req.body;
+    const { _id } = req.params;
+    model
+      .putAboutBanner(bannerFireBaseUrl, bannerFilename, _id)
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },

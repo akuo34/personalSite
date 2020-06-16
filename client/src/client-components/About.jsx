@@ -25,7 +25,7 @@ const About = () => {
       <h2 className="subheader-client">about the artist</h2>
       {images.length ?
         <div className="container-image-about">
-          <img className="image-about" src={images[0].fireBaseUrl} alt="about-image"></img>
+          <img className="image-about" src={images[0].portraitFireBaseUrl} alt="about-image"></img>
           <p className="container-bio">{images[0].bio}</p>
         </div> : null
       }
