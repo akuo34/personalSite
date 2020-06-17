@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { storage } from '../firebase/firebase';
 import Axios from 'axios';
-import FadeLoader from 'react-spinners/FadeLoader';
+import DotLoader from 'react-spinners/DotLoader';
 
 const GalleryManager = () => {
 
@@ -53,6 +53,7 @@ const GalleryManager = () => {
 
     if (imageAsFile === '') {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
+      setLoading(false);
     };
 
     let randomizer = (Math.floor(Math.random() * (1000 - 1)) + 1).toString();
@@ -119,6 +120,7 @@ const GalleryManager = () => {
 
     if (imageAsFile === '') {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
+      setLoading(false);
     };
 
     const uploadTask = storage.ref(`/images/${imageAsFile.name}`).put(imageAsFile);
@@ -180,8 +182,8 @@ const GalleryManager = () => {
     <div className="body-gallery">
       <h3>Gallery</h3>
       <div className="container-loader">
-        <FadeLoader
-          size={150}
+        <DotLoader
+          size={75}
           color={"#645D45"}
           loading={loading}
         />

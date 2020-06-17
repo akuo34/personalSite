@@ -58,6 +58,14 @@ module.exports = {
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },
+  putMuralPhoto: (req, res) => {
+    const { fireBaseUrl, filename } = req.body;
+    const { _id } = req.params;
+    model
+      .putMuralPhoto(fireBaseUrl, filename, _id)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
   deleteMural: (req, res) => {
     const { _id } = req.params;
     model

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { storage } from '../firebase/firebase';
 import Axios from 'axios';
+import DotLoader from 'react-spinners/DotLoader';
 
 const MuralManager = () => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
   const [showEdit, setShowEdit] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     Axios
@@ -35,6 +37,7 @@ const MuralManager = () => {
         let array = response.data;
 
         setUrlList(array);
+        setLoading(false);
       })
       .catch(err => console.error(err));
   }
@@ -42,6 +45,8 @@ const MuralManager = () => {
   const handleFireBaseUpload = (e) => {
     e.preventDefault();
 
+    setLoading(true);
+    
     const description = e.target.description.value;
     const title = e.target.title.value;
 
@@ -49,6 +54,7 @@ const MuralManager = () => {
 
     if (imageAsFile === '') {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
+      setLoading(false);
     };
 
     let randomizer = (Math.floor(Math.random() * (1000 - 1)) + 1).toString();
@@ -103,6 +109,54 @@ const MuralManager = () => {
     document.getElementById(_id).reset();
   }
 
+  const handleChangeMural = (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const _id = e.target.dataset.id;
+    let filename = e.target.dataset.filename;
+
+    console.log('start of upload');
+
+    if (imageAsFile === '') {
+      console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
+      setLoading(false);
+    };
+
+    const uploadTask = storage.ref(`/murals/${imageAsFile.name}`).put(imageAsFile);
+
+    uploadTask.on('state_changed', (snapshot) => {
+      console.log(snapshot)
+    }, (err) => {
+      console.log(err);
+    }, () => {
+      console.log('uploaded to firebase')
+      storage.ref('murals').child(imageAsFile.name).getDownloadURL()
+        .then(fireBaseUrl => {
+
+          storage.ref('murals').child(filename).delete()
+            .then(() => console.log('deleted from firebase'))
+            .catch(err => console.error(err));
+
+          filename = imageAsFile.name;
+
+          const request = { fireBaseUrl, filename };
+          Axios
+            .put(`/admin/api/murals/photo/${_id}`, request)
+            .then(response => {
+              console.log(response);
+              getImages();
+              setImageAsFile('');
+            })
+            .catch(err => console.error(err))
+
+        });
+    });
+
+    document.getElementById('form-edit-mural').reset();
+  };
+
   const deleteHandler = (e) => {
     const _id = e.target.value;
     const filename = e.target.dataset.filename;
@@ -128,6 +182,13 @@ const MuralManager = () => {
   return (
     <div className="body-gallery">
       <h3>Murals</h3>
+      <div className="container-loader">
+        <DotLoader
+          size={75}
+          color={"#645D45"}
+          loading={loading}
+        />
+      </div>
       <form id="form-murals" className="form-gallery" onSubmit={handleFireBaseUpload}>
         <h4 className="text-gallery-form-header">Upload new photo</h4>
         <input className="input-landing" type="text" name="title" placeholder="Title" />
@@ -153,17 +214,30 @@ const MuralManager = () => {
                 <p>Description: {item.description}</p>
                 <p>Date Uploaded: {item.date}</p>
                 <div className="container-form-buttons">
-                  <button value={item._id} type="submit" onClick={editToggler} style={{"marginRight":"5px"}}>Edit</button>
+                  <button value={item._id} type="submit" onClick={editToggler} style={{ "marginRight": "5px" }}>Edit</button>
                   <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
                 </div>
-                { showEdit === item._id ?
-                <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                  <input type="text" name="title" placeholder="Title" style={{"marginBottom":"5px", "marginTop":"5px"}}></input>
-                  <textarea name="description" placeholder="Description" style={{"height":"50px","marginBottom":"5px"}}></textarea>
-                  <div className="container-form-buttons">
-                    <button type="submit">Submit Changes</button>
-                  </div>
-                </form> : null
+                {showEdit === item._id ?
+                  <div>
+                    <form id="form-edit-mural" onSubmit={handleChangeMural} data-id={item._id} data-filename={item.filename}>
+                      <div style={{ "marginBottom": "5px", "marginTop": "20px" }}>Change photo</div>
+                      <div style={{ "marginBottom": "20px" }}>
+                        <input
+                          type="file"
+                          onChange={handleImageAsFile}
+                          style={{ "marginBottom": "5px" }}
+                        />
+                        <button>Upload photo</button>
+                      </div>
+                    </form>
+                    <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                      <input type="text" name="title" placeholder="Title" style={{ "marginBottom": "5px", "marginTop": "5px" }}></input>
+                      <textarea name="description" placeholder="Description" style={{ "height": "50px", "marginBottom": "5px" }}></textarea>
+                      <div className="container-form-buttons">
+                        <button type="submit">Submit Changes</button>
+                      </div>
+                    </form>
+                  </div> : null
                 }
               </div>
             </div>

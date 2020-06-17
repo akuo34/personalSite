@@ -44,27 +44,29 @@ const Client = () => {
   return (
     <Router>
       <div className="container-client-header">
-        <div id={showClientToolBar ? "nav-client" : "nav-client-hidden"}>
-          <ul>
-            <li>
-              <Link className="link" onClick={toolBarHandler} to="/">gallery</Link>
-            </li>
-            <li>
-              <Link className="link" onClick={toolBarHandler} to="/about">about</Link>
-            </li>
-            <li>
-              <Link className="link" onClick={toolBarHandler} to="/events">events</Link>
-            </li>
-            <li>
-              <Link className="link" onClick={toolBarHandler} to="/murals">murals</Link>
-            </li>
-            <li>
-              <Link className="link" onClick={toolBarHandler} to="/store">store</Link>
-            </li>
-            <li>
-              <Link className="link" onClick={toolBarHandler} to="/contact">contact</Link>
-            </li>
-          </ul>
+        <div className={showClientToolBar ? "wrapper-nav-client" : "wrapper-nav-client-hidden"} onClick={toolBarHandler}>
+          <div id={showClientToolBar ? "nav-client" : "nav-client-hidden"}>
+            <ul>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/">gallery</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/about">about</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/events">events</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/murals">murals</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/store">store</Link>
+              </li>
+              <li>
+                <Link className="link" onClick={toolBarHandler} to="/contact">contact</Link>
+              </li>
+            </ul>
+          </div>
         </div>
         <div className="container-main-header">
           <img className="banner" src={banner}></img>

@@ -26,6 +26,10 @@ router
   .delete(controller.deleteMural)
 
 router
+  .route('/murals/photo/:_id')
+  .put(controller.putMuralPhoto)
+
+router
   .route('/about')
   .get(controller.getAbout)
   .post(controller.postAbout)

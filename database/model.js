@@ -25,6 +25,7 @@ module.exports = {
     }
     return muralItem.findOneAndUpdate({ _id }, object)
   },
+  putMuralPhoto: (fireBaseUrl, filename, _id) => muralItem.findOneAndUpdate({ _id }, { fireBaseUrl, filename }),
   deleteMural: (_id) => muralItem.findByIdAndDelete({ _id }),
   getAbout: () => aboutItem.find(),
   postAbout: (portraitFireBaseUrl, bio, portraitFilename, bannerFireBaseUrl, bannerFilename) => aboutItem.create({ portraitFireBaseUrl, bio, portraitFilename, bannerFireBaseUrl, bannerFilename }),

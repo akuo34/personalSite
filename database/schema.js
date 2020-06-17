@@ -27,7 +27,6 @@ const aboutSchema = new mongoose.Schema({
 const eventSchema = new mongoose.Schema({
   fireBaseUrl: String,
   title: String,
-  // description: String,
   location: String,
   startDate: Date,
   endDate: Date,
@@ -35,7 +34,6 @@ const eventSchema = new mongoose.Schema({
   endTime: String,
   allDay: Boolean,
   resource: String,
-  // date: String,
   filename: String
 });
 
