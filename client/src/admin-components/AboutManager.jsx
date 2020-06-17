@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { storage } from '../firebase/firebase';
 import Axios from 'axios';
+import FadeLoader from 'react-spinners/FadeLoader';
 
 const AboutManager = () => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
   const [allowUpload, setAllowUpload] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     Axios
@@ -35,16 +37,18 @@ const AboutManager = () => {
     Axios
       .get('/admin/api/about')
       .then(response => {
-
         let array = response.data;
-
+        
         setUrlList(array);
+        setLoading(false);
       })
       .catch(err => console.error(err));
   }
 
   const handleFireBaseUpload = (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const bio = e.target.bio.value;
 
@@ -88,6 +92,8 @@ const AboutManager = () => {
 
   const handleChangePortrait = (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const _id = e.target.dataset.id;
     let portraitFilename = e.target.dataset.filename;
@@ -133,6 +139,8 @@ const AboutManager = () => {
 
   const handleChangeBanner = (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const _id = e.target.dataset.id;
     let oldBannerFilename = e.target.dataset.filename;
@@ -182,6 +190,7 @@ const AboutManager = () => {
               .put(`/admin/api/about/banner/${_id}`, request)
               .then(response => {
                 getBio();
+                setLoading(false);
                 window.location.reload();
                 console.log(response);
                 setImageAsFile('');
@@ -239,6 +248,13 @@ const AboutManager = () => {
   return (
     <div className="body-gallery">
       <h3>About</h3>
+      <div className="container-loader">
+        <FadeLoader
+          size={150}
+          color={"#645D45"}
+          loading={loading}
+        />
+      </div>
       {allowUpload ?
         <form id="form-about" className="form-gallery" onSubmit={handleFireBaseUpload}>
           <h4 className="text-gallery-form-header">Create your bio</h4>

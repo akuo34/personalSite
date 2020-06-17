@@ -1,10 +1,7 @@
 .slider {
 	position: relative;
-	/* height: 500px; */
 	height: calc(150px + 20vw);
 	width: 95%;
-	/* width: calc(1000px + 5vw); */
-	/* width: auto; */
 	overflow: hidden;
 }
 
@@ -16,8 +13,8 @@
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	        transform: translateY(-50%);
-	-webkit-transition: all .25s linear;
-	transition: all .25s linear;
+	-webkit-transition: all .25s ease;
+	transition: all .25s ease;
 	z-index: 1;
 	color: #333;
 	padding: 10px;

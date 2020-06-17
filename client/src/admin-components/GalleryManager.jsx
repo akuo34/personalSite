@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { storage } from '../firebase/firebase';
 import Axios from 'axios';
+import FadeLoader from 'react-spinners/FadeLoader';
 
 const GalleryManager = () => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
   const [showEdit, setShowEdit] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     Axios
@@ -31,16 +33,18 @@ const GalleryManager = () => {
     Axios
       .get('/admin/api/gallery')
       .then(response => {
-
         let array = response.data;
 
         setUrlList(array);
+        setLoading(false);
       })
       .catch(err => console.error(err));
   }
 
   const handleFireBaseUpload = (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const description = e.target.description.value;
     const title = e.target.title.value;
@@ -105,6 +109,8 @@ const GalleryManager = () => {
 
   const handleChangeGallery = (e) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const _id = e.target.dataset.id;
     let filename = e.target.dataset.filename;
@@ -173,6 +179,13 @@ const GalleryManager = () => {
   return (
     <div className="body-gallery">
       <h3>Gallery</h3>
+      <div className="container-loader">
+        <FadeLoader
+          size={150}
+          color={"#645D45"}
+          loading={loading}
+        />
+      </div>
       <form id="form-gallery" className="form-gallery" onSubmit={handleFireBaseUpload}>
         <h4 className="text-gallery-form-header">Upload new photo</h4>
         <input className="input-landing" type="text" name="title" placeholder="Title" />
