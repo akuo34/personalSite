@@ -160,6 +160,7 @@ const GalleryManager = () => {
   const deleteHandler = (e) => {
     const _id = e.target.value;
     const filename = e.target.dataset.filename;
+    const index = parseInt(e.target.dataset.index);
 
     Axios
       .delete(`/admin/api/gallery/${_id}`)
@@ -172,6 +173,17 @@ const GalleryManager = () => {
           .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
+
+    for (let i = index + 1; i < urlList.length; i++) {
+      let _id = urlList[i]._id;
+      let newIndex = i - 1;
+      let request = { title: '', description: '', index: newIndex };
+
+      Axios
+        .put(`/admin/api/gallery/${_id}`, request)
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
+    }
   }
 
   const editToggler = (e) => {
@@ -279,7 +291,7 @@ const GalleryManager = () => {
                 <p>Date Uploaded: {item.date}</p>
                 <div className="container-form-buttons">
                   <button value={item._id} type="submit" style={{ "marginRight": "5px" }} onClick={editToggler}>Edit</button>
-                  <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
+                  <button value={item._id} onClick={deleteHandler} data-filename={item.filename} data-index={item.index}>Delete</button>
                 </div>
                 {showEdit === item._id ?
                   <div>

@@ -14,10 +14,10 @@ module.exports = {
   },
   putGalleryPhoto: (fireBaseUrl, filename, _id) => galleryItem.findOneAndUpdate({ _id }, { fireBaseUrl, filename }),
   deleteGallery: (_id) => galleryItem.findByIdAndDelete({ _id }),
-  getMural: () => muralItem.find(),
-  postMural: (title, description, fireBaseUrl, date, filename) => muralItem.create({ title, description, fireBaseUrl, date, filename }),
-  putMural: (title, description, _id) => {
-    let object = { title, description };
+  getMural: () => muralItem.find().sort([['index', 1]]),
+  postMural: (title, description, fireBaseUrl, date, filename, index) => muralItem.create({ title, description, fireBaseUrl, date, filename, index }),
+  putMural: (title, description, _id, index) => {
+    let object = { title, description, index };
     for (let key in object) {
       if (object[key] === '') {
         delete object[key];

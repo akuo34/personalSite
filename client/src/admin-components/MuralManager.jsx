@@ -74,8 +74,9 @@ const MuralManager = () => {
 
           let date = new Date()
           date = date.toDateString();
+          let index = urlList.length;
 
-          const request = { fireBaseUrl, description, title, date, filename };
+          const request = { fireBaseUrl, description, title, date, filename, index };
 
           Axios
             .post('/admin/api/murals', request)
@@ -160,6 +161,7 @@ const MuralManager = () => {
   const deleteHandler = (e) => {
     const _id = e.target.value;
     const filename = e.target.dataset.filename;
+    const index = parseInt(e.target.dataset.index);
 
     Axios
       .delete(`/admin/api/murals/${_id}`)
@@ -172,11 +174,72 @@ const MuralManager = () => {
           .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
+    
+    for (let i = index + 1; i < urlList.length; i++) {
+      let _id = urlList[i]._id;
+      let newIndex = i - 1;
+      let request = { title: '', description: '', index: newIndex };
+
+      Axios
+        .put(`/admin/api/murals/${_id}`, request)
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
+    }
   }
 
   const editToggler = (e) => {
     const _id = e.target.value;
     showEdit === _id ? setShowEdit(null) : setShowEdit(_id);
+  }
+
+  const moveUpHandler = (e) => {
+    const originalIndex = parseInt(e.target.dataset.index);
+    const _id = e.target.dataset.id;
+
+    if (originalIndex > 0) {
+      let index = originalIndex - 1;
+      let swapperId = urlList[index]._id;
+
+      Axios
+        .put(`/admin/api/murals/${_id}`, { index, title: '', description: '' })
+        .then(response => {
+          console.log(response);
+
+          Axios
+            .put(`/admin/api/murals/${swapperId}`, { index: originalIndex, title: '', description: '' })
+            .then(response => {
+              console.log(response);
+              getImages();
+            })
+            .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  const moveDownHandler = (e) => {
+    const originalIndex = parseInt(e.target.dataset.index);
+    const _id = e.target.dataset.id;
+
+    if (originalIndex < urlList.length - 1) {
+      let index = originalIndex + 1;
+      let swapperId = urlList[index]._id;
+
+      Axios
+        .put(`/admin/api/murals/${_id}`, { index, title: '', description: '' })
+        .then(response => {
+          console.log(response);
+
+          Axios
+            .put(`/admin/api/murals/${swapperId}`, { index: originalIndex, title: '', description: '' })
+            .then(response => {
+              console.log(response);
+              getImages();
+            })
+            .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
+    }
   }
 
   return (
@@ -209,13 +272,27 @@ const MuralManager = () => {
               <div className="container-gallery-img">
                 <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
               </div>
+              <div className="container-up-down">
+                <img className="arrow-up"
+                  onClick={moveUpHandler}
+                  data-id={item._id}
+                  data-index={item.index}
+                  src="https://calendar-trips.s3-us-west-1.amazonaws.com/up_arrow.png"
+                  alt="up arrow" />
+                <img className="arrow-down"
+                  onClick={moveDownHandler}
+                  data-id={item._id}
+                  data-index={item.index}
+                  src="https://calendar-trips.s3-us-west-1.amazonaws.com/down_arrow.png"
+                  alt="down arrow" />
+              </div>
               <div className="container-gallery-title-description">
                 <p>Title: {item.title}</p>
                 <p>Description: {item.description}</p>
                 <p>Date Uploaded: {item.date}</p>
                 <div className="container-form-buttons">
                   <button value={item._id} type="submit" onClick={editToggler} style={{ "marginRight": "5px" }}>Edit</button>
-                  <button value={item._id} onClick={deleteHandler} data-filename={item.filename}>Delete</button>
+                  <button value={item._id} onClick={deleteHandler} data-filename={item.filename} data-index={item.index}>Delete</button>
                 </div>
                 {showEdit === item._id ?
                   <div>
