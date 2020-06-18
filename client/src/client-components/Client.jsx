@@ -41,6 +41,10 @@ const Client = () => {
       .catch(err => console.error(err));
   }, [banner])
 
+  const returnHome = () => {
+    window.location = "http://192.168.0.11:3434";
+  }
+
   return (
     <Router>
       <div className="container-client-header">
@@ -70,9 +74,9 @@ const Client = () => {
         </div>
         <div className="container-main-header">
           <img className="banner" src={banner}></img>
-          <a href="http://192.168.0.11:3434">
-            <div className="logo-home"></div>
-          </a>
+          <div className="container-logo-home">
+            <div className="logo-home" onClick={returnHome}></div>
+          </div>
           <div className="container-logo">
             <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
           </div>
