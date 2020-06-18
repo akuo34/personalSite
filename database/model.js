@@ -1,12 +1,12 @@
 const { galleryItem, muralItem, aboutItem, eventItem, storeItem, contactItem, mailingListItem } = require('./');
 
 module.exports = {
-  getGallery: () => galleryItem.find(),
-  postGallery: (title, description, fireBaseUrl, date, filename) => galleryItem.create({ title, description, fireBaseUrl, date, filename }),
-  putGallery: (title, description, _id) => {
-    let object = { title, description };
+  getGallery: () => galleryItem.find().sort([['index', 1]]),
+  postGallery: (title, description, fireBaseUrl, date, filename, index) => galleryItem.create({ title, description, fireBaseUrl, date, filename, index }),
+  putGallery: (title, description, _id, index) => {
+    let object = { title, description, index };
     for (let key in object) {
-      if (!object[key]) {
+      if (object[key] === '') {
         delete object[key];
       }
     }   
@@ -19,7 +19,7 @@ module.exports = {
   putMural: (title, description, _id) => {
     let object = { title, description };
     for (let key in object) {
-      if (!object[key]) {
+      if (object[key] === '') {
         delete object[key];
       }
     }

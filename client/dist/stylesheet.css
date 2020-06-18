@@ -60,8 +60,12 @@ h1 {
   font-size: calc(16px + 2.25vw);
   font-family: typewriter;
   color: rgb(100, 93, 69);
-  margin-top: calc(100px - 6vw);
+  /* margin-top: calc(100px - 6vw); */
   z-index: 5;
+  text-align: center;
+  width: calc(60px + 30vw);
+  /* justify-self: center; */
+  margin: 0 auto;
 }
 
 h2 {
@@ -119,19 +123,20 @@ label {
 
 .container-page {
   display: flex;
+  z-index: 1;
 }
 
 #nav-admin {
   z-index: 11;
   position: fixed;
   right: 0;
-  top: 20vh;
+  top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  background-color: rgb(224, 173, 158);
-  font-size: 22px;
+  background-color: rgb(190, 173, 108);
+  font-size: calc(14px + 1vh);
   font-family: typewriter;
-  padding: 20px 30px;
-  line-height: 40px;
+  padding: calc(14px + 1vh) calc(20px + 1vh);
+  line-height: calc(20px + 2vh);
   transition: right 0.25s;
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
@@ -141,13 +146,13 @@ label {
 #nav-admin-hidden {
   z-index: 11;
   position: fixed;
-  top: 20vh;
+  top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  background-color: rgb(224, 173, 158);
-  font-size: 22px;
+  background-color: rgb(190, 173, 108);
+  font-size: calc(14px + 1vh);
   font-family: typewriter;
-  padding: 20px 30px;
-  line-height: 40px;
+  padding: calc(14px + 1vh) calc(20px + 1vh);
+  line-height: calc(20px + 2vh);
   right: -200px;
   transition: right 0.25s;
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
@@ -160,8 +165,6 @@ label {
   flex-direction: column;
   align-items: center;
   margin: auto;
-  top: 20vh;
-  position: absolute;
 }
 
 .subheader-client {
@@ -171,12 +174,15 @@ label {
 
 .link:link {
   text-decoration: none;
-  color: black;
+  /* color: black; */
+  color: rgb(100, 93, 69);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .link:visited {
   text-decoration: none;
-  color: black;
+  /* color: black; */
+  color: rgb(100, 93, 69);
 }
 
 .link:hover {
@@ -213,7 +219,7 @@ label {
   margin: auto;
   flex-wrap: wrap;
   width: 90%;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: flex-start;
   margin-bottom: 40px;
 }
@@ -226,6 +232,34 @@ label {
   flex-direction: column;
   align-items: center;
   margin-bottom: 40px;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.container-up-down {
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  margin: 0 20px;
+}
+
+.arrow-up {
+  height: 20px;
+  margin-bottom: 10px;
+  opacity: 0.55;
+}
+
+.arrow-up:hover {
+  cursor: pointer;
+}
+
+.arrow-down {
+  height: 20px;
+  opacity: 0.55;
+}
+
+.arrow-down:hover {
+  cursor: pointer;
 }
 
 .container-gallery-title-description {
@@ -233,12 +267,11 @@ label {
   flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
   width: calc(240px + 7.5vw);
-  margin-left: 4vw;
-  margin-right: 4vw;
 }
 
 .form-gallery {
   border: 5px solid rgb(255, 219, 88);
+  /* border: 5px solid rgb(100, 93, 69); */
   display: flex;
   flex-direction: column;
   padding: calc(10px + 1vw);
@@ -246,14 +279,17 @@ label {
   width: calc(180px + 20vw);
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgb(138, 128, 96);
+  /* background-color: rgb(138, 128, 96); */
+  background-color: rgb(190, 173, 108);
+  /* background-color: rgb(220, 202, 152); */
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
 }
 
 .text-gallery-form-header {
-  color: rgb(224, 173, 158);
+  /* color: rgb(224, 173, 158); */
+  color: rgb(100, 93, 69);
 }
 
 .input-description {
@@ -286,7 +322,8 @@ label {
 .input-gallery-file {
   font-size: calc(14px + 0.4vw);
   width: calc(190px + 6vw);
-  color: rgb(224, 173, 158);
+  /* color: rgb(224, 173, 158); */
+  color: rgb(100, 93, 69);
   margin-bottom: calc(12px + 0.7vw);
 }
 
@@ -437,9 +474,7 @@ label {
   flex-direction: column;
   align-items: center;
   position: absolute;
-  height: 80vh;
   width: 100vw;
-  top: 20vh;
 }
 
 #form-login {
@@ -465,11 +500,13 @@ label {
 
 .link-landing:link {
   text-decoration: none;
-  color: rgb(224, 173, 158);
+  /* color: rgb(224, 173, 158); */
+  color: rgb(100, 93, 69);
 }
 
 .link-landing:visited {
   text-decoration: none;
+  color: rgb(100, 93, 69);
 }
 
 .link-landing:hover {
@@ -479,15 +516,13 @@ label {
 /* Client -------------------------------------------------------------------------------------- */
 
 .container-main-header {
-  z-index: 1;
+  z-index: 2;
   display: flex;
   position: fixed;
-  flex-direction: column;
   align-items: center;
-  margin: auto;
   width: 100vw;
-  height: 20vh;
-  justify-content: center;
+  height: calc(60px + 7vw);
+  max-height: 20vh;
   background-color: white;
 }
 
@@ -495,22 +530,26 @@ label {
   position: fixed;
   opacity: 30%;
   width: 100vw;
-  height: 20vh;
+  height: calc(60px + 7vw);
+  max-height: 20vh;
   object-fit: cover;
-  z-index: 2;
+  z-index: 3;
+}
+
+.container-logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  height: calc(60px + 7vw);
+  max-height: 20vh;
 }
 
 .logo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: calc(60px + 4.5vw);
-  width: calc(60px + 4.5vw);
-  border-radius: calc(30px + 2.25vw);
-  position: absolute;
+  height: 80%;
   margin-left: calc(7px + 1vw);
-  margin-top: calc(7px + 1vh);
-  /* z-index: 2; */
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .logo-home {
@@ -523,26 +562,36 @@ label {
   position: absolute;
   margin-left: calc(7px + 1vw);
   margin-top: calc(7px + 1vh);
-  /* background-color: white; */
-  /* opacity: 0.2; */
-  z-index: 3;
+  z-index: 4;
+}
+
+.container-h1 {
+  justify-self: center;
+  margin: 0 auto;
+  z-index: 5;
 }
 
 .container-icons {
   display: flex;
   position: fixed;
-  align-items: center;
   top: 0;
   right: 0;
-  height: 20vh;
-  z-index: 3;
+  /* position: fixed; */
+  align-items: center;
+  /* top: 0; */
+  /* right: 0; */
+  /* height: 20vh; */
+  /* height: calc(80px + 5vw); */
+  height: calc(60px + 7vw);
+  max-height: 20vh;
+  z-index: 5;
 }
 
 .button-cart {
   height: calc(16px + 2vw);
   width: calc(16px + 2vw);
   margin-right: calc(7px + 1.9vw);
-  opacity: 0.55;
+  opacity: 0.8;
   -webkit-transition: all .25s linear;
   transition: all .25s linear;
 }
@@ -589,13 +638,13 @@ label {
   z-index: 11;
   position: fixed;
   right: 0;
-  top: 20vh;
+  top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  background-color: rgb(224, 173, 158);
-  font-size: 22px;
+  background-color: rgb(190, 173, 108);
+  font-size: calc(14px + 1vh);
   font-family: typewriter;
-  padding: 20px 30px;
-  line-height: 40px;
+  padding: calc(14px + 1vh) calc(20px + 1vh);
+  line-height: calc(20px + 2vh);
   transition: right 0.25s;
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
@@ -605,13 +654,13 @@ label {
 #nav-client-hidden {
   z-index: 11;
   position: fixed;
-  top: 20vh;
+  top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  background-color: rgb(224, 173, 158);
-  font-size: 22px;
+  background-color: rgb(190, 173, 108);
+  font-size: calc(14px + 1vh);
   font-family: typewriter;
-  padding: 20px 30px;
-  line-height: 40px;
+  padding: calc(14px + 1vh) calc(20px + 1vh);
+  line-height: calc(20px + 2vh);
   right: -200px;
   transition: right 0.25s;
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
@@ -648,15 +697,17 @@ label {
   margin-bottom: 20px;
 }
 
+.buffer {
+  height: calc(60px + 7vw);
+  max-height: 20vh;
+}
+
 .container-gallery-page {
   display: flex;
-  position: absolute;
-  top: 20vh;
   width: 100vw;
   flex-direction: column;
   align-items: center;
   margin: auto;
-  height: 80vh;
 }
 
 .container-client-header {

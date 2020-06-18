@@ -23,17 +23,20 @@ const Murals = () => {
   }
 
   return (
-    <div className="container-gallery-page">
-      <h2 className="subheader-client">murals</h2>
-      <Slider duration="800">
-        {images.map((image, index) => {
-          return (
-            <div className="container-image-gallery" key={index}>
-              <img className="image-gallery" src={image.fireBaseUrl} alt="gallery-image"></img>
-            </div>
-          )
-        })}
-      </Slider>
+    <div>
+      <div className="buffer"></div>
+      <div className="container-gallery-page">
+        <h2 className="subheader-client">murals</h2>
+        <Slider duration="800">
+          {images.map((image, index) => {
+            return (
+              <div className="container-image-gallery" key={index}>
+                <img className="image-gallery" src={image.fireBaseUrl} alt="gallery-image"></img>
+              </div>
+            )
+          })}
+        </Slider>
+      </div>
     </div>
   )
 }

@@ -73,12 +73,16 @@ const Client = () => {
           <a href="http://192.168.0.11:3434">
             <div className="logo-home"></div>
           </a>
-          <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
+          <div className="container-logo">
+            <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
+          </div>
+          <div className='container-h1'>
+            <h1>the wild ones</h1>
+          </div>
           <div className="container-icons">
-            <img className="button-cart" src="https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart.svg"></img>
+            <img className="button-cart" src="https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart_colored.svg"></img>
             <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
           </div>
-          <h1>the wild ones</h1>
         </div>
       </div>
 

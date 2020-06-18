@@ -55,41 +55,43 @@ const Events = () => {
   }
 
   return (
-    <div className="container-gallery-page">
-      <h2 className="subheader-client">events</h2>
-      <div className="container-calendar">
-        <Calendar
-          onSelectEvent={selectEventHandler}
-          localizer={localizer}
-          events={images}
-          views={['month', 'agenda']}
-          startAccessor="startDate"
-          endAccessor="endDate"
-        />
-        {Object.keys(currentEvent).length ?
-          <div className="container-image-events">
-            <h3 style={{ "marginBottom": "20px" }}>{currentEvent.title}</h3>
-            <img className="image-events" src={currentEvent.fireBaseUrl} alt="gallery-image"></img>
-            <div className="container-client-events">
-              <p style={{ "marginBottom": "20px" }}>{currentEvent.resource}</p>
-              <p style={{ "marginBottom": "20px" }}>Where: {currentEvent.location}</p>
-              {/* <p>When: {currentEvent.start} to {currentEvent.end} at {currentEvent.time}</p> */}
+    <div>
+      <div className="buffer"></div>
+      <div className="container-gallery-page">
+        <h2 className="subheader-client">events</h2>
+        <div className="container-calendar">
+          <Calendar
+            onSelectEvent={selectEventHandler}
+            localizer={localizer}
+            events={images}
+            views={['month', 'agenda']}
+            startAccessor="startDate"
+            endAccessor="endDate"
+          />
+          {Object.keys(currentEvent).length ?
+            <div className="container-image-events">
+              <h3 style={{ "marginBottom": "20px" }}>{currentEvent.title}</h3>
+              <img className="image-events" src={currentEvent.fireBaseUrl} alt="gallery-image"></img>
+              <div className="container-client-events">
+                <p style={{ "marginBottom": "20px" }}>{currentEvent.resource}</p>
+                <p style={{ "marginBottom": "20px" }}>Where: {currentEvent.location}</p>
+                {/* <p>When: {currentEvent.start} to {currentEvent.end} at {currentEvent.time}</p> */}
+              </div>
             </div>
-          </div> 
-          : images.length ?
-          <div className="container-image-events">
-            <h4>Next Event</h4>
-            <h4 style={{ "marginBottom": "20px" }}>{images[0].title}</h4>
-            <img className="image-events" src={images[0].fireBaseUrl} alt="gallery-image"></img>
-            <div className="container-client-events">
-              <p style={{ "marginBottom": "20px" }}>{images[0].resource}</p>
-              <p style={{ "marginBottom": "20px" }}>Where: {images[0].location}</p>
-              {/* <p>When: {currentEvent.start} to {currentEvent.end} at {currentEvent.time}</p> */}
-            </div>
-          </div> : null
-        }
-      </div>
-      {/* {images.map((image, index) => {
+            : images.length ?
+              <div className="container-image-events">
+                <h4>Next Event</h4>
+                <h4 style={{ "marginBottom": "20px" }}>{images[0].title}</h4>
+                <img className="image-events" src={images[0].fireBaseUrl} alt="gallery-image"></img>
+                <div className="container-client-events">
+                  <p style={{ "marginBottom": "20px" }}>{images[0].resource}</p>
+                  <p style={{ "marginBottom": "20px" }}>Where: {images[0].location}</p>
+                  {/* <p>When: {currentEvent.start} to {currentEvent.end} at {currentEvent.time}</p> */}
+                </div>
+              </div> : null
+          }
+        </div>
+        {/* {images.map((image, index) => {
         return (
           <div className="container-image-events" key={index}>
             <img className="image-events" src={image.fireBaseUrl} alt="gallery-image"></img>
@@ -102,6 +104,7 @@ const Events = () => {
           </div>
         )
       })} */}
+      </div>
     </div>
   )
 }

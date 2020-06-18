@@ -73,8 +73,9 @@ const GalleryManager = () => {
 
           let date = new Date()
           date = date.toDateString();
+          let index = urlList.length;
 
-          const request = { fireBaseUrl, description, title, date, filename };
+          const request = { fireBaseUrl, description, title, date, filename, index };
 
           Axios
             .post('/admin/api/gallery', request)
@@ -98,7 +99,7 @@ const GalleryManager = () => {
     const description = e.target.description.value;
 
     Axios
-      .put(`/admin/api/gallery/${_id}`, { title, description })
+      .put(`/admin/api/gallery/${_id}`, { title, description, index: '' })
       .then(response => {
         getImages();
         console.log(response)
@@ -178,6 +179,56 @@ const GalleryManager = () => {
     showEdit === _id ? setShowEdit(null) : setShowEdit(_id);
   }
 
+  const moveUpHandler = (e) => {
+    const originalIndex = parseInt(e.target.dataset.index);
+    const _id = e.target.dataset.id;
+
+    if (originalIndex > 0) {
+      let index = originalIndex - 1;
+      let swapperId = urlList[index]._id;
+
+      Axios
+        .put(`/admin/api/gallery/${_id}`, { index, title: '', description: '' })
+        .then(response => {
+          console.log(response);
+
+          Axios
+            .put(`/admin/api/gallery/${swapperId}`, { index: originalIndex, title: '', description: '' })
+            .then(response => {
+              console.log(response);
+              getImages();
+            })
+            .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
+  const moveDownHandler = (e) => {
+    const originalIndex = parseInt(e.target.dataset.index);
+    const _id = e.target.dataset.id;
+
+    if (originalIndex < urlList.length - 1) {
+      let index = originalIndex + 1;
+      let swapperId = urlList[index]._id;
+
+      Axios
+        .put(`/admin/api/gallery/${_id}`, { index, title: '', description: '' })
+        .then(response => {
+          console.log(response);
+
+          Axios
+            .put(`/admin/api/gallery/${swapperId}`, { index: originalIndex, title: '', description: '' })
+            .then(response => {
+              console.log(response);
+              getImages();
+            })
+            .catch(err => console.error(err));
+        })
+        .catch(err => console.error(err));
+    }
+  }
+
   return (
     <div className="body-gallery">
       <h3>Gallery</h3>
@@ -207,6 +258,20 @@ const GalleryManager = () => {
             <div className="container-gallery-row">
               <div className="container-gallery-img">
                 <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
+              </div>
+              <div className="container-up-down">
+                <img className="arrow-up"
+                  onClick={moveUpHandler}
+                  data-id={item._id}
+                  data-index={item.index}
+                  src="https://calendar-trips.s3-us-west-1.amazonaws.com/up_arrow.png"
+                  alt="up arrow" />
+                <img className="arrow-down"
+                  onClick={moveDownHandler}
+                  data-id={item._id}
+                  data-index={item.index}
+                  src="https://calendar-trips.s3-us-west-1.amazonaws.com/down_arrow.png"
+                  alt="down arrow" />
               </div>
               <div className="container-gallery-title-description">
                 <p>Title: {item.title}</p>

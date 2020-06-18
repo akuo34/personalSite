@@ -312,7 +312,7 @@ const AboutManager = () => {
                   </form>
                 </div>
               </div>
-              <p style={{ "width":"calc(140px + 40vw)", "marginBottom":"40px" }}>Bio: {item.bio}</p>
+              <p style={{ "width":"calc(140px + 40vw)", "marginBottom":"40px", "lineHeight":"28px" }}>Bio: {item.bio}</p>
             </div>
           )
         })

@@ -57,6 +57,7 @@ const Main = (props) => {
       <App showAdminToolBar={props.showAdminToolBar} toolBarHandler={props.toolBarHandler} clearCookie={clearCookie}></App>
       :
       <Router>
+        <div className="buffer"></div>
         <div className="container-landing">
           <h2 className="subheader-client">admin console</h2>
         <Switch>

@@ -8,17 +8,17 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   postGallery: (req, res) => {
-    const { title, description, fireBaseUrl, date, filename } = req.body;
+    const { title, description, fireBaseUrl, date, filename, index } = req.body;
     model
-      .postGallery(title, description, fireBaseUrl, date, filename)
+      .postGallery(title, description, fireBaseUrl, date, filename, index)
       .then(() => res.status(201).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   },
   putGallery: (req, res) => {
-    const { title, description } = req.body;
+    const { title, description, index } = req.body;
     const { _id } = req.params;
     model
-      .putGallery(title, description, _id)
+      .putGallery(title, description, _id, index)
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },

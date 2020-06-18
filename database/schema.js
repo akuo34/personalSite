@@ -5,7 +5,8 @@ const gallerySchema = new mongoose.Schema({
   title: String,
   description: String,
   date: String,
-  filename: String
+  filename: String,
+  index: Number
 });
 
 const muralSchema = new mongoose.Schema({
@@ -13,7 +14,8 @@ const muralSchema = new mongoose.Schema({
   title: String,
   description: String,
   date: String,
-  filename: String
+  filename: String,
+  index: Number
 });
 
 const aboutSchema = new mongoose.Schema({
