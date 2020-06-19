@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-// import * as BigCalendar from 'react-big-calendar'
-import { Calendar, momentLocalizer, globalizeLocalizer } from 'react-big-calendar'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
-// import globalize from 'globalize';
 
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
-// const localizer = globalizeLocalizer(globalize);
 
 const Events = () => {
   const [images, setImages] = useState([]);

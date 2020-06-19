@@ -241,7 +241,7 @@ const MuralManager = () => {
   return (
     <div className="body-gallery">
       <h3>Murals</h3>
-      <div className="container-loader">
+      <div className={loading ? "container-loader" : "container-loader-hidden"}>
         <DotLoader
           size={75}
           color={"#645D45"}

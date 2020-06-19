@@ -240,7 +240,7 @@ const GalleryManager = () => {
   return (
     <div className="body-gallery">
       <h3>Gallery</h3>
-      <div className="container-loader">
+      <div className={loading ? "container-loader" : "container-loader-hidden"}>
         <DotLoader
           size={75}
           color={"#645D45"}
@@ -261,7 +261,7 @@ const GalleryManager = () => {
         </div>
       </form>
       {
-        urlList.map(item => {
+        urlList.map((item, key) => {
           return (
             <div className="container-gallery-row">
               <div className="container-gallery-img">

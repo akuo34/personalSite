@@ -246,7 +246,7 @@ const AboutManager = () => {
   return (
     <div className="body-gallery">
       <h3>About</h3>
-      <div className="container-loader">
+      <div className={loading ? "container-loader" : "container-loader container-loader-hidden"}>
         <DotLoader
           size={75}
           color={"#645D45"}
@@ -282,7 +282,7 @@ const AboutManager = () => {
                       <input
                         type="file"
                         onChange={handleImageAsFile}
-                        style={{"marginBottom":"5px", "border":"1px solid red"}}
+                        style={{"marginBottom":"5px"}}
                       />
                       <button>Upload portrait</button>
                     </div>

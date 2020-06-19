@@ -172,18 +172,18 @@ const EventManager = () => {
         <input className="input-landing" type="text" name="title" placeholder="Title" />
         <input className="input-landing" type="text" name="location" placeholder="Location" />
         <textarea className="input-description" name="description" placeholder="Description" />
-        <div className="form-events-row">
-          <label style={{ "marginBottom": "5px", "color": "rgb(224, 173, 158)", "fontSize": "calc(14px + 0.3vw)" }} >Start Date/Time: </label>
-          <div className="container-date-time">
-            <input style={{ "marginBottom": "5px" }} type="date" name="startDate" />
-            <input type="time" name="startTime" />
+        <div className="form-1-events-row">
+          <label className="label-1-date-time">Start Date/Time: </label>
+          <div className="container-date-time-column">
+            <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="startDate" />
+            <input className="input-date-time" type="time" name="startTime" />
           </div>
         </div>
-        <div className="form-events-row">
-          <label style={{ "marginBottom": "5px", "color": "rgb(224, 173, 158)", "fontSize": "calc(14px + 0.3vw)" }} >End &nbsp;Date/Time:</label>
-          <div className="container-date-time">
-            <input style={{ "marginBottom": "5px" }} type="date" name="endDate" />
-            <input type="time" name="endTime" />
+        <div className="form-1-events-row">
+          <label className="label-1-date-time">End Date/Time:</label>
+          <div className="container-date-time-column">
+            <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="endDate" />
+            <input className="input-date-time" type="time" name="endTime" />
           </div>
         </div>
         <div className="container-gallery-inputs">
@@ -196,13 +196,13 @@ const EventManager = () => {
         </div>
       </form>
       {
-        urlList.map(item => {
+        urlList.map((item, key) => {
           return (
             <div className="container-gallery-row">
-              <div className="container-gallery-img">
+              <div className="container-events-img">
                 <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
               </div>
-              <div className="container-gallery-title-description">
+              <div className="container-events-title-description">
                 <p>Title: {item.title}</p>
                 <p>Location: {item.location}</p>
                 <p>Start Date: {item.startDate}</p>
@@ -219,18 +219,18 @@ const EventManager = () => {
                   <input style={{"marginBottom":"5px", "marginTop":"5px"}} type="text" name="title" placeholder="Title" />
                   <input style={{"marginBottom":"5px"}} type="text" name="location" placeholder="Location" />
                   <textarea name="description" placeholder="Description" style={{"height":"50px","marginBottom":"5px" }}></textarea>
-                  <div style={{"display":"flex","width":"100%","alignContent":"center"}}>
-                    <p style={{"width":"210px"}}>Start Date/Time: </p>
-                    <div style={{"width":"136px","justifySelf":"flexEnd"}}>
-                      <input style={{"marginBottom":"5px"}} type="date" name="startDate" />
-                      <input style={{"marginBottom":"5px"}} type="time" name="startTime" />
+                  <div className="form-2-events-row">
+                    <p className="label-2-date-time">Start Date/Time: </p>
+                    <div className="container-date-time-column">
+                      <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="startDate" />
+                      <input className="input-date-time" type="time" name="startTime" />
                     </div>
                   </div>
-                  <div style={{"display":"flex","width":"100%"}}>
-                    <p style={{"width":"210px"}}>End &nbsp;Date/Time: </p>
-                    <div style={{"width":"136px","justifySelf":"flexEnd"}}>
-                      <input style={{"marginBottom":"5px"}} type="date" name="endDate" />
-                      <input style={{"marginBottom":"5px"}} type="time" name="endTime" />
+                  <div className="form-2-events-row">
+                    <p className="label-2-date-time">End &nbsp;Date/Time: </p>
+                    <div className="container-date-time-column">
+                      <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="endDate" />
+                      <input className="input-date-time" type="time" name="endTime" />
                     </div>
                   </div>
                   <div className="container-form-buttons">

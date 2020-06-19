@@ -197,6 +197,10 @@ label {
   height: 75px;
 }
 
+.container-loader-hidden {
+  visibility: hidden;
+}
+
 .body-gallery {
   display: flex;
   flex-direction: column;
@@ -277,7 +281,7 @@ label {
   display: flex;
   flex-direction: column;
   padding: calc(10px + 1vw);
-  margin: 30px auto 40px auto;
+  margin: 30px auto 80px auto;
   width: calc(180px + 20vw);
   justify-content: space-evenly;
   align-items: center;
@@ -347,24 +351,71 @@ label {
   width: 100%;
 }
 
-.container-form-buttons {
+.form-buttons {
   display: flex;
 }
 
 /* Events Manager ------------------------------------------------------------------------------ */
 
-.form-events-row {
+.form-1-events-row {
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  width: 75%;
+  width: 85%;
   margin-bottom: calc(12px + 0.7vw);
 }
 
-.container-date-time {
+.form-2-events-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 98.5%;
+  margin-bottom: 5px;
+}
+
+.label-1-date-time {
+  margin-bottom: 5px;
+  color: rgb(100, 93, 69);
+  font-size: calc(14px + 0.3vw);
+  justify-self: flex-start;
+  width: 35%;
+  margin-right: auto;
+}
+
+.label-2-date-time {
+  margin-bottom: 5px;
+  font-size: calc(14px + 0.3vw);
+  justify-self: flex-start;
+  margin-right: auto;
+}
+
+.container-date-time-column {
   display: flex;
   flex-direction: column;
+  width: calc(115px + 2.4vw);
+}
+
+.input-date-time {
+  width: 100%;
+}
+
+.container-events-img {
+  width: calc(280px + 5vw);
+  height: calc(150px + 4vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+.container-events-title-description {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  width: calc(230px + 12vw);
+  margin: 0 6px;
 }
 
 /* About Manager ------------------------------------------------------------------------------- */
@@ -615,7 +666,7 @@ label {
   height: calc(16px + 2vw);
   width: calc(16px + 2vw);
   margin-right: calc(7px + 1.9vw);
-  opacity: 0.55;
+  opacity: 0.45;
   -webkit-transition: all .25s linear;
   -webkit-tap-highlight-color: transparent;
   transition: all .25s linear;
@@ -735,6 +786,10 @@ label {
   /* box-shadow: 10px 10px 5px #aaaaaa; */
 }
 
+.image-grid:hover {
+  cursor: pointer;
+}
+
 .modal-image-zoom {
   position: fixed;
   width: 100vw;
@@ -744,11 +799,16 @@ label {
   background-color: black;
   opacity: 90%;
   z-index: 11;
-  transition: all 0.35s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
 }
 
 .modal-image-zoom-hidden {
   position: fixed;
+  /* width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0; */
   top: 50vh;
   left: 50vw;
   width: 0;
@@ -756,20 +816,22 @@ label {
   visibility: hidden;
   opacity: 0;
   z-index: 11;
-  transition: all 0.35s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
 }
 
 .container-modal-image {
   position: fixed;
   height: 80vh;
   width: 100vw;
-  max-height: 60vw;
+  max-height: 70vw;
   top: calc(50vh - min(80vh, 60vw)/2);
   left: 0;
   text-align: center;
   z-index: 12;
   opacity: 100%;
   transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
 }
 
 /* .container-model */
@@ -788,7 +850,8 @@ label {
   left: 50vw;
   visibility: hidden;
   opacity: 0%;
-  transition: all 0.35s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
 }
 
 .modal-image {
@@ -797,6 +860,7 @@ label {
   z-index: 12;
   opacity: 100%;
   transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
 }
 
 /* .modal-image-transformed {
@@ -815,6 +879,7 @@ label {
   left: 50vw;
   visibility: hidden;
   transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out;
 }
 
 .container-image-about {
