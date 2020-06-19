@@ -282,7 +282,7 @@ const AboutManager = () => {
                       <input
                         type="file"
                         onChange={handleImageAsFile}
-                        style={{"marginBottom":"5px"}}
+                        style={{"marginBottom":"5px", "border":"1px solid red"}}
                       />
                       <button>Upload portrait</button>
                     </div>

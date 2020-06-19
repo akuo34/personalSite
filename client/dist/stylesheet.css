@@ -130,7 +130,8 @@ label {
   right: 0;
   top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  background-color: rgb(190, 173, 108);
+  /* background-color: rgb(190, 173, 108); */
+  background-color: rgb(220, 202, 152);
   font-size: calc(14px + 1vh);
   font-family: typewriter;
   padding: calc(14px + 1vh) calc(20px + 1vh);
@@ -146,7 +147,8 @@ label {
   position: fixed;
   top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  background-color: rgb(190, 173, 108);
+  /* background-color: rgb(190, 173, 108); */
+  background-color: rgb(220, 202, 152);
   font-size: calc(14px + 1vh);
   font-family: typewriter;
   padding: calc(14px + 1vh) calc(20px + 1vh);
@@ -279,7 +281,8 @@ label {
   width: calc(180px + 20vw);
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgb(190, 173, 108);
+  /* background-color: rgb(190, 173, 108); */
+  background-color: rgb(220, 202, 152);
   -webkit-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   -moz-box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
   box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
@@ -662,7 +665,8 @@ label {
   right: 0;
   top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  background-color: rgb(190, 173, 108);
+  /* background-color: rgb(190, 173, 108); */
+  background-color: rgb(220, 202, 152);
   font-size: calc(14px + 1vh);
   font-family: typewriter;
   padding: calc(14px + 1vh) calc(20px + 1vh);
@@ -678,7 +682,8 @@ label {
   position: fixed;
   top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  background-color: rgb(190, 173, 108);
+  /* background-color: rgb(190, 173, 108); */
+  background-color: rgb(220, 202, 152);
   font-size: calc(14px + 1vh);
   font-family: typewriter;
   padding: calc(14px + 1vh) calc(20px + 1vh);
@@ -726,6 +731,90 @@ label {
 
 .image-grid {
   height: 150px;
+  /* border: 1px solid #BFBFBF; */
+  /* box-shadow: 10px 10px 5px #aaaaaa; */
+}
+
+.modal-image-zoom {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 90%;
+  z-index: 11;
+  transition: all 0.35s ease-in-out;
+}
+
+.modal-image-zoom-hidden {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 11;
+  transition: all 0.35s ease-in-out;
+}
+
+.container-modal-image {
+  position: fixed;
+  height: 80vh;
+  width: 100vw;
+  max-height: 60vw;
+  top: calc(50vh - min(80vh, 60vw)/2);
+  left: 0;
+  text-align: center;
+  z-index: 12;
+  opacity: 100%;
+  transition: all 0.35s ease-in-out;
+}
+
+/* .container-model */
+
+/* .container-modal-image-transform {
+  transform: scale(100, 40);
+  visibility: visible;
+  opacity: 100%;
+} */
+
+.container-modal-image-hidden {
+  position: fixed;
+  width: 0;
+  height: 0;
+  top: 50vh;
+  left: 50vw;
+  visibility: hidden;
+  opacity: 0%;
+  transition: all 0.35s ease-in-out;
+}
+
+.modal-image {
+  position: relative;
+  height: 100%;
+  z-index: 12;
+  opacity: 100%;
+  transition: all 0.35s ease-in-out;
+}
+
+/* .modal-image-transformed {
+  position: relative;
+  visibility: visible;
+  opacity: 100%;
+  transform: scale(100, 100);
+} */
+
+.modal-image-hidden {
+  position: fixed;
+  height: 0;
+  width: 0;
+  opacity: 0%;
+  top: 50vh;
+  left: 50vw;
+  visibility: hidden;
+  transition: all 0.35s ease-in-out;
 }
 
 .container-image-about {

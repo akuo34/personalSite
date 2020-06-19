@@ -6,6 +6,9 @@ import Slider from 'react-animated-slider';
 const Gallery = () => {
 
   const [images, setImages] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(null);
+  const [animationState, setAnimationState] = useState('hidden');
 
   useEffect(() => {
     getImages();
@@ -20,8 +23,37 @@ const Gallery = () => {
       .catch(err => console.error(err));
   }
 
+  const modalHandler = (e) => {
+    const index = parseInt(e.target.dataset.index);
+    
+    if (index || index === 0) {
+      setCurrentImageIndex(index);
+    }
+    
+    if (showModal) {
+      setShowModal(false);
+      document.body.style.overflow = "auto";
+      document.html.style.overflow = "auto";
+    } else {
+      setShowModal(true);
+      document.body.style.overflow = "hidden";
+      document.html.style.overflow = "hidden";
+    }
+  }
+
   return (
     <div>
+      <div className={showModal ? "modal-image-zoom" : "modal-image-zoom-hidden"} onClick={modalHandler}>
+      </div>
+      <div
+        // className={`container-model-image-${animationState}`}
+        className={showModal ? "container-modal-image" : "container-modal-image-hidden"}
+        onClick={modalHandler}>
+        <img
+          className={showModal ? "modal-image" : "modal-image-hidden"}
+          src={currentImageIndex !== null ? images[currentImageIndex].fireBaseUrl : null}
+        />
+      </div>
       <div className="buffer"></div>
       <div className="container-gallery-page">
         <h2 className="subheader-client">art by candy kuo</h2>
@@ -38,7 +70,12 @@ const Gallery = () => {
           {images.map(image => {
             return (
               <div className="container-image-grid">
-                <img className="image-grid" src={image.fireBaseUrl} alt="gallery-image"></img>
+                <img
+                  className="image-grid"
+                  onClick={modalHandler}
+                  data-index={image.index}
+                  src={image.fireBaseUrl}
+                  alt="gallery-image"></img>
               </div>
             )
           })}
