@@ -202,20 +202,12 @@ label {
   align-items: center;
 }
 
-.img-gallery {
-  height: calc(150px + 4vw);
-  border: 1px solid #BFBFBF;
-  box-shadow: 10px 10px 5px #aaaaaa;
-  margin-bottom: 20px;
-}
-
 .container-gallery-row {
   display: flex;
   flex-direction: row;
   margin: auto;
   flex-wrap: wrap;
-  /* width: 90%; */
-  width: 70%;
+  width: 90%;
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 40px;
@@ -230,6 +222,19 @@ label {
   margin-bottom: 40px;
   margin-left: 100px;
   margin-right: 100px;
+}
+
+.img-gallery {
+  height: calc(150px + 4vw);
+  border: 1px solid #BFBFBF;
+  box-shadow: 10px 10px 5px #aaaaaa;
+  margin-bottom: 20px;
+}
+
+.wrapper-arrows-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .container-up-down {
@@ -368,6 +373,24 @@ label {
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+}
+
+.container-about-img {
+  max-width: 80vw;
+  height: 45vh;
+  max-height: 250px;
+  margin-bottom: 40px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.img-about-admin {
+  max-width: 80vw;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid #BFBFBF;
+  box-shadow: 10px 10px 5px #aaaaaa;
+  margin-bottom: 20px;
 }
 
 /* Store Manager ------------------------------------------------------------------------------- */
@@ -713,12 +736,10 @@ label {
 }
 
 .image-about {
-  /* height: calc(300px + 5.5vw); */
   height: calc(100vh - min(calc(60px + 7vw), 20vh) - calc(34px + 5vw) - 40px);
-  max-height: 55vh;
+  max-height: 400px;
   max-width: 80vw;
   object-fit: cover;
-  /* max-height: calc(100vh - min(calc(60px + 7vw), 20vh) - calc(34px + 5vw) - 40px); */
   margin-bottom: 20px;
   margin-left: 15px;
   margin-right: 15px;

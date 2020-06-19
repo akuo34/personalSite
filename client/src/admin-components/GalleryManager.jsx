@@ -267,6 +267,7 @@ const GalleryManager = () => {
               <div className="container-gallery-img">
                 <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
               </div>
+              <div className="wrapper-arrows-form">
               <div className="container-up-down">
                 <img className="arrow-up"
                   onClick={moveUpHandler}
@@ -311,6 +312,7 @@ const GalleryManager = () => {
                     </form>
                   </div> : null
                 }
+              </div>
               </div>
             </div>
           )

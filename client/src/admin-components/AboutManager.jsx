@@ -272,8 +272,8 @@ const AboutManager = () => {
           return (
             <div className="container-about-render">
               <div className="container-gallery-row">
-                <div className="container-gallery-img">
-                  <img className="img-gallery" src={item.portraitFireBaseUrl} alt="gallery img" />
+                <div className="container-about-img">
+                  <img className="img-about-admin" src={item.portraitFireBaseUrl} alt="gallery img" />
                 </div>
                 <div className="container-gallery-title-description">
                   <form id="form-edit-portrait" onSubmit={handleChangePortrait} data-id={item._id} data-filename={item.portraitFilename}>
