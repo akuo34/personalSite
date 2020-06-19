@@ -7,15 +7,13 @@ const About = () => {
 
   useEffect(() => {
     getImages();
-  }, [images]);
+  }, []);
 
   const getImages = () => {
     Axios
       .get('/admin/api/about')
       .then(response => {
-        if (response.data.length !== images.length) {
-          setImages(response.data);
-        }
+        setImages(response.data);
       })
       .catch(err => console.error(err));
   }

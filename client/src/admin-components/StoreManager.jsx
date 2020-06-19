@@ -15,21 +15,16 @@ const StoreManager = () => {
       .get('/admin/api/store')
       .then(response => {
 
-        let array = response.data;
-        let target = {};
-        let copy = Object.assign(target, indexes);
-        array.forEach(item => {
-          if (copy[item._id] === undefined) {
-            copy[item._id] = 0;
-            setIndexes(copy);
-          }
+        let copy = { ...indexes };
+        response.data.forEach(item => {
+          copy[item._id] = 0;
         })
-        if (urlList.length !== array.length) {
-          setUrlList(array);
-        }
+
+        setIndexes(copy);
+        setUrlList(response.data);
       })
       .catch(err => console.error(err));
-  }, [urlList]);
+  }, []);
 
   const handleImageAsFile = (e) => {
     const image = e.target.files[0];
@@ -261,7 +256,7 @@ const StoreManager = () => {
             <input type="number" name="width" min="0" placeholder="Width (in)" />
             <input type="number" name="height" min="0" placeholder="Height (in)" />
           </div>
-          <select style={{"height":"24px", "marginBottom":"calc(12px + 0.7vw)"}} name="category">
+          <select style={{ "height": "24px", "marginBottom": "calc(12px + 0.7vw)" }} name="category">
             <option value="">Select category</option>
             <option value="Prints">Prints</option>
             <option value="Originals">Originals</option>
@@ -282,36 +277,36 @@ const StoreManager = () => {
         <button className="button-store-category" onClick={categorySelector} value="Originals">Originals</button>
         <button className="button-store-category" onClick={categorySelector} value="Merchandise">Merchandise</button>
       </div>
-      <h3 style={{"marginTop":"40px", "marginBottom":"40px"}}>{category}</h3>
+      <h3 style={{ "marginTop": "40px", "marginBottom": "40px" }}>{category}</h3>
       {
         urlList.map(item => {
           if (item.category === category) {
             return (
               <div className="container-gallery-row">
                 <div className="container-store-column">
-                  <div style={{"display":"flex", "alignItems":"center", "marginBottom":"40px"}}>
+                  <div style={{ "display": "flex", "alignItems": "center", "marginBottom": "40px" }}>
                     <img className="button-carousel" onClick={previousPhoto} data-id={item._id} style={indexes[item._id] > 0 ? { "height": "30px", "opacity": "0.2", "marginRight": "5px", "visibility": "visible" } : { "height": "30px", "opacity": "0.2", "marginLeft": "5px", "visibility": "hidden" }} src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'}></img>
                     <div className="container-store-img">
                       <img className="img-store" src={item.images.length === 0 ? "https://calendar-trips.s3-us-west-1.amazonaws.com/unnamed.png" : indexes[item._id] !== undefined ? item.images[indexes[item._id]].fireBaseUrl : item.images[0].fireBaseUrl} alt="gallery img" />
                     </div>
                     <img className="button-carousel" onClick={nextPhoto} data-id={item._id} style={indexes[item._id] < item.images.length - 1 ? { "height": "30px", "opacity": "0.2", "marginLeft": "5px", "visibility": "visible" } : { "height": "30px", "opacity": "0.2", "marginLeft": "5px", "visibility": "hidden" }} src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'}></img>
                   </div>
-                  { showEdit === item._id ?
-                  <form id="form-store-edit-photo" onSubmit={handleAddPhoto} data-id={item._id}>
-                    <div style={{"marginBottom":"5px", "alignSelf":"flex-start"}}>Add photo</div>
-                    <div style={{"display":"flex", "flexWrap":"wrap", "justifySelf":"space-between", "width":"100%"}}>
-                      <input
-                        type="file"
-                        onChange={handleImageAsFile}
-                        style={{"marginBottom":"5px"}}
-                      />
-                    </div>
-                      <button style={{"marginBottom":"5px","alignSelf":"flex-end"}}>Upload Photo</button>
-                  {
-                    item.images.length !== 0 ?
-                      <button onClick={handleDeletePhoto} value={item._id} style={{"alignSelf":"flex-end"}}>Delete Photo</button> : null
-                  }
-                  </form> : null
+                  {showEdit === item._id ?
+                    <form id="form-store-edit-photo" onSubmit={handleAddPhoto} data-id={item._id}>
+                      <div style={{ "marginBottom": "5px", "alignSelf": "flex-start" }}>Add photo</div>
+                      <div style={{ "display": "flex", "flexWrap": "wrap", "justifySelf": "space-between", "width": "100%" }}>
+                        <input
+                          type="file"
+                          onChange={handleImageAsFile}
+                          style={{ "marginBottom": "5px" }}
+                        />
+                      </div>
+                      <button style={{ "marginBottom": "5px", "alignSelf": "flex-end" }}>Upload Photo</button>
+                      {
+                        item.images.length !== 0 ?
+                          <button onClick={handleDeletePhoto} value={item._id} style={{ "alignSelf": "flex-end" }}>Delete Photo</button> : null
+                      }
+                    </form> : null
                   }
                 </div>
                 <div className="container-gallery-title-description">
@@ -323,27 +318,27 @@ const StoreManager = () => {
                   <p>Category: {item.category}</p>
                   <p>Number of photos: {item.images.length}</p>
                   <div className="container-form-buttons">
-                      <button value={item._id} type="submit" style={{"marginRight":"5px"}} onClick={editToggler}>Edit</button>
-                      <button value={item._id} onClick={deleteHandler}>Delete</button>
+                    <button value={item._id} type="submit" style={{ "marginRight": "5px" }} onClick={editToggler}>Edit</button>
+                    <button value={item._id} onClick={deleteHandler}>Delete</button>
                   </div>
-                  { showEdit === item._id ?
-                  <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                    <input style={{"marginBottom":"5px", "marginTop":"5px"}} type="text" name="title" placeholder="Title"></input>
-                    <textarea name="description" placeholder="Description" style={{"height":"50px", "marginBottom":"5px"}}></textarea>
-                    <input style={{"marginBottom":"5px"}} type="number" name="quantity" min="0" placeholder="Quantity" />
-                    <input style={{"marginBottom":"5px"}} type="number" name="price" min="0" placeholder="Price" />
-                    <input style={{"marginBottom":"5px"}} type="number" name="width" min="0" placeholder="Width (in)" />
-                    <input style={{"marginBottom":"5px"}} type="number" name="height" min="0" placeholder="Height (in)" />
-                    <select style={{"marginBottom":"5px"}} name="category">
-                      <option value="">Select category</option>
-                      <option value="Prints">Prints</option>
-                      <option value="Originals">Originals</option>
-                      <option value="Merchandise">Merchandise</option>
-                    </select>
-                    <div className="container-form-buttons">
-                      <button type="submit" style={{"marginRight":"5px"}}>Submit Changes</button>
-                    </div>
-                  </form> : null
+                  {showEdit === item._id ?
+                    <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                      <input style={{ "marginBottom": "5px", "marginTop": "5px" }} type="text" name="title" placeholder="Title"></input>
+                      <textarea name="description" placeholder="Description" style={{ "height": "50px", "marginBottom": "5px" }}></textarea>
+                      <input style={{ "marginBottom": "5px" }} type="number" name="quantity" min="0" placeholder="Quantity" />
+                      <input style={{ "marginBottom": "5px" }} type="number" name="price" min="0" placeholder="Price" />
+                      <input style={{ "marginBottom": "5px" }} type="number" name="width" min="0" placeholder="Width (in)" />
+                      <input style={{ "marginBottom": "5px" }} type="number" name="height" min="0" placeholder="Height (in)" />
+                      <select style={{ "marginBottom": "5px" }} name="category">
+                        <option value="">Select category</option>
+                        <option value="Prints">Prints</option>
+                        <option value="Originals">Originals</option>
+                        <option value="Merchandise">Merchandise</option>
+                      </select>
+                      <div className="container-form-buttons">
+                        <button type="submit" style={{ "marginRight": "5px" }}>Submit Changes</button>
+                      </div>
+                    </form> : null
                   }
                 </div>
               </div>

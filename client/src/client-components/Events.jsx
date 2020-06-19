@@ -16,19 +16,18 @@ const Events = () => {
 
   useEffect(() => {
     getImages();
-  }, [images]);
+  }, []);
 
   const getImages = () => {
     Axios
       .get('/admin/api/events')
       .then(response => {
-        if (response.data.length !== images.length) {
-          response.data.forEach(item => {
-            item.end = moment.utc(item.end).toDate();
-            item.start = moment.utc(item.start).toDate();
-          })
-          setImages(response.data);
-        }
+        
+        response.data.forEach(item => {
+          item.end = moment.utc(item.end).toDate();
+          item.start = moment.utc(item.start).toDate();
+        })
+        setImages(response.data);
       })
       .catch(err => console.error(err));
   }

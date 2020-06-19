@@ -11,18 +11,14 @@ const ContactManager = () => {
       .get('/admin/api/contact')
       .then(response => {
 
-        let array = response.data;
-
         if (!array.length) {
           setAllowUpload(true);
         }
 
-        if (urlList.length !== array.length) {
-          setUrlList(array);
-        }
+        setUrlList(response.data);
       })
       .catch(err => console.error(err));
-  }, [urlList]);
+  }, []);
 
   const getContact = () => {
     Axios

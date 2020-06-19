@@ -15,14 +15,10 @@ const GalleryManager = () => {
       .get('/admin/api/gallery')
       .then(response => {
 
-        let array = response.data;
-
-        if (urlList.length !== array.length) {
-          setUrlList(array);
-        }
+        setUrlList(response.data);
       })
       .catch(err => console.error(err));
-  }, [urlList]);
+  }, []);
 
   const handleImageAsFile = (e) => {
     const image = e.target.files[0];

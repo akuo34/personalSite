@@ -9,15 +9,13 @@ const Murals = () => {
 
   useEffect(() => {
     getImages();
-  }, [images]);
+  }, []);
 
   const getImages = () => {
     Axios
       .get('/admin/api/murals')
       .then(response => {
-        if (response.data.length !== images.length) {
-          setImages(response.data);
-        }
+        setImages(response.data);
       })
       .catch(err => console.error(err));
   }
@@ -36,6 +34,15 @@ const Murals = () => {
             )
           })}
         </Slider>
+        <div className="container-grid">
+          {images.map(image => {
+            return (
+              <div className="container-image-grid">
+                <img className="image-grid" src={image.fireBaseUrl} alt="gallery-image"></img>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

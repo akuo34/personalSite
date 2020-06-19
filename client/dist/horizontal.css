@@ -1,6 +1,8 @@
 .slider {
 	position: relative;
-	height: calc(150px + 20vw);
+	/* height: calc(150px + 20vw); */
+	height: calc(100vh - min(calc(60px + 7vw), 20vh) - calc(34px + 5vw) - 40px);
+	max-height: 60vw;
 	width: 95%;
 	overflow: hidden;
 }
