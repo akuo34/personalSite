@@ -106,7 +106,7 @@ const Client = () => {
         <Route path="/contact">
           <Contact />
         </Route>
-        <Route path="/admin">
+        <Route id="main" path="/admin">
           <Main showAdminToolBar={showAdminToolBar} toolBarHandler={toolBarHandler} />
         </Route>
         <Route path="/">

@@ -9,9 +9,11 @@ const Gallery = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
   const [animation, setAnimation] = useState('hidden');
+  const [firstSet25, setFirstSet25] = useState([]);
 
   useEffect(() => {
     getImages();
+
   }, []);
 
   $('body').on('contextmenu', 'img', (e) => {
@@ -23,6 +25,8 @@ const Gallery = () => {
       .get('/admin/api/gallery')
       .then(response => {
         setImages(response.data);
+        let first25 = response.data.slice(0, 10);
+        setFirstSet25(first25);
       })
       .catch(err => console.error(err));
   }
@@ -55,8 +59,8 @@ const Gallery = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: 0
+    initialSlide: 0,
+    lazyLoad: 'ondemand'
   };
 
   return (
@@ -91,7 +95,7 @@ const Gallery = () => {
         </Slider> : null
         }
         <div className="container-grid">
-          {images.map(image => {
+          {firstSet25.map(image => {
             return (
               <div className="container-image-grid">
                 <img
