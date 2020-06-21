@@ -11,7 +11,6 @@ const Gallery = () => {
 
   useEffect(() => {
     getImages();
-
   }, []);
 
   const getImages = () => {
@@ -29,8 +28,8 @@ const Gallery = () => {
     if (index || index === 0) {
       setCurrentImageIndex(index);
     }
-    if(e.target === e.currentTarget) {
 
+    if (e.target === e.currentTarget) {
       if (showModal) {
         setShowModal(false);
         setAnimation('fadeout');
@@ -59,7 +58,7 @@ const Gallery = () => {
 
   return (
     <div>
-      <div className={animation === 'active' ? "modal-image-zoom zoom-active" : `modal-image-zoom ${animation}`} onClick={modalHandler}>
+      <div className={animation === "active" ? "modal-image-zoom zoom-active" : `modal-image-zoom ${animation}`} onClick={modalHandler}>
       </div>
       <div
         className={`container-modal-image ${animation}`}
@@ -72,7 +71,7 @@ const Gallery = () => {
       <div className="buffer"></div>
       <div className="container-gallery-page">
         <h2 className="subheader-client">art by candy kuo</h2>
-        <Slider id="slider" className="slider" {...settings}>
+        <Slider className="slider" {...settings}>
           {images.map(image => {
             return (
               <div className="container-image-gallery">

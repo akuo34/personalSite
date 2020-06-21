@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-
-import Slider from 'react-animated-slider';
+import Slider from 'react-slick';
 
 const Murals = () => {
 
   const [images, setImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
+  const [animation, setAnimation] = useState('hidden');
 
   useEffect(() => {
     getImages();
@@ -29,36 +29,52 @@ const Murals = () => {
       setCurrentImageIndex(index);
     }
 
-    if (showModal) {
-      setShowModal(false);
-      document.body.style.overflow = "auto";
-      document.html.style.overflow = "auto";
-    } else {
-      setShowModal(true);
-      document.body.style.overflow = "hidden";
-      document.html.style.overflow = "hidden";
+    if (e.target === e.currentTarget) {
+      if (showModal) {
+        setShowModal(false);
+        setAnimation('fadeout');
+        setAnimation('hidden');
+        document.body.style.overflow = "auto";
+        document.html.style.overflow = "auto";
+      } else {
+        setShowModal(true);
+        setTimeout(() => {
+          setAnimation('active');
+        }, 50);
+        document.body.style.overflow = "hidden";
+        document.html.style.overflow = "hidden";
+      }
     }
   }
 
+  var settings = {
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0
+  };
+
   return (
     <div>
-      <div className={showModal ? "modal-image-zoom" : "modal-image-zoom-hidden"} onClick={modalHandler}>
+      <div className={animation === "active" ? "modal-image-zoom zoom-active" : `modal-image-zoom ${animation}`} onClick={modalHandler}>
       </div>
       <div
-        className={showModal ? "container-modal-image" : "container-modal-image-hidden"}
+        className={`container-modal-image ${animation}`}
         onClick={modalHandler}>
         <img
-          className={showModal ? "modal-image" : "modal-image-hidden"}
+          className={`modal-image ${animation}`}
           src={currentImageIndex !== null ? images[currentImageIndex].fireBaseUrl : null}
         />
       </div>
       <div className="buffer"></div>
       <div className="container-gallery-page">
         <h2 className="subheader-client">murals</h2>
-        <Slider duration="800">
-          {images.map((image, index) => {
+        <Slider className="slider" {...settings}>
+          {images.map(image => {
             return (
-              <div className="container-image-gallery" key={index}>
+              <div className="container-image-gallery">
                 <img className="image-gallery" src={image.fireBaseUrl} alt="gallery-image"></img>
               </div>
             )
