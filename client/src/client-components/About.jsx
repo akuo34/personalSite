@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import $ from 'jquery';
 
 const About = () => {
 
@@ -8,6 +9,10 @@ const About = () => {
   useEffect(() => {
     getImages();
   }, []);
+
+  $('body').on('contextmenu', 'img', (e) => {
+    return false;
+  })
 
   const getImages = () => {
     Axios

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Slider from 'react-slick';
+import $ from 'jquery';
 
 const Gallery = () => {
 
@@ -12,6 +13,10 @@ const Gallery = () => {
   useEffect(() => {
     getImages();
   }, []);
+
+  $('body').on('contextmenu', 'img', (e) => {
+    return false;
+  })
 
   const getImages = () => {
     Axios
@@ -29,21 +34,19 @@ const Gallery = () => {
       setCurrentImageIndex(index);
     }
 
-    if (e.target === e.currentTarget) {
-      if (showModal) {
-        setShowModal(false);
-        setAnimation('fadeout');
-        setAnimation('hidden');
-        document.body.style.overflow = "auto";
-        document.html.style.overflow = "auto";
-      } else {
-        setShowModal(true);
-        setTimeout(() => {
-          setAnimation('active');
-        }, 50);
-        document.body.style.overflow = "hidden";
-        document.html.style.overflow = "hidden";
-      }
+    if (showModal) {
+      setShowModal(false);
+      setAnimation('fadeout');
+      setAnimation('hidden');
+      document.body.style.overflow = "auto";
+      document.html.style.overflow = "auto";
+    } else {
+      setShowModal(true);
+      setTimeout(() => {
+        setAnimation('active');
+      }, 50);
+      document.body.style.overflow = "hidden";
+      document.html.style.overflow = "hidden";
     }
   }
 
@@ -71,15 +74,22 @@ const Gallery = () => {
       <div className="buffer"></div>
       <div className="container-gallery-page">
         <h2 className="subheader-client">art by candy kuo</h2>
+        { images.length ?
         <Slider className="slider" {...settings}>
           {images.map(image => {
             return (
               <div className="container-image-gallery">
-                <img className="image-gallery" src={image.fireBaseUrl} alt="gallery-image"></img>
+                <img
+                  className="image-gallery"
+                  onClick={modalHandler}
+                  data-index={image.index}
+                  src={image.fireBaseUrl}
+                  alt="gallery-image"></img>
               </div>
             )
           })}
-        </Slider>
+        </Slider> : null
+        }
         <div className="container-grid">
           {images.map(image => {
             return (

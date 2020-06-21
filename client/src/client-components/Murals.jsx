@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Slider from 'react-slick';
+import $ from 'jquery';
 
 const Murals = () => {
 
@@ -12,6 +13,10 @@ const Murals = () => {
   useEffect(() => {
     getImages();
   }, []);
+
+  $('body').on('contextmenu', 'img', (e) => {
+    return false;
+  })
 
   const getImages = () => {
     Axios
@@ -29,21 +34,19 @@ const Murals = () => {
       setCurrentImageIndex(index);
     }
 
-    if (e.target === e.currentTarget) {
-      if (showModal) {
-        setShowModal(false);
-        setAnimation('fadeout');
-        setAnimation('hidden');
-        document.body.style.overflow = "auto";
-        document.html.style.overflow = "auto";
-      } else {
-        setShowModal(true);
-        setTimeout(() => {
-          setAnimation('active');
-        }, 50);
-        document.body.style.overflow = "hidden";
-        document.html.style.overflow = "hidden";
-      }
+    if (showModal) {
+      setShowModal(false);
+      setAnimation('fadeout');
+      setAnimation('hidden');
+      document.body.style.overflow = "auto";
+      document.html.style.overflow = "auto";
+    } else {
+      setShowModal(true);
+      setTimeout(() => {
+        setAnimation('active');
+      }, 50);
+      document.body.style.overflow = "hidden";
+      document.html.style.overflow = "hidden";
     }
   }
 
@@ -75,7 +78,12 @@ const Murals = () => {
           {images.map(image => {
             return (
               <div className="container-image-gallery">
-                <img className="image-gallery" src={image.fireBaseUrl} alt="gallery-image"></img>
+                <img
+                  className="image-gallery"
+                  onClick={modalHandler}
+                  data-index={image.index}
+                  src={image.fireBaseUrl}
+                  alt="gallery-image"></img>
               </div>
             )
           })}
@@ -84,11 +92,11 @@ const Murals = () => {
           {images.map(image => {
             return (
               <div className="container-image-grid">
-                <img 
+                <img
                   className="image-grid"
                   onClick={modalHandler}
                   data-index={image.index}
-                  src={image.fireBaseUrl} 
+                  src={image.fireBaseUrl}
                   alt="gallery-image"></img>
               </div>
             )
