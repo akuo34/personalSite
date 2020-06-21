@@ -47,6 +47,9 @@ const EventManager = () => {
     const endTime = e.target.endTime.value;
     const allDay = false;
 
+    console.log(startDate);
+    console.log(endDate);
+
     let startYear = parseInt(startDate.substring(0, 4));
     let startMonth = parseInt(startDate.substring(5, 7)) - 1;
     let startDay = parseInt(startDate.substring(8, 10));
@@ -175,14 +178,14 @@ const EventManager = () => {
         <div className="form-1-events-row">
           <label className="label-1-date-time">Start Date/Time: </label>
           <div className="container-date-time-column">
-            <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="startDate" />
+            <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="startDate" placeholder="YYYY-MM-DD" />
             <input className="input-date-time" type="time" name="startTime" />
           </div>
         </div>
         <div className="form-1-events-row">
           <label className="label-1-date-time">End Date/Time:</label>
           <div className="container-date-time-column">
-            <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="endDate" />
+            <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="endDate" placeholder="YYYY-MM-DD" />
             <input className="input-date-time" type="time" name="endTime" />
           </div>
         </div>
@@ -200,7 +203,11 @@ const EventManager = () => {
           return (
             <div className="container-gallery-row">
               <div className="container-events-img">
-                <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
+                <img 
+                  className="img-gallery"
+                  loading="lazy"
+                  src={item.fireBaseUrl} 
+                  alt="gallery img" />
               </div>
               <div className="container-events-title-description">
                 <p>Title: {item.title}</p>

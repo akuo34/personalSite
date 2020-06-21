@@ -266,7 +266,11 @@ const MuralManager = () => {
           return (
             <div className="container-gallery-row">
               <div className="container-gallery-img">
-                <img className="img-gallery" src={item.fireBaseUrl} alt="gallery img" />
+                <img 
+                  className="img-gallery"
+                  loading="lazy"
+                  src={item.fireBaseUrl} 
+                  alt="gallery img" />
               </div>
               <div className="container-up-down">
                 <img className="arrow-up"
