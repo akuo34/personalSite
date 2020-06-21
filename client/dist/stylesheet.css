@@ -120,6 +120,18 @@ label {
 
 /* Main header --------------------------------------------------------------------------------- */
 
+
+.container-admin-header {
+  z-index: 3;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  width: 100vw;
+  height: calc(60px + 7vw);
+  max-height: 20vh;
+  background-color: white;
+}
+
 .container-page {
   display: flex;
   z-index: 1;
@@ -828,7 +840,7 @@ label {
 .container-modal-image {
   position: fixed;
   height: 80vh;
-  width: 100vw;
+  width: 100%;
   max-height: 70vw;
   top: calc(50vh - min(80vh, 60vw)/2);
   left: 0;

@@ -6,7 +6,6 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Main from '../admin-components/Main';
 import Gallery from './Gallery';
 import Murals from './Murals';
 import About from './About';
@@ -15,23 +14,10 @@ import Events from './Events';
 const Client = () => {
 
   const [showClientToolBar, setShowClientToolBar] = useState(false);
-  const [showAdminToolBar, setShowAdminToolBar] = useState(false);
-  const [user, setUser] = useState(null);
   const [banner, setBanner] = useState(null);
 
-  useEffect(() => {
-    Axios
-      .get('/read-cookie')
-      .then(response => setUser(response.data.screen))
-      .catch(err => console.error(err));
-  }, [user]);
-
   const toolBarHandler = () => {
-    if (window.location.href.indexOf('admin') !== -1 && user === 'admin') {
-      showAdminToolBar ? setShowAdminToolBar(false) : setShowAdminToolBar(true)
-    } else {
-      showClientToolBar ? setShowClientToolBar(false) : setShowClientToolBar(true)
-    }
+    showClientToolBar ? setShowClientToolBar(false) : setShowClientToolBar(true)
   }
 
   useEffect(() => {
@@ -106,8 +92,8 @@ const Client = () => {
         <Route path="/contact">
           <Contact />
         </Route>
-        <Route id="main" path="/admin">
-          <Main showAdminToolBar={showAdminToolBar} toolBarHandler={toolBarHandler} />
+        <Route path="/admin">
+          <div id="main"></div>
         </Route>
         <Route path="/">
           <Gallery />

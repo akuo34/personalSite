@@ -13,7 +13,6 @@ const Gallery = () => {
 
   useEffect(() => {
     getImages();
-
   }, []);
 
   $('body').on('contextmenu', 'img', (e) => {
@@ -25,8 +24,8 @@ const Gallery = () => {
       .get('/admin/api/gallery')
       .then(response => {
         setImages(response.data);
-        let first25 = response.data.slice(0, 10);
-        setFirstSet25(first25);
+        // let first25 = response.data.slice(0, 25);
+        // setFirstSet25(first25);
       })
       .catch(err => console.error(err));
   }
@@ -42,13 +41,12 @@ const Gallery = () => {
       setShowModal(false);
       setAnimation('fadeout');
       setAnimation('hidden');
+      setCurrentImageIndex(null);
       document.body.style.overflow = "auto";
       document.html.style.overflow = "auto";
     } else {
       setShowModal(true);
-      setTimeout(() => {
-        setAnimation('active');
-      }, 50);
+      setAnimation('active');
       document.body.style.overflow = "hidden";
       document.html.style.overflow = "hidden";
     }
@@ -70,10 +68,12 @@ const Gallery = () => {
       <div
         className={`container-modal-image ${animation}`}
         onClick={modalHandler}>
-        <img
-          className={`modal-image ${animation}`}
-          src={currentImageIndex !== null ? images[currentImageIndex].fireBaseUrl : null}
-        />
+        {currentImageIndex !== null ?
+          <img
+            className={`modal-image ${animation}`}
+            src={images[currentImageIndex].fireBaseUrl}
+          /> : null
+        }
       </div>
       <div className="buffer"></div>
       <div className="container-gallery-page">
@@ -95,13 +95,14 @@ const Gallery = () => {
         </Slider> : null
         }
         <div className="container-grid">
-          {firstSet25.map(image => {
+          {images.map(image => {
             return (
               <div className="container-image-grid">
                 <img
                   className="image-grid"
                   onClick={modalHandler}
                   data-index={image.index}
+                  loading="lazy"
                   src={image.fireBaseUrl}
                   alt="gallery-image"></img>
               </div>

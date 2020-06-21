@@ -38,13 +38,12 @@ const Murals = () => {
       setShowModal(false);
       setAnimation('fadeout');
       setAnimation('hidden');
+      setCurrentImageIndex(null);
       document.body.style.overflow = "auto";
       document.html.style.overflow = "auto";
     } else {
       setShowModal(true);
-      setTimeout(() => {
-        setAnimation('active');
-      }, 50);
+      setAnimation('active');
       document.body.style.overflow = "hidden";
       document.html.style.overflow = "hidden";
     }
@@ -56,7 +55,8 @@ const Murals = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 0
+    initialSlide: 0,
+    lazyLoading: "ondemand"
   };
 
   return (
@@ -66,10 +66,12 @@ const Murals = () => {
       <div
         className={`container-modal-image ${animation}`}
         onClick={modalHandler}>
-        <img
-          className={`modal-image ${animation}`}
-          src={currentImageIndex !== null ? images[currentImageIndex].fireBaseUrl : null}
-        />
+        {currentImageIndex !== null ?
+          <img
+            className={`modal-image ${animation}`}
+            src={images[currentImageIndex].fireBaseUrl}
+          /> : null
+        }
       </div>
       <div className="buffer"></div>
       <div className="container-gallery-page">
@@ -95,6 +97,7 @@ const Murals = () => {
                 <img
                   className="image-grid"
                   onClick={modalHandler}
+                  loading="lazy"
                   data-index={image.index}
                   src={image.fireBaseUrl}
                   alt="gallery-image"></img>

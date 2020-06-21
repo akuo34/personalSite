@@ -9,18 +9,31 @@ import LogIn from './LogIn';
 import Axios from 'axios';
 // import PasswordReset from './PasswordReset';
 
-const Main = (props) => {
+const Main = () => {
 
   const [user, setUser] = useState(null);
+  const [showAdminToolBar, setShowAdminToolBar] = useState(false);
+  const [banner, setBanner] = useState(null);
+
+  const toolBarHandler = () => {
+    if (user === 'admin') {
+      showAdminToolBar ? setShowAdminToolBar(false) : setShowAdminToolBar(true)
+    }
+  }
 
   useEffect(() => {
     Axios
       .get('/read-cookie')
       .then(response => setUser(response.data.screen))
       .catch(err => console.error(err));
+
+    Axios
+      .get('/admin/api/about')
+      .then(response => setBanner(response.data[0].bannerFireBaseUrl))
+      .catch(err => console.error(err));
   }, [user]);
 
-  const clearCookie = () => {   
+  const clearCookie = () => {
     Axios
       .get('/clear-cookie')
       .then(response => {
@@ -52,24 +65,47 @@ const Main = (props) => {
     location.reload();
   };
 
+  const returnHome = () => {
+    window.location = "http://192.168.0.11:3434";
+  }
+
   return (
-    user === 'admin' ?
-      <App showAdminToolBar={props.showAdminToolBar} toolBarHandler={props.toolBarHandler} clearCookie={clearCookie}></App>
-      :
-      <Router>
-        <div className="buffer"></div>
-        <div className="container-landing">
-          <h2 className="subheader-client">admin console</h2>
-        <Switch>
-          <Route path="/admin/passwordReset">
-            <PasswordReset />
-          </Route>
-          <Route path="/admin">
-            <LogIn signInHandler={e => signInHandler(e)} />
-          </Route>
-        </Switch>
+    <div>
+      <div className="container-admin-header">
+        <img className="banner" src={banner}></img>
+        <div className="container-logo-home">
+          <div className="logo-home" onClick={returnHome}></div>
         </div>
-      </Router>
+        <div className="container-logo">
+          <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
+        </div>
+        <div className="container-h1">
+          <h1>the wild ones</h1>
+        </div>
+        <div className={user === "admin" ? "container-icons" : "container-icons hidden"}>
+          <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
+        </div>
+      </div>
+      {
+        user === 'admin' ?
+          <App showAdminToolBar={showAdminToolBar} toolBarHandler={toolBarHandler} clearCookie={clearCookie}></App>
+          :
+          <Router>
+            <div className="buffer"></div>
+            <div className="container-landing">
+              <h2 className="subheader-client">admin console</h2>
+              <Switch>
+                <Route path="/admin/passwordReset">
+                  <PasswordReset />
+                </Route>
+                <Route path="/admin">
+                  <LogIn signInHandler={e => signInHandler(e)} />
+                </Route>
+              </Switch>
+            </div>
+          </Router>
+      }
+    </div>
   )
 }
 
