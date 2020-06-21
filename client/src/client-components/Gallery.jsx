@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-
-import Slider from 'react-animated-slider';
+import Slider from 'react-slick';
 
 const Gallery = () => {
 
   const [images, setImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
-  const [animationState, setAnimationState] = useState('hidden');
 
   useEffect(() => {
     getImages();
+
   }, []);
 
   const getImages = () => {
@@ -25,11 +24,11 @@ const Gallery = () => {
 
   const modalHandler = (e) => {
     const index = parseInt(e.target.dataset.index);
-    
+
     if (index || index === 0) {
       setCurrentImageIndex(index);
     }
-    
+
     if (showModal) {
       setShowModal(false);
       document.body.style.overflow = "auto";
@@ -41,12 +40,20 @@ const Gallery = () => {
     }
   }
 
+  var settings = {
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0
+  };
+
   return (
     <div>
       <div className={showModal ? "modal-image-zoom" : "modal-image-zoom-hidden"} onClick={modalHandler}>
       </div>
       <div
-        // className={`container-model-image-${animationState}`}
         className={showModal ? "container-modal-image" : "container-modal-image-hidden"}
         onClick={modalHandler}>
         <img
@@ -57,10 +64,10 @@ const Gallery = () => {
       <div className="buffer"></div>
       <div className="container-gallery-page">
         <h2 className="subheader-client">art by candy kuo</h2>
-        <Slider duration="800">
-          {images.map((image, index) => {
+        <Slider id="slider" className="slider" {...settings}>
+          {images.map(image => {
             return (
-              <div className="container-image-gallery" key={index}>
+              <div className="container-image-gallery">
                 <img className="image-gallery" src={image.fireBaseUrl} alt="gallery-image"></img>
               </div>
             )

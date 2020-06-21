@@ -38,7 +38,9 @@
     "react-big-calendar": "^0.24.6",
     "react-dom": "^16.13.1",
     "react-router-dom": "5.2.0",
-    "react-spinners": "^0.8.3"
+    "react-slick": "^0.26.1",
+    "react-spinners": "^0.8.3",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "webpack": "^4.43.0",

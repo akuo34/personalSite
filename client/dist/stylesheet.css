@@ -733,7 +733,6 @@ label {
   position: fixed;
   top: min(calc(60px + 7vw), 20vh);
   border: 5px solid rgb(255, 219, 88);
-  /* background-color: rgb(190, 173, 108); */
   background-color: rgb(220, 202, 152);
   font-size: calc(14px + 1vh);
   font-family: typewriter;
@@ -746,21 +745,38 @@ label {
   box-shadow: 9px 9px 14px -4px rgba(0,0,0,0.75);
 }
 
-.carousel-gallery {
-  display: flex;
-  justify-content: center;
-  margin: auto;
+.slider {
+  height: calc(100vh - min(calc(60px + 7vw), 20vh) - calc(34px + 5vw) - calc(6px + 2.5vw));
+  max-height: 60vw;
+  margin: 0 auto;
+  width: 95%;
+  outline: none;
+}
+
+.slick-prev {
+  margin-left: 30px;
+  transform: scale(1.25, 1.25) translateY(calc(-10px - 0.6vw));
+  z-index: 1;
+}
+
+.slick-next {
+  margin-right: 30px;
+  transform: scale(1.25, 1.25) translateY(calc(-10px - 0.6vw));
+  z-index: 1;
+}
+
+.slick-prev:before, .slick-next:before { 
+  color:grey !important;
 }
 
 .container-image-gallery {
-  display: flex;
-  justify-content: center;
-  margin: auto;
+  height: calc(100vh - min(calc(60px + 7vw), 20vh) - calc(34px + 5vw) - calc(6px + 2.5vw));
+  max-height: 60vw;
 }
 
 .image-gallery {
   height: 100%;
-  width: auto;
+  margin: 0 auto;
 }
 
 .container-grid {
@@ -782,8 +798,6 @@ label {
 
 .image-grid {
   height: 150px;
-  /* border: 1px solid #BFBFBF; */
-  /* box-shadow: 10px 10px 5px #aaaaaa; */
 }
 
 .image-grid:hover {
@@ -799,20 +813,22 @@ label {
   background-color: black;
   opacity: 90%;
   z-index: 11;
-  transition: all 0.4s ease-in-out;
-  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out;
+  /* transition: all 0.35s ease-in-out;
+  -webkit-transition: all 0.35s ease-in-out; */
 }
 
 .modal-image-zoom-hidden {
   position: fixed;
-  /* width: 100vw;
+  width: 100vw;
   height: 100vh;
   top: 0;
-  left: 0; */
-  top: 50vh;
-  left: 50vw;
-  width: 0;
-  height: 0;
+  left: 0;
+  /* top: 50vh; */
+  /* left: 50vw; */
+  /* width: 0; */
+  /* height: 0; */
   visibility: hidden;
   opacity: 0;
   z-index: 11;
@@ -830,8 +846,10 @@ label {
   text-align: center;
   z-index: 12;
   opacity: 100%;
-  transition: all 0.35s ease-in-out;
-  -webkit-transition: all 0.35s ease-in-out;
+  /* transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out; */
+  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out;
 }
 
 /* .container-model */
@@ -844,14 +862,20 @@ label {
 
 .container-modal-image-hidden {
   position: fixed;
-  width: 0;
-  height: 0;
-  top: 50vh;
-  left: 50vw;
+  height: 80vh;
+  width: 100vw;
+  max-height: 70vw;
+  /* width: 0;
+  height: 0; */
+  top: calc(50vh - min(80vh, 60vw)/2);
+  left: 0;
+  text-align: center;
+  /* top: 50vh;
+  left: 50vw; */
   visibility: hidden;
   opacity: 0%;
-  transition: all 0.5s ease-in-out;
-  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
 }
 
 .modal-image {
@@ -871,12 +895,14 @@ label {
 } */
 
 .modal-image-hidden {
-  position: fixed;
-  height: 0;
-  width: 0;
+  /* position: fixed; */
+  position: relative;
+  height: 100%;
+  /* height: 0; */
+  /* width: 0; */
   opacity: 0%;
-  top: 50vh;
-  left: 50vw;
+  /* top: 50vh; */
+  /* left: 50vw; */
   visibility: hidden;
   transition: all 0.35s ease-in-out;
   -webkit-transition: all 0.35s ease-in-out;
