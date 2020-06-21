@@ -7,6 +7,7 @@ const Gallery = () => {
   const [images, setImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
+  const [animation, setAnimation] = useState('hidden');
 
   useEffect(() => {
     getImages();
@@ -28,15 +29,22 @@ const Gallery = () => {
     if (index || index === 0) {
       setCurrentImageIndex(index);
     }
+    if(e.target === e.currentTarget) {
 
-    if (showModal) {
-      setShowModal(false);
-      document.body.style.overflow = "auto";
-      document.html.style.overflow = "auto";
-    } else {
-      setShowModal(true);
-      document.body.style.overflow = "hidden";
-      document.html.style.overflow = "hidden";
+      if (showModal) {
+        setShowModal(false);
+        setAnimation('fadeout');
+        setAnimation('hidden');
+        document.body.style.overflow = "auto";
+        document.html.style.overflow = "auto";
+      } else {
+        setShowModal(true);
+        setTimeout(() => {
+          setAnimation('active');
+        }, 50);
+        document.body.style.overflow = "hidden";
+        document.html.style.overflow = "hidden";
+      }
     }
   }
 
@@ -51,13 +59,13 @@ const Gallery = () => {
 
   return (
     <div>
-      <div className={showModal ? "modal-image-zoom" : "modal-image-zoom-hidden"} onClick={modalHandler}>
+      <div className={animation === 'active' ? "modal-image-zoom zoom-active" : `modal-image-zoom ${animation}`} onClick={modalHandler}>
       </div>
       <div
-        className={showModal ? "container-modal-image" : "container-modal-image-hidden"}
+        className={`container-modal-image ${animation}`}
         onClick={modalHandler}>
         <img
-          className={showModal ? "modal-image" : "modal-image-hidden"}
+          className={`modal-image ${animation}`}
           src={currentImageIndex !== null ? images[currentImageIndex].fireBaseUrl : null}
         />
       </div>
