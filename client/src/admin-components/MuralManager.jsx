@@ -308,8 +308,8 @@ const MuralManager = () => {
                       </div>
                     </form>
                     <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                      <input type="text" name="title" placeholder="Title" style={{ "marginBottom": "5px", "marginTop": "5px" }}></input>
-                      <textarea name="description" placeholder="Description" style={{ "height": "50px", "marginBottom": "5px" }}></textarea>
+                      <input type="text" name="title" placeholder="Title" style={{ "marginBottom": "5px", "marginTop": "5px", "fontSize": "14px" }}></input>
+                      <textarea name="description" placeholder="Description" style={{ "height": "50px", "marginBottom": "5px", "fontSize": "14px" }}></textarea>
                       <div className="container-form-buttons">
                         <button type="submit">Submit Changes</button>
                       </div>

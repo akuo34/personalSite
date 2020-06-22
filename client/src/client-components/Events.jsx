@@ -19,7 +19,7 @@ const Events = () => {
     Axios
       .get('/admin/api/events')
       .then(response => {
-        
+
         response.data.forEach(item => {
           item.end = moment.utc(item.end).toDate();
           item.start = moment.utc(item.start).toDate();
@@ -46,7 +46,6 @@ const Events = () => {
   }
 
   const selectEventHandler = (e) => {
-
     setCurrentEvent(e);
   }
 
@@ -66,7 +65,8 @@ const Events = () => {
           />
           {Object.keys(currentEvent).length ?
             <div className="container-image-events">
-              <h3 style={{ "marginBottom": "20px" }}>{currentEvent.title}</h3>
+              <h4>Selected Event</h4>
+              <h4 style={{ "marginBottom": "20px" }}>{currentEvent.title}</h4>
               <img className="image-events" src={currentEvent.fireBaseUrl} alt="gallery-image"></img>
               <div className="container-client-events">
                 <p style={{ "marginBottom": "20px" }}>{currentEvent.resource}</p>

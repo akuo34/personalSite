@@ -20,10 +20,12 @@ button.rbc-input::-moz-focus-inner {
 .rbc-calendar {
   box-sizing: border-box;
   height: calc(270px + 13vw);
-  width: calc(260px + 22vw);
+  width: calc(210px + 27vw);
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
   align-items: stretch; }
 
 .rbc-calendar *,

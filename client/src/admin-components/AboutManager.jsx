@@ -256,7 +256,7 @@ const AboutManager = () => {
       {allowUpload ?
         <form id="form-about" className="form-gallery" onSubmit={handleFireBaseUpload}>
           <h4 className="text-gallery-form-header">Create your bio</h4>
-          <textarea className="input-landing" name="bio" placeholder="About me" style={{ "height": "90px" }} />
+          <textarea className="input-landing" name="bio" placeholder="About me" style={{ "height": "90px", "fontSize": "14px" }} />
           <div className="container-gallery-inputs">
             <input
               className="input-gallery-file"

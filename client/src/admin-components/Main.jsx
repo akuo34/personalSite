@@ -4,10 +4,11 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import App from './App';
-import LogIn from './LogIn';
 import Axios from 'axios';
 // import PasswordReset from './PasswordReset';
+
+const Login = React.lazy(() => import('./Login'));
+const App = React.lazy(() => import('./App'));
 
 const Main = () => {
 
@@ -98,9 +99,7 @@ const Main = () => {
                 <Route path="/admin/passwordReset">
                   <PasswordReset />
                 </Route>
-                <Route path="/admin">
-                  <LogIn signInHandler={e => signInHandler(e)} />
-                </Route>
+                <Route path="/admin" render={() => <Login signInHandler={e => signInHandler(e)} />} />
               </Switch>
             </div>
           </Router>

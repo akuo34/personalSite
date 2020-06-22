@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/index.js",
-    "build": "webpack -d --watch",
-    "build2": "webpack --config ./webpack.config.prod.js --watch"
+    "build": "webpack --mode production --watch",
+    "backup": "node database/backup.js",
+    "load": "node database/loader.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/akuo34/personalSite#readme",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
     "axios": "0.19.2",
     "babel-loader": "8.1.0",
     "body-parser": "1.19.0",

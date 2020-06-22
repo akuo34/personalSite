@@ -9,7 +9,6 @@ const Gallery = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
   const [animation, setAnimation] = useState('hidden');
-  const [firstSet25, setFirstSet25] = useState([]);
 
   useEffect(() => {
     getImages();
@@ -24,8 +23,6 @@ const Gallery = () => {
       .get('/admin/api/gallery')
       .then(response => {
         setImages(response.data);
-        // let first25 = response.data.slice(0, 25);
-        // setFirstSet25(first25);
       })
       .catch(err => console.error(err));
   }
@@ -41,7 +38,7 @@ const Gallery = () => {
       setShowModal(false);
       setAnimation('fadeout');
       setAnimation('hidden');
-      setCurrentImageIndex(null);
+      setCurrentImageIndex(null); 
       document.body.style.overflow = "auto";
       document.html.style.overflow = "auto";
     } else {
@@ -58,7 +55,7 @@ const Gallery = () => {
     speed: 500,
     slidesToShow: 1,
     initialSlide: 0,
-    lazyLoad: 'ondemand'
+    lazyLoad: 'progressive'
   };
 
   return (
@@ -78,7 +75,7 @@ const Gallery = () => {
       <div className="buffer"></div>
       <div className="container-gallery-page">
         <h2 className="subheader-client">art by candy kuo</h2>
-        { images.length ?
+        {images.length ?
         <Slider className="slider" {...settings}>
           {images.map(image => {
             return (

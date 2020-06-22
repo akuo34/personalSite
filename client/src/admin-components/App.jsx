@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import GalleryManager from './GalleryManager';
-import MuralManager from './MuralManager';
-import AboutManager from './AboutManager';
-import EventManager from './EventManager';
-import StoreManager from './StoreManager';
-import ContactManager from './ContactManager';
+import React from 'react';
+const GalleryManager = React.lazy(() => import('./GalleryManager'));
+const AboutManager = React.lazy(() => import('./AboutManager'));
+const EventManager = React.lazy(() => import('./EventManager'));
+const MuralManager = React.lazy(() => import('./MuralManager'));
+const StoreManager = React.lazy(() => import('./StoreManager'));
+const ContactManager = React.lazy(() => import('./ContactManager'));
 
 import {
   BrowserRouter as Router,
@@ -49,28 +49,15 @@ const App = (props) => {
           </div>
           <div className="container-scroll">
             <h2 className="subheader-client">admin console</h2>
-
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
             <Switch>
-              <Route path="/admin/about">
-                <AboutManager />
-              </Route>
-              <Route path="/admin/events">
-                <EventManager />
-              </Route>
-              <Route path="/admin/murals">
-                <MuralManager />
-              </Route>
-              <Route path="/admin/store">
-                <StoreManager />
-              </Route>
-              <Route path="/admin/contact">
-                <ContactManager />
-              </Route>
-              <Route path="/admin/">
-                <GalleryManager />
-              </Route>
+              <Route path="/admin/about" render={() => <AboutManager />} />
+              <Route path="/admin/events" render={() => <EventManager />} />
+              <Route path="/admin/murals" render={() => <MuralManager />} />
+              <Route path="/admin/store" render={() => <StoreManager />} />
+              <Route path="/admin/contact" render={() => <ContactManager />} />
+              <Route path="/admin/" render={() => <GalleryManager />} />
             </Switch>
           </div>
         </div>

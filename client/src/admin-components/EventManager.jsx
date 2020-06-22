@@ -49,6 +49,8 @@ const EventManager = () => {
 
     console.log(startDate);
     console.log(endDate);
+    console.log(startTime);
+    console.log(endTime);
 
     let startYear = parseInt(startDate.substring(0, 4));
     let startMonth = parseInt(startDate.substring(5, 7)) - 1;
@@ -179,14 +181,14 @@ const EventManager = () => {
           <label className="label-1-date-time">Start Date/Time: </label>
           <div className="container-date-time-column">
             <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="startDate" placeholder="YYYY-MM-DD" />
-            <input className="input-date-time" type="time" name="startTime" />
+            <input className="input-date-time" type="time" name="startTime" placeholder="HH:MM" />
           </div>
         </div>
         <div className="form-1-events-row">
           <label className="label-1-date-time">End Date/Time:</label>
           <div className="container-date-time-column">
             <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="endDate" placeholder="YYYY-MM-DD" />
-            <input className="input-date-time" type="time" name="endTime" />
+            <input className="input-date-time" type="time" name="endTime" placeholder="HH:MM" />
           </div>
         </div>
         <div className="container-gallery-inputs">
@@ -223,21 +225,21 @@ const EventManager = () => {
                 </div>
                 { showEdit === item._id ?
                 <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                  <input style={{"marginBottom":"5px", "marginTop":"5px"}} type="text" name="title" placeholder="Title" />
-                  <input style={{"marginBottom":"5px"}} type="text" name="location" placeholder="Location" />
-                  <textarea name="description" placeholder="Description" style={{"height":"50px","marginBottom":"5px" }}></textarea>
+                  <input style={{"marginBottom":"5px", "marginTop":"5px", "fontSize":"14px"}} type="text" name="title" placeholder="Title" />
+                  <input style={{"marginBottom":"5px", "fontSize":"14px"}} type="text" name="location" placeholder="Location" />
+                  <textarea name="description" placeholder="Description" style={{"height":"50px","marginBottom":"5px", "fontSize":"14px" }}></textarea>
                   <div className="form-2-events-row">
                     <p className="label-2-date-time">Start Date/Time: </p>
                     <div className="container-date-time-column">
-                      <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="startDate" />
-                      <input className="input-date-time" type="time" name="startTime" />
+                      <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="startDate" placeholder="YYYY-MM-DD" />
+                      <input className="input-date-time" type="time" name="startTime" placeholder="HH:MM" />
                     </div>
                   </div>
                   <div className="form-2-events-row">
                     <p className="label-2-date-time">End &nbsp;Date/Time: </p>
                     <div className="container-date-time-column">
-                      <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="endDate" />
-                      <input className="input-date-time" type="time" name="endTime" />
+                      <input className="input-date-time" style={{"marginBottom":"5px"}} type="date" name="endDate" placeholder="YYYY-MM-DD" />
+                      <input className="input-date-time" type="time" name="endTime" placeholder="HH:MM" />
                     </div>
                   </div>
                   <div className="container-form-buttons">

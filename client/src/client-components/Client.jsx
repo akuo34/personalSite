@@ -6,10 +6,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Gallery from './Gallery';
-import Murals from './Murals';
-import About from './About';
-import Events from './Events';
+
+const Home = React.lazy(() => import('./Gallery'));
+const About = React.lazy(() => import('./About'));
+const Events = React.lazy(() => import('./Events'));
+const Murals = React.lazy(() => import('./Murals'));
+const Admin = React.lazy(() => import('../admin-components/Main'));
 
 const Client = () => {
 
@@ -32,6 +34,7 @@ const Client = () => {
   }
 
   return (
+    <React.Suspense fallback={<span></span>}>
     <Router>
       <div className="container-client-header">
         <div className={showClientToolBar ? "wrapper-nav-client" : "wrapper-nav-client-hidden"} onClick={toolBarHandler}>
@@ -77,29 +80,20 @@ const Client = () => {
       </div>
 
       <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/events">
-          <Events />
-        </Route>
-        <Route path="/murals">
-          <Murals />
-        </Route>
+        <Route path="/about" render={() => <About />} />
+        <Route path="/events" render={() => <Events />} />
+        <Route path="/murals" render={() => <Murals />} />
         <Route path="/store">
           <Store />
         </Route>
         <Route path="/contact">
           <Contact />
         </Route>
-        <Route path="/admin">
-          <div id="main"></div>
-        </Route>
-        <Route path="/">
-          <Gallery />
-        </Route>
+        <Route path="/admin" render={() => <Admin />} />
+        <Route exact path="/" render={() => <Home />} />
       </Switch>
     </Router>
+    </React.Suspense>
   )
 }
 
