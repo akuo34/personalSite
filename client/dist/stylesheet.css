@@ -85,6 +85,7 @@ h4 {
   font-size: calc(18px + 0.5vw);
   font-family: typewriter;
   margin-bottom: calc(8px + 0.7vw);
+  color: rgb(100, 93, 69);
 }
 
 p {
@@ -120,9 +121,8 @@ label {
 
 /* Main header --------------------------------------------------------------------------------- */
 
-
 .container-admin-header {
-  z-index: 3;
+  z-index: 11;
   display: flex;
   position: fixed;
   align-items: center;
@@ -598,7 +598,7 @@ label {
 /* Client -------------------------------------------------------------------------------------- */
 
 .container-main-header {
-  z-index: 2;
+  z-index: 10;
   display: flex;
   position: fixed;
   align-items: center;
@@ -615,7 +615,7 @@ label {
   height: calc(60px + 7vw);
   max-height: 20vh;
   object-fit: cover;
-  z-index: 5;
+  z-index: 12;
 }
 
 .container-logo {
@@ -643,7 +643,7 @@ label {
   width: calc(60px + 7vw);
   max-height: 20vh;
   max-width: 20vh;
-  z-index: 6;
+  z-index: 13;
 }
 
 .logo-home {
@@ -662,7 +662,7 @@ label {
 .container-h1 {
   justify-self: center;
   margin: 0 auto;
-  z-index: 5;
+  z-index: 12;
 }
 
 .container-icons {
@@ -673,7 +673,7 @@ label {
   align-items: center;
   height: calc(60px + 7vw);
   max-height: 20vh;
-  z-index: 5;
+  z-index: 13;
 }
 
 .button-cart {
@@ -929,29 +929,51 @@ label {
   width: 100vw;
 }
 
+.container-image-events {
+  display: flex;
+  flex-direction: column;
+  width: calc(200px + 27vw);
+  height: calc(270px + 13vw);
+  align-items: center;
+  margin: 0 20px 40px 20px;
+}
 
-.container-client-events {
+.container-client-upcoming-events {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
-  /* margin-left: 3%; */
+  justify-content: center;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.container-image-upcoming-events {
+  width: calc(200px + 27vw);
+  height: calc(120px + 10vw);
+  margin: 0 auto 20px auto;
+  text-align: center;
+  /* border: 1px solid red; */
 }
 
 .image-events {
   height: calc(120px + 10vw);
+  margin: 0 auto;
+  border: 1px solid #BFBFBF;
+  box-shadow: 10px 10px 5px #aaaaaa;
 }
 
-.container-image-events {
-  display: flex;
-  flex-direction: column;
-  width: calc(210px + 27vw);
-  height: calc(270px + 13vw);
-  align-items: center;
-  margin: 0 20px;
-  border: 1px solid red;
+.container-client-events {
+  width: calc(200px + 27vw);
+  line-height: 28px;
+  margin: 0px auto 20px auto;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  /* border: 1px solid red; */
 }
 
 .container-calendar {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: 40px;
   justify-content: space-evenly;
 }

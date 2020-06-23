@@ -8,8 +8,9 @@ import moment from 'moment'
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
 const Events = () => {
-  const [images, setImages] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [currentEvent, setCurrentEvent] = useState({});
+  const [pastEvents, setPastEvents] = useState([]);
 
   useEffect(() => {
     getImages();
@@ -19,22 +20,26 @@ const Events = () => {
     Axios
       .get('/admin/api/events')
       .then(response => {
+        let today = new Date();
+        let index = 0;
 
         response.data.forEach(item => {
-          item.end = moment.utc(item.end).toDate();
-          item.start = moment.utc(item.start).toDate();
+          let start = new Date(item.startDate);
+
+          if (start < today) {
+            index++;
+          }
         })
-        setImages(response.data);
+
+        setUpcomingEvents(response.data.slice(index));
+        setPastEvents(response.data.slice(0, index));
       })
       .catch(err => console.error(err));
   }
 
-  const convertDate = (date) => {
-    let result = '';
-    result += date.substring(5) + '-' + date.substring(0, 4);
-    if (result[0] === '0') {
-      result = result.substring(1);
-    }
+  const convertDate = (ISOdate) => {
+    let date = new Date(ISOdate);
+    let result = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
     return result;
   }
 
@@ -58,48 +63,65 @@ const Events = () => {
           <Calendar
             onSelectEvent={selectEventHandler}
             localizer={localizer}
-            events={images}
+            events={upcomingEvents}
             views={['month', 'agenda']}
             startAccessor="startDate"
             endAccessor="endDate"
           />
           {Object.keys(currentEvent).length ?
             <div className="container-image-events">
-              <h4>Selected Event</h4>
-              <h4 style={{ "marginBottom": "20px" }}>{currentEvent.title}</h4>
+              <h4 style={{ "margin": "0 auto 20px auto", "maxWidth": "60vw", "textAlign": "center" }}>Selected Event: {currentEvent.title}</h4>
               <img className="image-events" src={currentEvent.fireBaseUrl} alt="gallery-image"></img>
-              <div className="container-client-events">
+              <div className="container-client-events" style={{"marginTop":"20px"}}>
                 <p style={{ "marginBottom": "20px" }}>{currentEvent.resource}</p>
                 <p style={{ "marginBottom": "20px" }}>Where: {currentEvent.location}</p>
-                {/* <p>When: {currentEvent.start} to {currentEvent.end} at {currentEvent.time}</p> */}
+                <p>When: {convertDate(currentEvent.startDate)} from {convertTime(currentEvent.startTime)} to {convertTime(currentEvent.endTime)}</p>
               </div>
             </div>
-            : images.length ?
+            : upcomingEvents.length ?
               <div className="container-image-events">
-                <h4>Next Event</h4>
-                <h4 style={{ "marginBottom": "20px" }}>{images[0].title}</h4>
-                <img className="image-events" src={images[0].fireBaseUrl} alt="gallery-image"></img>
-                <div className="container-client-events">
-                  <p style={{ "marginBottom": "20px" }}>{images[0].resource}</p>
-                  <p style={{ "marginBottom": "20px" }}>Where: {images[0].location}</p>
-                  {/* <p>When: {currentEvent.start} to {currentEvent.end} at {currentEvent.time}</p> */}
+                <h4 style={{ "margin": "0 auto 20px auto", "maxWidth": "60vw", "textAlign": "center" }}>Next Event: {upcomingEvents[0].title}</h4>
+                <img className="image-events" src={upcomingEvents[0].fireBaseUrl} alt="gallery-image"></img>
+                <div className="container-client-events" style={{"marginTop":"20px"}}>
+                  <p style={{ "marginBottom": "20px" }}>{upcomingEvents[0].resource}</p>
+                  <p style={{ "marginBottom": "20px" }}>Where: {upcomingEvents[0].location}</p>
+                  <p>When: {convertDate(upcomingEvents[0].startDate)} from {convertTime(upcomingEvents[0].startTime)} to {convertTime(upcomingEvents[0].endTime)}</p>
                 </div>
               </div> : null
           }
         </div>
-        {/* {images.map((image, index) => {
-        return (
-          <div className="container-image-events" key={index}>
-            <img className="image-events" src={image.fireBaseUrl} alt="gallery-image"></img>
-            <div className="container-client-events">
-              <h3 style={{ "marginBottom": "20px" }}>{image.title}</h3>
-              <p style={{ "marginBottom": "20px" }}>{image.resource}</p>
-              <p style={{ "marginBottom": "20px" }}>Where: {image.location}</p>
-              <p>When: {convertDate(image.start)} to {convertDate(image.end)} at {convertTime(image.time)}</p>
+        <h4 style={{ "marginBottom": "40px" }}>Upcoming Events</h4>
+        {upcomingEvents.map((image, index) => {
+          return (
+            <div className="container-client-upcoming-events" key={index}>
+              <div className="container-image-upcoming-events">
+                <img className="image-events" src={image.fireBaseUrl} alt="gallery-image"></img>
+              </div>
+              <div className="container-client-events">
+                <h4 style={{ "marginBottom": "20px" }}>{image.title}</h4>
+                <p style={{ "marginBottom": "20px" }}>{image.resource}</p>
+                <p style={{ "marginBottom": "20px" }}>Where: {image.location}</p>
+                <p>When: {convertDate(image.startDate)} from {convertTime(image.startTime)} to {convertTime(image.endTime)}</p>
+              </div>
             </div>
-          </div>
-        )
-      })} */}
+          )
+        })}
+        <h4 style={{ "marginBottom": "40px" }}>Past Events</h4>
+        {pastEvents.map((image, index) => {
+          return (
+            <div className="container-client-upcoming-events" key={index}>
+              <div className="container-image-upcoming-events">
+                <img className="image-events" src={image.fireBaseUrl} alt="gallery-image"></img>
+              </div>
+              <div className="container-client-events">
+                <h4 style={{ "marginBottom": "20px" }}>{image.title}</h4>
+                <p style={{ "marginBottom": "20px" }}>{image.resource}</p>
+                <p style={{ "marginBottom": "20px" }}>Where: {image.location}</p>
+                <p>When: {convertDate(image.startDate)} from {convertTime(image.startTime)} to {convertTime(image.endTime)}</p>
+              </div>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

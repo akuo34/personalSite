@@ -23,7 +23,7 @@ button.rbc-input::-moz-focus-inner {
   width: calc(210px + 27vw);
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-right: 20px;
   margin-left: 20px;
   align-items: stretch; }
@@ -98,6 +98,7 @@ button.rbc-input::-moz-focus-inner {
 .rbc-toolbar .rbc-toolbar-label {
   flex-grow: 1;
   padding: 0 10px;
+  margin-bottom: 5px;
   font-family: typewriter;
   text-align: center; }
 
@@ -134,6 +135,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-btn-group {
   display: inline-block;
+  margin-bottom: 5px;
   white-space: nowrap; }
   .rbc-btn-group > button:first-child:not(:last-child) {
     border-top-right-radius: 0;
@@ -297,6 +299,7 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-agenda-view {
   display: flex;
+  border: 1px solid #e5e5e5;
   flex-direction: column;
   flex: 1 0 0;
   overflow: auto; }
