@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DotLoader from 'react-spinners/DotLoader';
 const GalleryManager = React.lazy(() => import('./GalleryManager'));
 const AboutManager = React.lazy(() => import('./AboutManager'));
 const EventManager = React.lazy(() => import('./EventManager'));
@@ -14,6 +15,8 @@ import {
 } from "react-router-dom";
 
 const App = (props) => {
+
+  const [loading, setLoading] = useState(false);
 
   return (
     <Router>
@@ -47,17 +50,24 @@ const App = (props) => {
               </nav>
             </div>
           </div>
+          <div className={loading ? "container-loader" : "container-loader-hidden"}>
+            <DotLoader
+              size={75}
+              color={"#645D45"}
+              loading={loading}
+            />
+          </div>
           <div className="container-scroll">
             <h2 className="subheader-client">admin console</h2>
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
             <Switch>
-              <Route path="/admin/about" render={() => <AboutManager />} />
-              <Route path="/admin/events" render={() => <EventManager />} />
-              <Route path="/admin/murals" render={() => <MuralManager />} />
-              <Route path="/admin/store" render={() => <StoreManager />} />
-              <Route path="/admin/contact" render={() => <ContactManager />} />
-              <Route path="/admin/" render={() => <GalleryManager />} />
+              <Route path="/admin/about" render={() => <AboutManager setLoading={setLoading} />} />
+              <Route path="/admin/events" render={() => <EventManager setLoading={setLoading} />} />
+              <Route path="/admin/murals" render={() => <MuralManager setLoading={setLoading} />} />
+              <Route path="/admin/store" render={() => <StoreManager setLoading={setLoading} />} />
+              <Route path="/admin/contact" render={() => <ContactManager setLoading={setLoading} />} />
+              <Route path="/admin/" render={() => <GalleryManager setLoading={setLoading} />} />
             </Switch>
           </div>
         </div>

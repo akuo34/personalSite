@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { storage } from '../firebase/firebase';
 import Axios from 'axios';
-import DotLoader from 'react-spinners/DotLoader';
 
-const MuralManager = () => {
+const MuralManager = (props) => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
   const [showEdit, setShowEdit] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     Axios
@@ -33,7 +31,7 @@ const MuralManager = () => {
         let array = response.data;
 
         setUrlList(array);
-        setLoading(false);
+        props.setLoading(false);
       })
       .catch(err => console.error(err));
   }
@@ -41,8 +39,8 @@ const MuralManager = () => {
   const handleFireBaseUpload = (e) => {
     e.preventDefault();
 
-    setLoading(true);
-    
+    props.setLoading(true);
+
     const description = e.target.description.value;
     const title = e.target.title.value;
 
@@ -50,7 +48,7 @@ const MuralManager = () => {
 
     if (imageAsFile === '') {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
-      setLoading(false);
+      props.setLoading(false);
     };
 
     let randomizer = (Math.floor(Math.random() * (1000 - 1)) + 1).toString();
@@ -109,7 +107,7 @@ const MuralManager = () => {
   const handleChangeMural = (e) => {
     e.preventDefault();
 
-    setLoading(true);
+    props.setLoading(true);
 
     const _id = e.target.dataset.id;
     let filename = e.target.dataset.filename;
@@ -118,7 +116,7 @@ const MuralManager = () => {
 
     if (imageAsFile === '') {
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
-      setLoading(false);
+      props.setLoading(false);
     };
 
     const uploadTask = storage.ref(`/murals/${imageAsFile.name}`).put(imageAsFile);
@@ -170,7 +168,7 @@ const MuralManager = () => {
           .catch(err => console.error(err));
       })
       .catch(err => console.error(err));
-    
+
     for (let i = index + 1; i < urlList.length; i++) {
       let _id = urlList[i]._id;
       let newIndex = i - 1;
@@ -241,13 +239,6 @@ const MuralManager = () => {
   return (
     <div className="body-gallery">
       <h3>Murals</h3>
-      <div className={loading ? "container-loader" : "container-loader-hidden"}>
-        <DotLoader
-          size={75}
-          color={"#645D45"}
-          loading={loading}
-        />
-      </div>
       <form id="form-murals" className="form-gallery" onSubmit={handleFireBaseUpload}>
         <h4 className="text-gallery-form-header">Upload new photo</h4>
         <input className="input-landing" type="text" name="title" placeholder="Title" />
@@ -266,56 +257,58 @@ const MuralManager = () => {
           return (
             <div className="container-gallery-row">
               <div className="container-gallery-img">
-                <img 
+                <img
                   className="img-gallery"
                   loading="lazy"
-                  src={item.fireBaseUrl} 
+                  src={item.fireBaseUrl}
                   alt="gallery img" />
               </div>
-              <div className="container-up-down">
-                <img className="arrow-up"
-                  onClick={moveUpHandler}
-                  data-id={item._id}
-                  data-index={item.index}
-                  src="https://calendar-trips.s3-us-west-1.amazonaws.com/up_arrow.png"
-                  alt="up arrow" />
-                <img className="arrow-down"
-                  onClick={moveDownHandler}
-                  data-id={item._id}
-                  data-index={item.index}
-                  src="https://calendar-trips.s3-us-west-1.amazonaws.com/down_arrow.png"
-                  alt="down arrow" />
-              </div>
-              <div className="container-gallery-title-description">
-                <p>Title: {item.title}</p>
-                <p>Description: {item.description}</p>
-                <p>Date Uploaded: {item.date}</p>
-                <div className="container-form-buttons">
-                  <button value={item._id} type="submit" onClick={editToggler} style={{ "marginRight": "5px" }}>Edit</button>
-                  <button value={item._id} onClick={deleteHandler} data-filename={item.filename} data-index={item.index}>Delete</button>
+              <div className="wrapper-arrows-form">
+                <div className="container-up-down">
+                  <img className="arrow-up"
+                    onClick={moveUpHandler}
+                    data-id={item._id}
+                    data-index={item.index}
+                    src="https://calendar-trips.s3-us-west-1.amazonaws.com/up_arrow.png"
+                    alt="up arrow" />
+                  <img className="arrow-down"
+                    onClick={moveDownHandler}
+                    data-id={item._id}
+                    data-index={item.index}
+                    src="https://calendar-trips.s3-us-west-1.amazonaws.com/down_arrow.png"
+                    alt="down arrow" />
                 </div>
-                {showEdit === item._id ?
-                  <div>
-                    <form id="form-edit-mural" onSubmit={handleChangeMural} data-id={item._id} data-filename={item.filename}>
-                      <div style={{ "marginBottom": "5px", "marginTop": "20px" }}>Change photo</div>
-                      <div style={{ "marginBottom": "20px" }}>
-                        <input
-                          type="file"
-                          onChange={handleImageAsFile}
-                          style={{ "marginBottom": "5px" }}
-                        />
-                        <button>Upload photo</button>
-                      </div>
-                    </form>
-                    <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
-                      <input type="text" name="title" placeholder="Title" style={{ "marginBottom": "5px", "marginTop": "5px", "fontSize": "14px" }}></input>
-                      <textarea name="description" placeholder="Description" style={{ "height": "50px", "marginBottom": "5px", "fontSize": "14px" }}></textarea>
-                      <div className="container-form-buttons">
-                        <button type="submit">Submit Changes</button>
-                      </div>
-                    </form>
-                  </div> : null
-                }
+                <div className="container-gallery-title-description">
+                  <p>Title: {item.title}</p>
+                  <p>Description: {item.description}</p>
+                  <p>Date Uploaded: {item.date}</p>
+                  <div className="container-form-buttons">
+                    <button value={item._id} type="submit" onClick={editToggler} style={{ "marginRight": "5px" }}>Edit</button>
+                    <button value={item._id} onClick={deleteHandler} data-filename={item.filename} data-index={item.index}>Delete</button>
+                  </div>
+                  {showEdit === item._id ?
+                    <div>
+                      <form id="form-edit-mural" onSubmit={handleChangeMural} data-id={item._id} data-filename={item.filename}>
+                        <div style={{ "marginBottom": "5px", "marginTop": "20px" }}>Change photo</div>
+                        <div style={{ "marginBottom": "20px" }}>
+                          <input
+                            type="file"
+                            onChange={handleImageAsFile}
+                            style={{ "marginBottom": "5px" }}
+                          />
+                          <button>Upload photo</button>
+                        </div>
+                      </form>
+                      <form id={item._id} className="form-gallery-edit" onSubmit={editHandler} data-id={item._id}>
+                        <input type="text" name="title" placeholder="Title" style={{ "marginBottom": "5px", "marginTop": "5px", "fontSize": "14px" }}></input>
+                        <textarea name="description" placeholder="Description" style={{ "height": "50px", "marginBottom": "5px", "fontSize": "14px" }}></textarea>
+                        <div className="container-form-buttons">
+                          <button type="submit">Submit Changes</button>
+                        </div>
+                      </form>
+                    </div> : null
+                  }
+                </div>
               </div>
             </div>
           )

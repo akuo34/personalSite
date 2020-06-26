@@ -27,7 +27,10 @@ const aboutSchema = new mongoose.Schema({
 });
 
 const eventSchema = new mongoose.Schema({
-  fireBaseUrl: String,
+  images: [{
+    fireBaseUrl: String,
+    filename: String,
+  }],
   title: String,
   location: String,
   startDate: Date,
@@ -36,7 +39,6 @@ const eventSchema = new mongoose.Schema({
   endTime: String,
   allDay: Boolean,
   resource: String,
-  filename: String
 });
 
 const storeSchema = new mongoose.Schema({

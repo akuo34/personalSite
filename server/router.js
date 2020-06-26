@@ -56,6 +56,11 @@ router
   .route('/events/:_id')
   .put(controller.putEvent)
   .delete(controller.deleteEvent)
+
+router
+  .route('/events/photo/:_id')
+  .put(controller.putEventPhoto)
+  
 router
   .route('/store')
   .get(controller.getStore)

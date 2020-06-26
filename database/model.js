@@ -33,8 +33,8 @@ module.exports = {
   putAboutPortrait: (portraitFireBaseUrl, portraitFilename, _id) => aboutItem.findOneAndUpdate({ _id }, { portraitFireBaseUrl, portraitFilename }),
   putAboutBanner: (bannerFireBaseUrl, bannerFilename, _id) => aboutItem.findOneAndUpdate({ _id }, { bannerFireBaseUrl, bannerFilename }),
   deleteAbout: (_id) => aboutItem.findOneAndDelete({ _id }),
-  getEvent: () => eventItem.find().sort([['start', 1]]),
-  postEvent: (fireBaseUrl, title, resource, location, startDate, endDate, startTime, endTime, allDay, filename) => eventItem.create({ fireBaseUrl, title, resource, location, startDate, endDate, startTime, endTime, allDay, filename }),
+  getEvent: () => eventItem.find().sort([['startDate', 1]]),
+  postEvent: (images, title, resource, location, startDate, endDate, startTime, endTime, allDay) => eventItem.create({ images, title, resource, location, startDate, endDate, startTime, endTime, allDay }),
   putEvent: (title, resource, location, startDate, endDate, startTime, endTime, allDay, _id) => {
 
     let object = { title, resource, location, startDate, endDate, startTime, endTime, allDay };
@@ -45,7 +45,7 @@ module.exports = {
     }
     return eventItem.findOneAndUpdate({ _id }, object);
   },
-  putEventPhoto: (fireBaseUrl, filename, _id) => eventItem.findOneAndUpdate({ _id }, { fireBaseUrl, filename }),
+  putEventPhoto: (images, _id) => eventItem.findOneAndUpdate({ _id }, { images }),
   deleteEvent: (_id) => eventItem.findOneAndDelete({ _id }),
   getStore: () => storeItem.find(),
   postStore: (images, title, description, width, height, price, category, quantity) => storeItem.create({ images, title, description, width, height, price, category, quantity }),

@@ -124,9 +124,9 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   postEvent: (req, res) => {
-    const { fireBaseUrl, title, resource, location, startDate, endDate, startTime, endTime, allDay, filename } = req.body;
+    const { images, title, resource, location, startDate, endDate, startTime, endTime, allDay } = req.body;
     model
-      .postEvent(fireBaseUrl, title, resource, location, startDate, endDate, startTime, endTime, allDay, filename)
+      .postEvent(images, title, resource, location, startDate, endDate, startTime, endTime, allDay)
       .then(() => res.status(201).send('posted to DB'))
       .catch(err => res.status(400).send(err));
   },
@@ -139,10 +139,10 @@ module.exports = {
       .catch(err => res.status(400).send(err));
   },
   putEventPhoto: (req, res) => {
-    const { fireBaseUrl, filename } = req.body;
+    const { images } = req.body;
     const { _id } = req.params;
     model
-      .putEventPhoto(fireBaseUrl, filename, _id)
+      .putEventPhoto(images, _id)
       .then(() => res.status(200).send('updated to DB'))
       .catch(err => res.status(400).send(err));
   },

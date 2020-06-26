@@ -17,6 +17,10 @@ const Client = () => {
 
   const [showClientToolBar, setShowClientToolBar] = useState(false);
   const [banner, setBanner] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState(null);
+  const [animation, setAnimation] = useState('hidden');
+  const [loading, setLoading] = useState(false);
 
   const toolBarHandler = () => {
     showClientToolBar ? setShowClientToolBar(false) : setShowClientToolBar(true)
@@ -33,66 +37,96 @@ const Client = () => {
     window.location = "http://192.168.0.11:3434";
   }
 
+  const modalHandler = (e) => {
+    const url = e.target.dataset.url;
+    setCurrentUrl(url);
+
+    if (showModal) {
+      setShowModal(false);
+      setAnimation('fadeout');
+      setAnimation('hidden');
+      setCurrentUrl(null);
+      document.body.style.overflow = "auto";
+      document.html.style.overflow = "auto";
+    } else {
+      setShowModal(true);
+      setAnimation('active');
+      document.body.style.overflow = "hidden";
+      document.html.style.overflow = "hidden";
+    }
+  }
+
   return (
     <React.Suspense fallback={<span></span>}>
-    <Router>
-      <div className="container-client-header">
-        <div className={showClientToolBar ? "wrapper-nav-client" : "wrapper-nav-client-hidden"} onClick={toolBarHandler}>
-          <div id={showClientToolBar ? "nav-client" : "nav-client-hidden"}>
-            <ul>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/">gallery</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/about">about</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/events">events</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/murals">murals</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/store">store</Link>
-              </li>
-              <li>
-                <Link className="link" onClick={toolBarHandler} to="/contact">contact</Link>
-              </li>
-            </ul>
+      <Router>
+        <div className="container-client-header">
+          <div className={showClientToolBar ? "wrapper-nav-client" : "wrapper-nav-client-hidden"} onClick={toolBarHandler}>
+            <div id={showClientToolBar ? "nav-client" : "nav-client-hidden"}>
+              <ul>
+                <li>
+                  <Link className="link" onClick={toolBarHandler} to="/">gallery</Link>
+                </li>
+                <li>
+                  <Link className="link" onClick={toolBarHandler} to="/about">about</Link>
+                </li>
+                <li>
+                  <Link className="link" onClick={toolBarHandler} to="/events">events</Link>
+                </li>
+                <li>
+                  <Link className="link" onClick={toolBarHandler} to="/murals">murals</Link>
+                </li>
+                <li>
+                  <Link className="link" onClick={toolBarHandler} to="/store">store</Link>
+                </li>
+                <li>
+                  <Link className="link" onClick={toolBarHandler} to="/contact">contact</Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="container-main-header">
+            <img className="banner" src={banner}></img>
+            <div className="container-logo-home">
+              <div className="logo-home" onClick={returnHome}></div>
+            </div>
+            <div className="container-logo">
+              <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
+            </div>
+            <div className='container-h1'>
+              <h1>the wild ones</h1>
+            </div>
+            <div className="container-icons">
+              <img className="button-cart" src="https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart.svg"></img>
+              <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
+            </div>
+          </div>
+          <div className={animation === "active" ? "modal-image-zoom zoom-active" : `modal-image-zoom ${animation}`} onClick={modalHandler}>
+          </div>
+          <div
+            className={`container-modal-image ${animation}`}
+            onClick={modalHandler}>
+            {currentUrl !== null ?
+              <img
+                className={`modal-image ${animation}`}
+                src={currentUrl}
+              /> : null
+            }
           </div>
         </div>
-        <div className="container-main-header">
-          <img className="banner" src={banner}></img>
-          <div className="container-logo-home">
-            <div className="logo-home" onClick={returnHome}></div>
-          </div>
-          <div className="container-logo">
-            <img className="logo" src="https://calendar-trips.s3-us-west-1.amazonaws.com/white_logo.jpg"></img>
-          </div>
-          <div className='container-h1'>
-            <h1>the wild ones</h1>
-          </div>
-          <div className="container-icons">
-            <img className="button-cart" src="https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart.svg"></img>
-            <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
-          </div>
-        </div>
-      </div>
-
-      <Switch>
-        <Route path="/about" render={() => <About />} />
-        <Route path="/events" render={() => <Events />} />
-        <Route path="/murals" render={() => <Murals />} />
-        <Route path="/store">
-          <Store />
-        </Route>
-        <Route path="/contact">
-          <Contact />
-        </Route>
-        <Route path="/admin" render={() => <Admin />} />
-        <Route exact path="/" render={() => <Home />} />
-      </Switch>
-    </Router>
+        <Switch>
+          <Route path="/about" render={() => <About />} />
+          <Route path="/events" render={() => <Events modalHandler={modalHandler} />} />
+          <Route path="/murals" render={() => <Murals modalHandler={modalHandler} />} />
+          <Route path="/store">
+            <Store />
+          </Route>
+          <Route path="/contact">
+            <Contact />
+          </Route>
+          <Route path="/admin" render={() => <Admin />} />
+          <Route exact path="/" render={() => <Home modalHandler={modalHandler} />} />
+        </Switch>
+      </Router>
     </React.Suspense>
   )
 }

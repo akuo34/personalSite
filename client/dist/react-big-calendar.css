@@ -20,12 +20,10 @@ button.rbc-input::-moz-focus-inner {
 .rbc-calendar {
   box-sizing: border-box;
   height: calc(270px + 13vw);
-  width: calc(210px + 27vw);
+  width: calc(200px + 27vw);
   display: flex;
   flex-direction: column;
-  margin-bottom: 40px;
-  margin-right: 20px;
-  margin-left: 20px;
+  margin: 0 auto 40px auto;
   align-items: stretch; }
 
 .rbc-calendar *,
@@ -336,12 +334,17 @@ button.rbc-input::-moz-focus-inner {
   .rbc-agenda-time-cell .rbc-continues-prior:before {
     content: '« '; }
 
-.rbc-agenda-date-cell,
+.rbc-agenda-date-cell {
+  white-space: wrap;
+  width: 22%;
+}
+
 .rbc-agenda-time-cell {
-  white-space: nowrap; }
+  width: 36%;
+  white-space: wrap; }
 
 .rbc-agenda-event-cell {
-  width: 100%; }
+  width: 42%; }
 
 .rbc-time-column {
   display: flex;
