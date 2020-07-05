@@ -11,6 +11,7 @@ const Home = React.lazy(() => import('./Gallery'));
 const About = React.lazy(() => import('./About'));
 const Events = React.lazy(() => import('./Events'));
 const Murals = React.lazy(() => import('./Murals'));
+const Store = React.lazy(() => import('./Store'));
 const Admin = React.lazy(() => import('../admin-components/Main'));
 
 const Client = () => {
@@ -20,7 +21,6 @@ const Client = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentUrl, setCurrentUrl] = useState(null);
   const [animation, setAnimation] = useState('hidden');
-  const [loading, setLoading] = useState(false);
 
   const toolBarHandler = () => {
     showClientToolBar ? setShowClientToolBar(false) : setShowClientToolBar(true)
@@ -47,12 +47,10 @@ const Client = () => {
       setAnimation('hidden');
       setCurrentUrl(null);
       document.body.style.overflow = "auto";
-      document.html.style.overflow = "auto";
     } else {
       setShowModal(true);
       setAnimation('active');
       document.body.style.overflow = "hidden";
-      document.html.style.overflow = "hidden";
     }
   }
 
@@ -117,9 +115,7 @@ const Client = () => {
           <Route path="/about" render={() => <About />} />
           <Route path="/events" render={() => <Events modalHandler={modalHandler} />} />
           <Route path="/murals" render={() => <Murals modalHandler={modalHandler} />} />
-          <Route path="/store">
-            <Store />
-          </Route>
+          <Route path="/store" render={() => <Store />} />
           <Route path="/contact">
             <Contact />
           </Route>
@@ -128,12 +124,6 @@ const Client = () => {
         </Switch>
       </Router>
     </React.Suspense>
-  )
-}
-
-const Store = () => {
-  return (
-    <div>test</div>
   )
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { storage } from '../firebase/firebase';
 import Axios from 'axios';
 
-const StoreManager = () => {
+const StoreManager = (props) => {
 
   const [imageAsFile, setImageAsFile] = useState('');
   const [urlList, setUrlList] = useState([]);
@@ -37,8 +37,8 @@ const StoreManager = () => {
       .then(response => {
 
         let array = response.data;
-
         setUrlList(array);
+        props.setLoading(false);
       })
       .catch(err => console.error(err));
   }
@@ -52,11 +52,18 @@ const StoreManager = () => {
     const height = e.target.height.value;
     const price = e.target.price.value;
     let category = e.target.category.value;
+    if (category === "") {
+      alert("Please enter a category");
+      return;
+    }
     const quantity = e.target.quantity.value;
+
+    props.setLoading(true);
 
     console.log('start of upload');
 
     if (imageAsFile === '') {
+      props.setLoading(false);
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
     };
 
@@ -143,11 +150,14 @@ const StoreManager = () => {
   const handleAddPhoto = (e) => {
     e.preventDefault();
 
+    props.setLoading(true);
+
     const _id = e.target.dataset.id;
 
     console.log('start of upload');
 
     if (imageAsFile === '') {
+      props.setLoading(false);
       console.error(`not an image, the image file is a ${typeof (imageAsFile)}`);
     };
 

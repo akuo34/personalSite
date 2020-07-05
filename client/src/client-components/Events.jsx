@@ -92,29 +92,31 @@ const Events = (props) => {
               <h3 style={{ "margin": "0 auto 20px auto", "maxWidth": "60vw", "textAlign": "center" }}>Selected Event: {currentEvent.title}</h3>
               {
                 currentEvent.images.length ?
-              <div style={{ "display": "flex", "width": "100%", "alignItems": "center", "justifyContent": "center" }}>
-                <img 
-                  className="button-carousel" 
-                  onClick={previousPhoto} 
-                  data-id={currentEvent._id} 
-                  style={indexes[currentEvent._id] > 0 ? { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexStart" } : { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexStart", "visibility": "hidden" }} 
-                  src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'} />
-                <div style={{ "width": "90%", "textAlign": "center", "overflow": "hidden", "display": "flex", "justifyContent": "center" }}>
-                  <img
-                    className="image-events"
-                    loading="lazy"
-                    onClick={props.modalHandler}
-                    data-url={currentEvent.images[indexes[currentEvent._id]].fireBaseUrl}
-                    src={currentEvent.images[indexes[currentEvent._id]].fireBaseUrl}
-                    alt="gallery-image" />
-                </div>
-                <img 
-                  className="button-carousel" 
-                  onClick={nextPhoto} 
-                  data-id={currentEvent._id} 
-                  style={indexes[currentEvent._id] < currentEvent.images.length - 1 ? { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexEnd" } : { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexEnd", "visibility": "hidden" }} 
-                  src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'} />
-              </div> : null
+                  <div className="wrapper-image-buttons-events">
+                    <div style={{ "display": "flex", "justifyContent": "center", "alignItems": "center", "width": "100%", "marginBottom": "20px" }}>
+                      <img
+                        className="button-carousel"
+                        onClick={previousPhoto}
+                        data-id={currentEvent._id}
+                        style={indexes[currentEvent._id] > 0 ? { "height": "30px", "opacity": "0.2", "marginRight": "auto", "justifySelf": "flexStart" } : { "height": "30px", "opacity": "0.2", "marginRight": "auto", "justifySelf": "flexStart", "visibility": "hidden" }}
+                        src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'} />
+                      <div style={{ "width": "90%", "textAlign": "center", "overflow": "hidden", "display": "flex", "justifyContent": "center" }}>
+                        <img
+                          className="image-events"
+                          loading="lazy"
+                          onClick={props.modalHandler}
+                          data-url={currentEvent.images[indexes[currentEvent._id]].fireBaseUrl}
+                          src={currentEvent.images[indexes[currentEvent._id]].fireBaseUrl}
+                          alt="gallery-image" />
+                      </div>
+                      <img
+                        className="button-carousel"
+                        onClick={nextPhoto}
+                        data-id={currentEvent._id}
+                        style={indexes[currentEvent._id] < currentEvent.images.length - 1 ? { "height": "30px", "opacity": "0.2", "marginLeft": "auto", "justifySelf": "flexEnd" } : { "height": "30px", "opacity": "0.2", "marginLeft": "auto", "justifySelf": "flexEnd", "visibility": "hidden" }}
+                        src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'} />
+                    </div>
+                  </div> : null
               }
               <div className="container-client-events" style={{ "marginTop": "20px" }}>
                 <p style={{ "marginBottom": "20px" }}>{currentEvent.resource}</p>
@@ -127,28 +129,30 @@ const Events = (props) => {
                 <h3 style={{ "margin": "0 auto 20px auto", "maxWidth": "60vw", "textAlign": "center" }}>Next Event: {upcomingEvents[0].title}</h3>
                 {
                   upcomingEvents[0].images.length ?
-                    <div style={{ "display": "flex", "width": "100%", "alignItems": "center", "justifyContent": "center" }}>
-                      <img
-                        className="button-carousel"
-                        onClick={previousPhoto}
-                        data-id={upcomingEvents[0]._id}
-                        style={indexes[upcomingEvents[0]._id] > 0 ? { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexStart" } : { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexStart", "visibility": "hidden" }}
-                        src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'} />
-                      <div style={{ "width": "90%", "textAlign": "center", "overflow": "hidden", "display": "flex", "justifyContent": "center" }}>
+                    <div className="wrapper-image-buttons-events">
+                      <div style={{ "display": "flex", "justifyContent": "center", "alignItems": "center", "width": "100%", "marginBottom": "20px" }}>
                         <img
-                          className="image-events"
-                          loading="lazy"
-                          onClick={props.modalHandler}
-                          data-url={upcomingEvents[0].images[indexes[upcomingEvents[0]._id]].fireBaseUrl}
-                          src={upcomingEvents[0].images[indexes[upcomingEvents[0]._id]].fireBaseUrl}
-                          alt="gallery-image" />
+                          className="button-carousel"
+                          onClick={previousPhoto}
+                          data-id={upcomingEvents[0]._id}
+                          style={indexes[upcomingEvents[0]._id] > 0 ? { "height": "30px", "opacity": "0.2", "marginRight": "auto", "justifySelf": "flexStart" } : { "height": "30px", "opacity": "0.2", "marginRight": "auto", "justifySelf": "flexStart", "visibility": "hidden" }}
+                          src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'} />
+                        <div style={{ "width": "90%", "textAlign": "center", "overflow": "hidden", "display": "flex", "justifyContent": "center" }}>
+                          <img
+                            className="image-events"
+                            loading="lazy"
+                            onClick={props.modalHandler}
+                            data-url={upcomingEvents[0].images[indexes[upcomingEvents[0]._id]].fireBaseUrl}
+                            src={upcomingEvents[0].images[indexes[upcomingEvents[0]._id]].fireBaseUrl}
+                            alt="gallery-image" />
+                        </div>
+                        <img
+                          className="button-carousel"
+                          onClick={nextPhoto}
+                          data-id={upcomingEvents[0]._id}
+                          style={indexes[upcomingEvents[0]._id] < upcomingEvents[0].images.length - 1 ? { "height": "30px", "opacity": "0.2", "marginLeft": "auto", "justifySelf": "flexEnd" } : { "height": "30px", "opacity": "0.2", "marginLeft": "auto", "justifySelf": "flexEnd", "visibility": "hidden" }}
+                          src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'} />
                       </div>
-                      <img
-                        className="button-carousel"
-                        onClick={nextPhoto}
-                        data-id={upcomingEvents[0]._id}
-                        style={indexes[upcomingEvents[0]._id] < upcomingEvents[0].images.length - 1 ? { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexEnd" } : { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexEnd", "visibility": "hidden" }}
-                        src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'} />
                     </div> : null
                 }
                 <div className="container-client-events" style={{ "marginTop": "20px" }}>
@@ -165,31 +169,33 @@ const Events = (props) => {
         }
         {upcomingEvents.map((image, index) => {
           return (
-            <div className="container-client-upcoming-events" key={index}>
+            <div className="container-calendar" key={index}>
               {
                 image.images.length ?
-                  <div className="container-image-upcoming-events">
-                    <img
-                      className="button-carousel"
-                      onClick={previousPhoto}
-                      data-id={image._id}
-                      style={indexes[image._id] > 0 ? { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexStart" } : { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexStart", "visibility": "hidden" }}
-                      src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'} />
-                    <div style={{ "width": "90%", "textAlign": "center", "overflow": "hidden", "display": "flex", "justifyContent": "center" }}>
+                  <div className="wrapper-image-buttons-events">
+                    <div style={{ "display": "flex", "justifyContent": "center", "width": "100%", "alignItems": "center", "marginBottom": "40px" }}>
                       <img
-                        className="image-events"
-                        loading="lazy"
-                        onClick={props.modalHandler}
-                        data-url={image.images[indexes[image._id]].fireBaseUrl}
-                        src={image.images[indexes[image._id]].fireBaseUrl}
-                        alt="gallery-image" />
+                        className="button-carousel"
+                        onClick={previousPhoto}
+                        data-id={image._id}
+                        style={indexes[image._id] > 0 ? { "height": "30px", "opacity": "0.2", "marginRight": "auto", "justifySelf": "flexStart" } : { "height": "30px", "opacity": "0.2", "marginRight": "auto", "justifySelf": "flexStart", "visibility": "hidden" }}
+                        src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'} />
+                      <div style={{ "width": "90%", "textAlign": "center", "overflow": "hidden", "display": "flex", "justifyContent": "center" }}>
+                        <img
+                          className="image-events"
+                          loading="lazy"
+                          onClick={props.modalHandler}
+                          data-url={image.images[indexes[image._id]].fireBaseUrl}
+                          src={image.images[indexes[image._id]].fireBaseUrl}
+                          alt="gallery-image" />
+                      </div>
+                      <img
+                        className="button-carousel"
+                        onClick={nextPhoto}
+                        data-id={image._id}
+                        style={indexes[image._id] < image.images.length - 1 ? { "height": "30px", "opacity": "0.2", "marginLeft": "auto", "justifySelf": "flexEnd" } : { "height": "30px", "opacity": "0.2", "marginLeft": "auto", "justifySelf": "flexEnd", "visibility": "hidden" }}
+                        src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'} />
                     </div>
-                    <img
-                      className="button-carousel"
-                      onClick={nextPhoto}
-                      data-id={image._id}
-                      style={indexes[image._id] < image.images.length - 1 ? { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexEnd" } : { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexEnd", "visibility": "hidden" }}
-                      src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'} />
                   </div> : null
               }
               <div className="container-client-events">
@@ -207,31 +213,33 @@ const Events = (props) => {
         }
         {pastEvents.map((image, index) => {
           return (
-            <div className="container-client-upcoming-events" key={index}>
+            <div className="container-calendar" key={index}>
               {
                 image.images.length ?
-                  <div className="container-image-upcoming-events">
-                    <img
-                      className="button-carousel"
-                      onClick={previousPhoto}
-                      data-id={image._id}
-                      style={indexes[image._id] > 0 ? { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexStart" } : { "height": "30px", "opacity": "0.2", "margin": "0 auto", "visibility": "hidden" }}
-                      src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'} />
-                    <div style={{ "width": "90%", "textAlign": "center", "overflow": "hidden", "display": "flex", "justifyContent": "center" }}>
+                  <div className="wrapper-image-buttons-events">
+                    <div style={{ "display": "flex", "justifyContent": "center", "alignItems": "center", "marginBottom": "40px", "width": "100%" }}>
                       <img
-                        className="image-events"
-                        loading="lazy"
-                        onClick={props.modalHandler}
-                        data-url={image.images[indexes[image._id]].fireBaseUrl}
-                        src={image.images[indexes[image._id]].fireBaseUrl}
-                        alt="gallery-image" />
+                        className="button-carousel"
+                        onClick={previousPhoto}
+                        data-id={image._id}
+                        style={indexes[image._id] > 0 ? { "height": "30px", "opacity": "0.2", "marginRight": "auto", "justifySelf": "flexStart" } : { "height": "30px", "opacity": "0.2", "marginRight": "auto", "visibility": "hidden" }}
+                        src={'https://calendar-trips.s3-us-west-1.amazonaws.com/left_button.png'} />
+                      <div style={{ "width": "90%", "textAlign": "center", "overflow": "hidden", "display": "flex", "justifyContent": "center" }}>
+                        <img
+                          className="image-events"
+                          loading="lazy"
+                          onClick={props.modalHandler}
+                          data-url={image.images[indexes[image._id]].fireBaseUrl}
+                          src={image.images[indexes[image._id]].fireBaseUrl}
+                          alt="gallery-image" />
+                      </div>
+                      <img
+                        className="button-carousel"
+                        onClick={nextPhoto}
+                        data-id={image._id}
+                        style={indexes[image._id] < image.images.length - 1 ? { "height": "30px", "opacity": "0.2", "marginLeft": "auto", "justifySelf": "flexEnd" } : { "height": "30px", "opacity": "0.2", "marginLeft": "auto", "visibility": "hidden" }}
+                        src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'} />
                     </div>
-                    <img
-                      className="button-carousel"
-                      onClick={nextPhoto}
-                      data-id={image._id}
-                      style={indexes[image._id] < image.images.length - 1 ? { "height": "30px", "opacity": "0.2", "margin": "0 auto", "justifySelf": "flexEnd" } : { "height": "30px", "opacity": "0.2", "margin": "0 auto", "visibility": "hidden" }}
-                      src={'https://calendar-trips.s3-us-west-1.amazonaws.com/right_button.png'} />
                   </div> : null
               }
               <div className="container-client-events">
