@@ -13,6 +13,7 @@ const Events = React.lazy(() => import('./Events'));
 const Murals = React.lazy(() => import('./Murals'));
 const Store = React.lazy(() => import('./Store'));
 const Admin = React.lazy(() => import('../admin-components/Main'));
+const Checkout = React.lazy(() => import('./Checkout'));
 
 const Client = () => {
 
@@ -21,12 +22,14 @@ const Client = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentUrl, setCurrentUrl] = useState(null);
   const [animation, setAnimation] = useState('hidden');
+  const [cart, setCart] = useState([]);
 
   const toolBarHandler = () => {
     showClientToolBar ? setShowClientToolBar(false) : setShowClientToolBar(true)
   }
 
   useEffect(() => {
+    getCart();
     Axios
       .get('/admin/api/about')
       .then(response => setBanner(response.data[0].bannerFireBaseUrl))
@@ -35,6 +38,15 @@ const Client = () => {
 
   const returnHome = () => {
     window.location = "http://192.168.0.11:3434";
+  }
+
+  const getCart = () => {
+    Axios
+      .get('/admin/api/orders')
+      .then(response => {
+        setCart(response.data.items);
+      })
+      .catch(err => console.error(err));
   }
 
   const modalHandler = (e) => {
@@ -52,6 +64,18 @@ const Client = () => {
       setAnimation('active');
       document.body.style.overflow = "hidden";
     }
+  }
+
+  const totalCart = () => {
+    let sum = 0;
+    cart.forEach(item => {
+      sum += item.quantity;
+    });
+    return sum;
+  }
+
+  const toCheckout = () => {
+    window.location = "http://192.168.0.11:3434/checkout";
   }
 
   return (
@@ -94,7 +118,16 @@ const Client = () => {
               <h1>the wild ones</h1>
             </div>
             <div className="container-icons">
-              <img className="button-cart" src="https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart.svg"></img>
+              <div style={{"display":"flex"}}>
+                {
+                  cart && totalCart() > 0 ?
+                  <span style={{"alignSelf":"flexStart", "marginRight":"5px", "color":"red", "fontSize":"20px", "fontFamily":"typewriter"}}>{totalCart()}</span> : null
+                }
+                <img 
+                  className="button-cart"
+                  onClick={toCheckout}
+                  src={cart && cart.length ? "https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart_red.svg" : "https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart.svg"}></img>
+              </div>
               <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
             </div>
           </div>
@@ -115,11 +148,12 @@ const Client = () => {
           <Route path="/about" render={() => <About />} />
           <Route path="/events" render={() => <Events modalHandler={modalHandler} />} />
           <Route path="/murals" render={() => <Murals modalHandler={modalHandler} />} />
-          <Route path="/store" render={() => <Store />} />
+          <Route path="/store" render={() => <Store cart={cart} setCart={setCart} getCart={getCart}/>} />
           <Route path="/contact">
             <Contact />
           </Route>
           <Route path="/admin" render={() => <Admin />} />
+          <Route path="/checkout" render={() => <Checkout />} />
           <Route exact path="/" render={() => <Home modalHandler={modalHandler} />} />
         </Switch>
       </Router>

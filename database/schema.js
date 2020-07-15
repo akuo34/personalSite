@@ -46,7 +46,6 @@ const storeSchema = new mongoose.Schema({
     fireBaseUrl: String,
     filename: String,
   }],
-  fireBaseUrl: String,
   filename: String,
   title: String,
   description: String,
@@ -55,6 +54,20 @@ const storeSchema = new mongoose.Schema({
   price: Number,
   category: String,
   quantity: Number,
+});
+
+const orderSchema = new mongoose.Schema({
+  sessionId: String,
+  items: [{
+    itemId: String,
+    fireBaseUrl: String,
+    title: String,
+    price: Number,
+    quantity: Number,
+    width: Number,
+    height: Number,
+    category: String
+  }]
 });
 
 const contactSchema = new mongoose.Schema({
@@ -74,5 +87,6 @@ module.exports.muralSchema = muralSchema;
 module.exports.aboutSchema = aboutSchema;
 module.exports.eventSchema = eventSchema;
 module.exports.storeSchema = storeSchema;
+module.exports.orderSchema = orderSchema;
 module.exports.contactSchema = contactSchema;
 module.exports.mailingListSchema = mailingListSchema;

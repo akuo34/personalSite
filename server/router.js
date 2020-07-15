@@ -75,6 +75,16 @@ router
   .route('/store/photo/:_id')
   .put(controller.putStorePhoto)
 
+// router
+//   .route('/orders')
+  
+router
+  .route('/orders')
+  .get(controller.getOrder)
+  .post(controller.postOrder)
+  .put(controller.putOrder)
+  .delete(controller.deleteOrder)
+
 router
   .route('/contact')
   .get(controller.getContact)

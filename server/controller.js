@@ -2,6 +2,7 @@ const model = require('../database/model');
 
 module.exports = {
   getGallery: (req, res) => {
+    console.log(req.session);
     model
       .getGallery()
       .then(data => res.status(200).send(data))
@@ -186,6 +187,38 @@ module.exports = {
     const { _id } = req.params;
     model
       .deleteStore(_id)
+      .then(() => res.status(200).send('deleted from DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  getOrder: (req, res) => {
+    // console.log(req.sessionID);
+    const sessionId = req.sessionID;
+    // res.send(req.sessionID);
+    model
+      .getOrder(sessionId)
+      .then(data => res.status(200).send(data))
+      .catch(err => res.status(404).send(err));
+  },
+  postOrder: (req,res) => {
+    const { items } = req.body;
+    const sessionId = req.sessionID;
+    model
+      .postOrder(sessionId, items)
+      .then(() => res.status(200).send('posted to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  putOrder: (req, res) => {
+    const { items } = req.body;
+    const sessionId = req.sessionID;
+    model
+      .putOrder(sessionId, items)
+      .then(() => res.status(200).send('updated to DB'))
+      .catch(err => res.status(400).send(err));
+  },
+  deleteOrder: (req, res) => {
+    const { sessionId } = req.params;
+    model
+      .deleteOrder(sessionId)
       .then(() => res.status(200).send('deleted from DB'))
       .catch(err => res.status(400).send(err));
   },

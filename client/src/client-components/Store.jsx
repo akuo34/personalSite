@@ -3,7 +3,7 @@ import Axios from 'axios';
 import Slider from 'react-slick';
 import $ from 'jquery';
 
-const Store = () => {
+const Store = (props) => {
 
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState('Prints');
@@ -28,6 +28,16 @@ const Store = () => {
       })
       .catch(err => console.error(err));
   }
+
+  // const getCart = () => {
+  //   Axios
+  //     .get('/admin/api/orders')
+  //     .then(response => {
+  //       console.log(response.data.items);
+  //       setCart(response.data.items);
+  //     })
+  //     .catch(err => console.error(err));
+  // }
 
   const categoryHandler = (e) => {
     let category = e.target.dataset.category;
@@ -67,6 +77,47 @@ const Store = () => {
     initialSlide: 0,
   };
 
+  const addCartHandler = (e) => {
+    e.preventDefault();
+
+    const available = selectedItem.quantity;
+    const quantity = e.target.quantity.value;
+    const id = selectedItem._id;
+    const fireBaseUrl = selectedItem.images[0].fireBaseUrl;
+    const title = selectedItem.title;
+    const price = selectedItem.price;
+    const width = selectedItem.width;
+    const height = selectedItem.height;
+    const category = selectedItem.category;
+
+    let cartCopy = props.cart.slice();
+    let inCart = false;
+
+    cartCopy.forEach(item => {
+      if (item.itemId === id) {
+        inCart = true;
+        if (item.quantity + parseInt(quantity) > available) {
+          alert('order exceeds inventory')
+          item.quantity = available;
+        } else {
+          item.quantity += parseInt(quantity);
+        }
+      }
+    })
+
+    if (!inCart) {
+      cartCopy.push({ itemId: id, fireBaseUrl, title, price, quantity, width, height, category });
+    }
+
+    Axios
+      .put('/admin/api/orders', { items: cartCopy })
+      .then(() => {
+        props.getCart();
+      })
+
+    document.getElementById('form-add-cart').reset()
+  }
+
   return (
     <div>
       <div className="buffer"></div>
@@ -79,7 +130,7 @@ const Store = () => {
           <Slider className="slider-store" {...settings}>
             {modalItem.images.map(image => {
               return (
-                <div 
+                <div
                   className="container-image-slider-store"
                   onClick={modalHandler}>
                   <img
@@ -99,7 +150,7 @@ const Store = () => {
           <button className="button-category-client" onClick={categoryHandler} data-category="Originals">Originals</button>
           <button className="button-category-client" onClick={categoryHandler} data-category="Merchandise">Merchandise</button>
         </div>
-        <h2 className="subheader-client-store">{selectedItem === null ? category : selectedItem.title}</h2>
+        <h2 className="subheader-client-store">{selectedItem === null ? category.toLowerCase() : selectedItem.title.toLowerCase()}</h2>
         {selectedItem === null ?
           <div className="container-grid">
             {
@@ -132,18 +183,27 @@ const Store = () => {
             }
           </div> :
           <div className="container-image-about">
-            <img 
+            <img
               className="image-store-item"
               data-id={selectedItem._id}
               onClick={modalHandler}
-              src={selectedItem.images[0].fireBaseUrl} 
+              src={selectedItem.images[0].fireBaseUrl}
               alt="store-img"></img>
             <div>
               <p className="container-bio">{selectedItem.description}</p>
-              {selectedItem.width && selectedItem.height ? <p className="container-bio" style={{"marginBottom":"10px"}}>{selectedItem.width} &#10005; {selectedItem.height} (inches)</p> : null}
-              <p className="container-bio" style={{"marginBottom":"15px", "fontSize":"25px"}}>${selectedItem.price}</p>
-              <p className="container-bio" style={{"marginBottom":"10px"}}>{selectedItem.quantity} left in stock.</p>
-              <button className="button-add-cart-client">Add to cart</button>
+              {selectedItem.width && selectedItem.height ? <p className="container-bio" style={{ "marginBottom": "10px" }}>{selectedItem.width} &#10005; {selectedItem.height} (inches)</p> : null}
+              <p className="container-bio" style={{ "marginBottom": "15px", "fontSize": "25px" }}>${selectedItem.price}</p>
+              <p className="container-bio" style={{ "marginBottom": "10px" }}>{selectedItem.quantity} left in stock.</p>
+              <div>
+                <form id="form-add-cart" onSubmit={addCartHandler}>
+                  <label style={{ "fontFamily": "typewriter" }}>Quantity: </label>
+                  <input type="number" min="1" name="quantity" max={selectedItem.quantity} required style={{ "width": "40px" }}></input>
+                  <button
+                    className="button-add-cart-client"
+                    style={{ "marginLeft": "10px" }}
+                    >Add to cart</button>
+                </form>
+              </div>
             </div>
           </div>
         }

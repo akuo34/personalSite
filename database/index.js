@@ -15,6 +15,7 @@ const muralItem = mongoose.model('MuralItem', schema.muralSchema);
 const aboutItem = mongoose.model('AboutItem', schema.aboutSchema);
 const eventItem = mongoose.model('EventItem', schema.eventSchema);
 const storeItem = mongoose.model('StoreItem', schema.storeSchema);
+const orderItem = mongoose.model('OrderItem', schema.orderSchema);
 const contactItem = mongoose.model('ContactItem', schema.contactSchema);
 const mailingListItem = mongoose.model('MailingListItem', schema.mailingListSchema);
 
@@ -23,5 +24,6 @@ module.exports.muralItem = muralItem;
 module.exports.aboutItem = aboutItem;
 module.exports.eventItem = eventItem;
 module.exports.storeItem = storeItem;
+module.exports.orderItem = orderItem;
 module.exports.contactItem = contactItem;
 module.exports.mailingListItem = mailingListItem;

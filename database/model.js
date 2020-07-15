@@ -1,4 +1,4 @@
-const { galleryItem, muralItem, aboutItem, eventItem, storeItem, contactItem, mailingListItem } = require('./');
+const { galleryItem, muralItem, aboutItem, eventItem, storeItem, contactItem, orderItem, mailingListItem } = require('./');
 
 module.exports = {
   getGallery: () => galleryItem.find().sort([['index', 1]]),
@@ -61,6 +61,10 @@ module.exports = {
   },
   putStorePhoto: (images, _id) => storeItem.findByIdAndUpdate({ _id }, { images }),
   deleteStore: (_id) => storeItem.findByIdAndDelete({ _id }),
+  getOrder: (sessionId) => orderItem.findOne({ sessionId }),
+  postOrder: (sessionId, items) => orderItem.create({ sessionId, items }),
+  putOrder: (sessionId, items) => orderItem.findOneAndUpdate({ sessionId }, { items }),
+  deleteOrder: (sessionId) => orderItem.findOneAndDelete({ sessionId }),
   getContact: () => contactItem.find(),
   postContact: (name, email, phone, instagram) => contactItem.create({ name, email, phone, instagram }),
   putContact: (name, email, phone, instagram, _id) => {
