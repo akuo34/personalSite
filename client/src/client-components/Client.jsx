@@ -78,6 +78,10 @@ const Client = () => {
     window.location = "http://192.168.0.11:3434/checkout";
   }
 
+  const updateCart = () => {
+
+  }
+
   return (
     <React.Suspense fallback={<span></span>}>
       <Router>
@@ -121,14 +125,14 @@ const Client = () => {
               <div style={{"display":"flex"}}>
                 {
                   cart && totalCart() > 0 ?
-                  <span style={{"alignSelf":"flexStart", "marginRight":"5px", "color":"red", "fontSize":"20px", "fontFamily":"typewriter"}}>{totalCart()}</span> : null
+                  <span style={{"alignSelf":"flexStart", "marginRight":"5px", "color":"rgb(204,0,0)", "fontSize":"calc(12px + 0.2vw)", "fontFamily":"typewriter"}}>{totalCart()}</span> : null
                 }
                 <img 
                   className="button-cart"
                   onClick={toCheckout}
-                  src={cart && cart.length ? "https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart_red.svg" : "https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart.svg"}></img>
+                  src={cart && cart.length ? "https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart_red.svg" : "https://calendar-trips.s3-us-west-1.amazonaws.com/shopping_cart_light_grey.svg"}></img>
               </div>
-              <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
+              <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_light_grey.svg" onClick={toolBarHandler}></img>
             </div>
           </div>
           <div className={animation === "active" ? "modal-image-zoom zoom-active" : `modal-image-zoom ${animation}`} onClick={modalHandler}>
@@ -148,12 +152,12 @@ const Client = () => {
           <Route path="/about" render={() => <About />} />
           <Route path="/events" render={() => <Events modalHandler={modalHandler} />} />
           <Route path="/murals" render={() => <Murals modalHandler={modalHandler} />} />
-          <Route path="/store" render={() => <Store cart={cart} setCart={setCart} getCart={getCart}/>} />
+          <Route path="/store" render={() => <Store cart={cart} getCart={getCart}/>} />
           <Route path="/contact">
             <Contact />
           </Route>
           <Route path="/admin" render={() => <Admin />} />
-          <Route path="/checkout" render={() => <Checkout />} />
+          <Route path="/checkout" render={() => <Checkout cart={cart} getCart={getCart}/>} />
           <Route exact path="/" render={() => <Home modalHandler={modalHandler} />} />
         </Switch>
       </Router>

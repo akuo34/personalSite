@@ -29,16 +29,6 @@ const Store = (props) => {
       .catch(err => console.error(err));
   }
 
-  // const getCart = () => {
-  //   Axios
-  //     .get('/admin/api/orders')
-  //     .then(response => {
-  //       console.log(response.data.items);
-  //       setCart(response.data.items);
-  //     })
-  //     .catch(err => console.error(err));
-  // }
-
   const categoryHandler = (e) => {
     let category = e.target.dataset.category;
     setCategory(category);
@@ -189,15 +179,18 @@ const Store = (props) => {
               onClick={modalHandler}
               src={selectedItem.images[0].fireBaseUrl}
               alt="store-img"></img>
-            <div>
+            <div style={{"margin":"0 10px"}}>
               <p className="container-bio">{selectedItem.description}</p>
               {selectedItem.width && selectedItem.height ? <p className="container-bio" style={{ "marginBottom": "10px" }}>{selectedItem.width} &#10005; {selectedItem.height} (inches)</p> : null}
-              <p className="container-bio" style={{ "marginBottom": "15px", "fontSize": "25px" }}>${selectedItem.price}</p>
-              <p className="container-bio" style={{ "marginBottom": "10px" }}>{selectedItem.quantity} left in stock.</p>
-              <div>
-                <form id="form-add-cart" onSubmit={addCartHandler}>
+              <p className="container-bio" style={{ "marginBottom": "15px", "fontSize": "25px", "textAlign":"right" }}>${selectedItem.price}</p>
+              <p className="container-bio" style={{ "marginBottom": "10px", "textAlign":"right" }}>{selectedItem.quantity} left in stock.</p>
+              <div className="container-bio" style={{ "display":"flex","justifyContent":"flexEnd" }}>
+                <form id="form-add-cart" 
+                  style={{"marginLeft":"auto"}}
+                  onSubmit={addCartHandler}
+                  >
                   <label style={{ "fontFamily": "typewriter" }}>Quantity: </label>
-                  <input type="number" min="1" name="quantity" max={selectedItem.quantity} required style={{ "width": "40px" }}></input>
+                  <input type="number" min="1" name="quantity" max={selectedItem.quantity} required style={{ "width": "40px","fontSize":"16px" }}></input>
                   <button
                     className="button-add-cart-client"
                     style={{ "marginLeft": "10px" }}

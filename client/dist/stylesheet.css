@@ -677,7 +677,6 @@ label {
   height: calc(16px + 2vw);
   width: calc(16px + 2vw);
   margin-right: calc(7px + 1.9vw);
-  opacity: 0.45;
   -webkit-transition: all .25s linear;
   -webkit-tap-highlight-color: transparent;
   transition: all .25s linear;
@@ -690,10 +689,10 @@ label {
 }
 
 .button-hamburger {
-  height: calc(16px + 1.2vw);
+  height: calc(16px + 2vw);
   width: calc(16px + 2vw);
   margin-right: calc(7px + 1.9vw);
-  margin-top: 10px;
+  margin-top: calc(8px + 0.6vw);
   -webkit-transform: translateY(-20%);
   transform: translateY(-20%);
   -webkit-transition: all .25s linear;
@@ -760,10 +759,13 @@ label {
 .slider {
   height: calc(100vh - min(calc(60px + 7vw), 20vh) - 40px - 7.5vw);
   max-height: 60vw;
-  width: 95vw;
+  width: 90vw;
   outline: none;
   overflow: hidden;
   margin-bottom: 60px;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
 }
 
 .slick-prev {
@@ -790,14 +792,16 @@ button.slick-arrow.slick-next,
 .container-image-gallery {
   height: calc(100vh - min(calc(60px + 7vw), 20vh) - 40px - 7.5vw);
   max-height: 60vw;
-  width: 95vw;
   overflow: hidden;
   display: flex;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .image-gallery {
   height: 100%;
+  max-width: 89vw;
+  object-fit: cover;
   margin: 0 auto;
 }
 
@@ -809,16 +813,25 @@ button.slick-arrow.slick-next,
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  width: 95vw;
+  width: 90vw;
   justify-content: space-evenly;
 }
 
 .container-image-grid {
-  padding: 5px;
   box-sizing: border-box;
   width: 250px;
   height: 150px;
-  margin: 0 auto 60px auto;
+  margin: 0 5px 60px 5px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.container-image-grid-cart {
+  box-sizing: border-box;
+  width: 250px;
+  height: 150px;
+  margin: 0 5px 20px 5px;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -869,8 +882,8 @@ button.slick-arrow.slick-next,
 
 .modal-image {
   position: relative;
-  max-height: 95vh;
-  max-width: 95vw;
+  max-height: 90vh;
+  max-width: 90vw;
   object-fit: contain;
   outline: none;
   margin: auto;
@@ -903,21 +916,22 @@ button.slick-arrow.slick-next,
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   margin-bottom: 20px;
   align-items: flex-start;
+  overflow: hidden;
 }
 
 .image-about {
   max-height: 420px;
   max-width: min(572px, 90vw);
   object-fit: contain;
-  margin: 0px auto 20px auto;
+  margin: 0px 20px 20px 20px;
 }
 
 .container-bio {
   width: min(572px, 90vw);
-  margin: 0 auto;
+  margin: 0 20px;
   line-height: 28px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
@@ -933,6 +947,7 @@ button.slick-arrow.slick-next,
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
+  /* border: 1px solid red; */
 }
 
 .container-client-header {
@@ -1033,7 +1048,8 @@ button.slick-arrow.slick-next,
   max-height: 420px;
   max-width: min(572px, 90vw);
   object-fit: contain;
-  margin: 0px auto 20px auto;
+  margin: 0px 10px 20px 10px;
+  /* border: 1px solid red; */
 }
 
 .image-store-item:hover {
@@ -1078,7 +1094,7 @@ button.slick-arrow.slick-next,
 .slider-store {
   height: 80vh;
   max-height: 70vw;
-  width: 95vw;
+  width: 90vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1091,7 +1107,7 @@ button.slick-arrow.slick-next,
 .container-image-slider-store {
   height: 80vh;
   max-height: 70vw;
-  width: 95vw;
+  width: 90vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1101,7 +1117,7 @@ button.slick-arrow.slick-next,
 
 .image-slider-store {
   height: min(80vh, 70vw);
-  max-width: 95vw;
+  max-width: 90vw;
   object-fit: contain;
   margin: auto;
   outline: none;

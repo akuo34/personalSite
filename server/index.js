@@ -40,13 +40,6 @@ MongoStoreInstance.on('create', (sessionId) => {
     .catch(err => console.error(err));
 });
 
-// MongoStoreInstance.on('disconnect', (sessionId) => {
-//   model
-//     .deleteOrder(sessionId)
-//     .then(() => console.log('deleted cart'))
-//     .catch(err => console.error(err));
-// });
-
 const auth = basicAuth({
   users: {
     admin: '123'

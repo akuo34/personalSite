@@ -84,7 +84,7 @@ const Main = () => {
           <h1>the wild ones</h1>
         </div>
         <div className={user === "admin" ? "container-icons" : "container-icons hidden"}>
-          <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_button.png" onClick={toolBarHandler}></img>
+          <img className="button-hamburger" src="https://calendar-trips.s3-us-west-1.amazonaws.com/hamburger_light_grey.svg" onClick={toolBarHandler}></img>
         </div>
       </div>
       {
