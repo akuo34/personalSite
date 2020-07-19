@@ -5,29 +5,15 @@ import $ from 'jquery';
 
 const Store = (props) => {
 
-  const [items, setItems] = useState([]);
   const [category, setCategory] = useState('Prints');
   const [selectedItem, setSelectedItem] = useState(null);
   const [animation, setAnimation] = useState('hidden');
   const [modalItem, setModalItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    getItems();
-  }, []);
-
   $('body').on('contextmenu', 'img', (e) => {
     return false;
   });
-
-  const getItems = () => {
-    Axios
-      .get('/admin/api/store')
-      .then(response => {
-        setItems(response.data);
-      })
-      .catch(err => console.error(err));
-  }
 
   const categoryHandler = (e) => {
     let category = e.target.dataset.category;
@@ -37,13 +23,13 @@ const Store = (props) => {
 
   const selectItem = (e) => {
     let id = e.target.dataset.id;
-    let item = items.filter(item => item._id === id);
+    let item = props.items.filter(item => item._id === id);
     setSelectedItem(item[0]);
   }
 
   const modalHandler = (e) => {
     const id = e.target.dataset.id;
-    let item = items.filter(item => item._id === id);
+    let item = props.items.filter(item => item._id === id);
     setModalItem(item[0]);
 
     if (showModal) {
@@ -144,7 +130,7 @@ const Store = (props) => {
         {selectedItem === null ?
           <div className="container-grid">
             {
-              items.map(item => {
+              props.items.map(item => {
                 if (item.category === category) {
                   return (
                     <div style={{ "marginBottom": "60px" }}>

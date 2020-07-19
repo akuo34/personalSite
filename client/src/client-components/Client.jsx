@@ -23,6 +23,8 @@ const Client = () => {
   const [currentUrl, setCurrentUrl] = useState(null);
   const [animation, setAnimation] = useState('hidden');
   const [cart, setCart] = useState([]);
+  const [items, setItems] = useState([]);
+  const [stock, setStock] = useState({});
 
   const toolBarHandler = () => {
     showClientToolBar ? setShowClientToolBar(false) : setShowClientToolBar(true)
@@ -30,11 +32,21 @@ const Client = () => {
 
   useEffect(() => {
     getCart();
+    getStore();
+
     Axios
       .get('/admin/api/about')
       .then(response => setBanner(response.data[0].bannerFireBaseUrl))
       .catch(err => console.error(err));
   }, [])
+
+  useEffect(() => {
+    let copy = {};
+    items.forEach(item => {
+      copy[item._id] = item.quantity;
+    })
+    setStock(copy);
+  }, [items]);
 
   const returnHome = () => {
     window.location = "http://192.168.0.11:3434";
@@ -47,6 +59,15 @@ const Client = () => {
         setCart(response.data.items);
       })
       .catch(err => console.error(err));
+  }
+
+  const getStore = () => {
+    Axios
+    .get('/admin/api/store')
+    .then(response => {
+      setItems(response.data);
+    })
+    .catch(err => console.error(err));
   }
 
   const modalHandler = (e) => {
@@ -76,10 +97,6 @@ const Client = () => {
 
   const toCheckout = () => {
     window.location = "http://192.168.0.11:3434/checkout";
-  }
-
-  const updateCart = () => {
-
   }
 
   return (
@@ -152,12 +169,12 @@ const Client = () => {
           <Route path="/about" render={() => <About />} />
           <Route path="/events" render={() => <Events modalHandler={modalHandler} />} />
           <Route path="/murals" render={() => <Murals modalHandler={modalHandler} />} />
-          <Route path="/store" render={() => <Store cart={cart} getCart={getCart}/>} />
+          <Route path="/store" render={() => <Store cart={cart} getCart={getCart} items={items}/>} />
           <Route path="/contact">
             <Contact />
           </Route>
           <Route path="/admin" render={() => <Admin />} />
-          <Route path="/checkout" render={() => <Checkout cart={cart} getCart={getCart}/>} />
+          <Route path="/checkout" render={() => <Checkout cart={cart} getCart={getCart} stock={stock}/>} />
           <Route exact path="/" render={() => <Home modalHandler={modalHandler} />} />
         </Switch>
       </Router>
